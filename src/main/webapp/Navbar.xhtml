@@ -1,31 +1,36 @@
-<header class="text-gray-600 body-font">
-    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-            <span class="ml-3 text-xl">Tailblocks</span>
+<!-- Task-Zen Navigation Bar Start -->
+<header class="bg-white text-gray-600 body-font border-blue-300 border-l border-r border-t border-b-[3px] rounded-md">
+
+    <div class="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
+
+        <a href="Task-zen_nav-bar.html">
+            <img class="logo rounded-md cursor-pointer" src="images/task-zen-logo2.jpg" alt="Task-zen"/>
         </a>
-        <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-            <a class="mr-5 hover:text-gray-900">First Link</a>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
-                 viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-            </svg>
-            <a class="mr-5 hover:text-gray-900">Second Link</a>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
-                 viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-            </svg>
-            <a class="mr-5 hover:text-gray-900">Third Link</a>
-            <a class="mr-5 hover:text-gray-900">Fourth Link</a>
+
+        <!-- Responsive Navigation -->
+        <nav class="md:ml-auto md:mr-auto flex flex-col md:flex-row items-center text-base justify-between space-y-4 md:space-y-0 md:space-x-10 mt-4 md:mt-0">
+            <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Task-zen_Home.html">Home</a>
+            <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Task-zen_About.html">About</a>
+            <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Task-zen_Contact.html">Contact</a>
+            <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Task-zen_Profile.html">Profile</a>
         </nav>
-        <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Button
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
-        </button>
+
+        <!-- Login/Sign-up Buttons -->
+        <div class="inline-flex space-x-2 mt-4 md:mt-0">
+            <a class="items-center bg-gray-100 border-0 py-2 px-5 text-gray-800 hover:text-white hover:bg-purple-800 rounded-md text-base transition duration-300 ease-in-out" href="">Login</a>
+            <a class="items-center bg-gray-100 border-0 py-2 px-5 text-gray-800 hover:text-white hover:bg-purple-800 rounded-md text-base transition duration-300 ease-in-out" href="Register.xhtml">Sign-up</a>
+        </div>
     </div>
+    <style>
+        a {
+            font-size: large;
+        }
+
+        .logo {
+            width: 130px;
+            height: 49px;
+            margin-left: 25px;
+        }
+    </style>
 </header>
+<!-- Task-Zen Navigation Bar End -->
