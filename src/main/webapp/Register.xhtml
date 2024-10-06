@@ -6,12 +6,13 @@
     <h:head>
         <title>TaskZen</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="JS/User.js"></script>
     </h:head>
     <h:body>
         <ui:include src="Navbar.xhtml"/>
 
         <div class="max-w-md mx-auto mt-8">
-            <form class="max-w-md mx-auto">
+            <form class="max-w-md mx-auto" id="signUpForm" onsubmit="userSingUp(event)" method="post">
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-5 group">
                         <input type="text" name="first_name" id="first_name"
@@ -19,7 +20,8 @@
                                placeholder=" " />
                         <label for="first_name"
                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-lime-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First
-                            name</label>
+                            Name</label>
+                        <span class="error-message" id="error-first_name"></span>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
                         <input type="text" name="last_name" id="last_name"
@@ -27,7 +29,8 @@
                                placeholder=" " />
                         <label for="last_name"
                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-lime-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last
-                            name</label>
+                            Name</label>
+                        <span class="error-message" id="error-last_name"></span>
                     </div>
                 </div>
 
@@ -37,7 +40,8 @@
                            placeholder=" " />
                     <label for="email"
                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-lime-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email
-                        address</label>
+                        Address</label>
+                    <span class="error-message" id="error-email"></span>
                 </div>
 
                 <div class="grid md:grid-cols-2 md:gap-6">
@@ -47,6 +51,7 @@
                                placeholder=" " />
                         <label for="password"
                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-lime-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                        <span class="error-message" id="error-password"></span>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
                         <input type="password" name="confirm_password" id="confirm_password"
@@ -55,26 +60,32 @@
                         <label for="confirm_password"
                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-lime-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm
                             Password</label>
+                        <span class="error-message" id="error-confirm_password"></span>
                     </div>
                 </div>
 
                 <div class="relative z-0 w-full mb-5">
                     <label class="block mb-2 text-sm font-medium text-gray-500">Role</label>
                     <div class="flex items-center mb-2">
-                        <input type="radio" name="role" id="client" value="Client"
+                        <input type="radio" name="role" id="client" value="client"
                                class="mr-2 text-lime-600 border-gray-300 focus:ring-lime-500 dark:border-gray-600 dark:focus:ring-lime-500" />
                         <label for="client" class="text-sm text-gray-700 dark:text-gray-400">Client</label>
                     </div>
                     <div class="flex items-center">
-                        <input type="radio" name="role" id="company" value="Company"
+                        <input type="radio" name="role" id="company" value="company"
                                class="mr-2 text-lime-600 border-gray-300 focus:ring-lime-500 dark:border-gray-600 dark:focus:ring-lime-500" />
                         <label for="company" class="text-sm text-gray-700 dark:text-gray-400">Company</label>
                     </div>
+                    <span class="error-message" id="error-role"></span>
                 </div>
 
                 <button type="submit"
-                        class="text-white bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+                        class="text-white bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                    Submit
+                </button>
             </form>
+
+            <div id="userSignUpErrorMessage"></div>
         </div>
     </h:body>
 </html>
