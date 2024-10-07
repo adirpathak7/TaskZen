@@ -127,7 +127,7 @@ function userSingUp(event) {
 //            userSignUpErrorMessage.innerHTML = '<p class="text-green-500">User registered successfully!</p>';
             console.log(result);
             signUpForm.reset();
-            window.location.href = "Login.xhtml";
+//            window.location.href = "Login.xhtml";
         } else {
             userSignUpErrorMessage.innerHTML = '<p class="text-red-500">Error registering user. Please try again.</p>';
             console.log(result);
@@ -192,6 +192,7 @@ function userSignIn(event) {
                 userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, company.</p>';
                 console.log(result);
             }
+            fetchUsers();
             signInForm.reset();
         } else {
             userSignInErrorMessage.innerHTML = '<p class="text-red-500">Invalid Password!</p>';
@@ -203,4 +204,25 @@ function userSignIn(event) {
         userSignInErrorMessage.innerHTML = '<p class="text-red-500">Error occurred while user Login. Please try again.</p>';
         signInForm.reset();
     });
+}
+
+function fetchUsers() {
+    fetch('http://localhost:8000/api/getUsers').then(response => response.json()).then(data => {
+        const usersData = document.getElementById('getUsers');
+        usersData.innerHTML = '';
+
+        data.forEach(user => {
+            const newUser = document.createElement('p');
+//            console.log(user);
+            newUser.innerHTML = `
+                    Id: ${user.user_id} <br>
+                    First Name: ${user.first_name} <br>
+                    Last Name: ${user.last_name} <br>
+                    Email: ${user.email} <br>
+                    Password: ${user.password} <br>
+                    Role: ${user.role} <br> <br> <hr>
+                `;
+            usersData.appendChild(newUser);
+        });
+    }).catch(err => console.log('Error occure while fetching users! ', err));
 }
