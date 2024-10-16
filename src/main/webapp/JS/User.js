@@ -81,11 +81,11 @@ function userSingUp(event) {
         return false;
     }
 
-    if (!strongPassword.test(password)) {
-        document.getElementById("error-password").innerHTML = "Weak Password! Please include:<br>At least 8 characters,<br>1 uppercase letter,<br>1 lowercase letter,<br>1 number,<br>and 1 special character.";
-        document.getElementById("password").focus();
-        return false;
-    }
+//    if (!strongPassword.test(password)) {
+//        document.getElementById("error-password").innerHTML = "Weak Password! Please include:<br>At least 8 characters,<br>1 uppercase letter,<br>1 lowercase letter,<br>1 number,<br>and 1 special character.";
+//        document.getElementById("password").focus();
+//        return false;
+//    }
 
     if (!confirm_password) {
         document.getElementById("error-confirm_password").innerHTML = "Please enter the Confirm Password!";
@@ -186,12 +186,23 @@ function userSignIn(event) {
         if (result.data === "1") {
             alert("Login successfully.");
             if (result.role === "client") {
-                userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, client.</p>';
-                console.log(result);
+                localStorage.setItem('userRole', 'client');
+//                userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, client.</p>';
+//                console.log(result);
+//                window.location.href = "Dashboard/UserDashboard.xhtml";
+//                const forClient = document.getElementById('userIdentity');
+//                forClient.innerHTML = 'Welcome Client..';
+//                alert(forClient);
             } else {
-                userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, company.</p>';
-                console.log(result);
+                localStorage.setItem('userRole', 'company');
+//                userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, company.</p>';
+//                console.log(result);
+//                window.location.href = "Dashboard/UserDashboard.xhtml";
+//                const forCompany = document.getElementById('userIdentity');
+//                forCompany.innerHTML = 'Welcome Company..';
+//                alert(forCompany);
             }
+            window.location.href = "Dashboard/UserDashboard.xhtml";
             fetchUsers();
             signInForm.reset();
         } else {
@@ -201,6 +212,7 @@ function userSignIn(event) {
         }
     }).catch((err) => {
         console.error("Error occurred while user login! " + err);
+        console.log(err);
         userSignInErrorMessage.innerHTML = '<p class="text-red-500">Error occurred while user Login. Please try again.</p>';
         signInForm.reset();
     });
@@ -214,6 +226,8 @@ function fetchUsers() {
         data.forEach(user => {
             const newUser = document.createElement('p');
 //            console.log(user);
+            const newH1 = document.createElement('h1');
+            newH1.innerHTML = "All User's";
             newUser.innerHTML = `
                     Id: ${user.user_id} <br>
                     First Name: ${user.first_name} <br>
