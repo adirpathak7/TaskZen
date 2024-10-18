@@ -240,3 +240,4 @@ function fetchUsers() {
         });
     }).catch(err => console.log('Error occure while fetching users! ', err));
 }
+
