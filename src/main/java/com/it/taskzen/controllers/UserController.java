@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * A sample greetings controller to return greeting text
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
 @RequestMapping(value = "/api")
 public class UserController {
 

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TaskZen</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="JS/User.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"/>
+    </h:head>
+    <body>
+        <ui:include src="Navbar.xhtml"></ui:include>
+        <!--<h1>Login Now...</h1>-->
+
+        <div class="min-h-screen bg-purple-800 flex items-center justify-center p-4 sm:p-12">
+            <div class="w-full max-w-md bg-white border-0 shadow-lg sm:rounded-lg px-6 py-12">
+                <!-- Logo -->
+                <div class="flex justify-center mb-6">
+                    <img src="images/TaskZen.jpg" alt="Task-Zen" class="w-24" />
+                </div>
+                <h1 class="text-2xl font-bold text-center mb-6 text-purple-800">Log in to Task-zen</h1>
+                <form class="" id="signInForm" onsubmit="userSignIn(event)" method="post">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" name="email" id="email"
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <label for="email"
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <i class="ri-user-2-fill ml-1"></i>&nbsp;Email</label>
+                        <span class="error-message text-red-400" id="error-email"></span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="password" name="password" id="password"
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <label for="password"
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <i class="ri-key-fill ml-1"></i>&nbsp;Password</label>
+                        <i class="ri-eye-off-fill absolute right-3 top-2 cursor-pointer text-gray-500" id="eyeicon"></i>
+                        <span class="error-message text-red-400" id="error-password"></span>
+                    </div>
+
+                    <button type="submit"
+                            class="block w-full items-center bg-purple-800 border-0 py-3 px-7 hover:font-bold focus:outline-none text-white hover:text-purple-800 hover:bg-gray-300 rounded-md text-base mt-4 md:mt-0 transition duration-300 ease-in-out">
+                        Login
+                    </button>
+                    <div id="userSignInErrorMessage" class="text-red-900"></div>
+                </form>
+            </div>
+        </div>
+        <!--<h3>All User's</h3>-->
+        <div id="getUsers"></div>
+    </body>
+</html>
