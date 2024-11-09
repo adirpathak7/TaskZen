@@ -81,11 +81,11 @@ function userSingUp(event) {
         return false;
     }
 
-//    if (!strongPassword.test(password)) {
-//        document.getElementById("error-password").innerHTML = "Weak Password! Please include:<br>At least 8 characters,<br>1 uppercase letter,<br>1 lowercase letter,<br>1 number,<br>and 1 special character.";
-//        document.getElementById("password").focus();
-//        return false;
-//    }
+    if (!strongPassword.test(password)) {
+        document.getElementById("error-password").innerHTML = "Weak Password! Please include:<br>At least 8 characters,<br>1 uppercase letter,<br>1 lowercase letter,<br>1 number,<br>and 1 special character.";
+        document.getElementById("password").focus();
+        return false;
+    }
 
     if (!confirm_password) {
         document.getElementById("error-confirm_password").innerHTML = "Please enter the Confirm Password!";
@@ -202,7 +202,7 @@ function userSignIn(event) {
 //                forCompany.innerHTML = 'Welcome Company..';
 //                alert(forCompany);
             }
-            window.location.href = "Dashboard/User.xhtml";
+            window.location.href = "Dashboard/Client/User.xhtml";
             fetchUsers();
             signInForm.reset();
         } else {
