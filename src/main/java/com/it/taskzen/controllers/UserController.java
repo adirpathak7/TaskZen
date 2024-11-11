@@ -39,9 +39,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private EmailService emailService;
-
     @GetMapping(value = "/Java")
     public String greetJava() {
         return "Hello Java!";
