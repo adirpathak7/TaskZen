@@ -50,7 +50,7 @@ public class JWTService {
                 .add(claims)
                 .subject(email)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 2 * 60 * 60 * 1000)) //token valid for 2 hours only
+                .expiration(new Date(System.currentTimeMillis() + 4 * 60 * 60 * 1000)) // Change to 4 hours
                 .and()
                 .signWith(getKey())
                 .compact();

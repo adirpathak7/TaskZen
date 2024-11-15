@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,15 +49,12 @@ public class FreelancerMasterEntity {
     private String github_link;
     private String linkedin_link;
     private String portfolio_link;
-
-    @Enumerated(EnumType.STRING)
-    private Freelancer_Status freelancer_status;
     private LocalDateTime created_at;
 
     public FreelancerMasterEntity() {
     }
 
-    public FreelancerMasterEntity(int freelancer_id, UserEntity userEntity, String contact, String profile_picture, String country, String dob, String gender, String github_link, String linkedin_link, String portfolio_link, Freelancer_Status freelancer_status, LocalDateTime created_at) {
+    public FreelancerMasterEntity(int freelancer_id, UserEntity userEntity, String contact, String profile_picture, String country, String dob, String gender, String github_link, String linkedin_link, String portfolio_link, LocalDateTime created_at) {
         this.freelancer_id = freelancer_id;
         this.userEntity = userEntity;
         this.contact = contact;
@@ -70,7 +65,6 @@ public class FreelancerMasterEntity {
         this.github_link = github_link;
         this.linkedin_link = linkedin_link;
         this.portfolio_link = portfolio_link;
-        this.freelancer_status = freelancer_status;
         this.created_at = created_at;
     }
 
@@ -162,14 +156,6 @@ public class FreelancerMasterEntity {
         this.portfolio_link = portfolio_link;
     }
 
-    public Freelancer_Status getFreelancer_status() {
-        return freelancer_status;
-    }
-
-    public void setFreelancer_status(Freelancer_Status freelancer_status) {
-        this.freelancer_status = freelancer_status;
-    }
-
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -178,17 +164,4 @@ public class FreelancerMasterEntity {
         this.created_at = created_at;
     }
 
-    public enum Freelancer_Status {
-        active("active"), inactive("inactive");
-
-        private final String value;
-
-        Freelancer_Status(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
 }

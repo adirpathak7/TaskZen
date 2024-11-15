@@ -6,13 +6,12 @@ package com.it.taskzen.entities;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 /**
@@ -36,15 +35,12 @@ public class ClientMasterEntity {
     private String country;
     private String establish;
     private String industry;
-
-    @Enumerated(EnumType.STRING)
-    private Client_Status client_status;
     private LocalDateTime created_at;
 
     public ClientMasterEntity() {
     }
 
-    public ClientMasterEntity(int client_id, UserEntity userEntity, String contact, String profile_picture, String country, String establish, String industry, Client_Status client_status, LocalDateTime created_at) {
+    public ClientMasterEntity(int client_id, UserEntity userEntity, String contact, String profile_picture, String country, String establish, String industry, LocalDateTime created_at) {
         this.client_id = client_id;
         this.userEntity = userEntity;
         this.contact = contact;
@@ -52,8 +48,14 @@ public class ClientMasterEntity {
         this.country = country;
         this.establish = establish;
         this.industry = industry;
-        this.client_status = client_status;
         this.created_at = created_at;
+    }
+
+    public ClientMasterEntity(String contact, String country, String establish, String industry) {
+        this.contact = contact;
+        this.country = country;
+        this.establish = establish;
+        this.industry = industry;
     }
 
     public int getClient_id() {
@@ -112,14 +114,6 @@ public class ClientMasterEntity {
         this.industry = industry;
     }
 
-    public Client_Status getClient_status() {
-        return client_status;
-    }
-
-    public void setClient_status(Client_Status client_status) {
-        this.client_status = client_status;
-    }
-
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -128,17 +122,8 @@ public class ClientMasterEntity {
         this.created_at = created_at;
     }
 
-    public enum Client_Status {
-        active("active"), inactive("inactive");
-
-        private final String value;
-
-        Client_Status(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
     }
 }

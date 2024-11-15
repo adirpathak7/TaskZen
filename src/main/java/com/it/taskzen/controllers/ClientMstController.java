@@ -7,20 +7,26 @@ package com.it.taskzen.controllers;
 import com.it.taskzen.entities.ClientMasterEntity;
 import com.it.taskzen.exceptions.ResourceNotFoundException;
 import com.it.taskzen.services.ClientMstService;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -40,64 +46,56 @@ public class ClientMstController {
     }
 
     @GetMapping(value = "/getAllClientsDetails")
-    public ResponseEntity<Map<String, String>> getAllClientsDetails(ClientMasterEntity clientMasterEntity) {
-        List clientsList = clientMstService.getAllClientsDetails(clientMasterEntity);
-        try {
-            Map<String, String> clientsResponse = new HashMap<>();
-            if (clientsList == null || clientsList.isEmpty()) {
-                clientsResponse.put("message", "Client not found!");
-                clientsResponse.put("data", "0");
-                return new ResponseEntity(clientsResponse, HttpStatus.NOT_FOUND);
-            } else {
-                clientsResponse.put("message", "Exist Client's are.");
-                clientsResponse.put("data", "1");
-                return new ResponseEntity(clientsList, HttpStatus.OK);
-            }
-        } catch (Exception ex) {
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("message", "Something went wrong! " + ex.getMessage());
-            errorResponse.put("data", "0");
-            return new ResponseEntity(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<List<ClientMasterEntity>> getAllClientsDetails() {
+        List<ClientMasterEntity> clients = clientMstService.getAllClientsDetails();
+        if (clients == null || clients.isEmpty()) {
+            throw new ResourceNotFoundException("No clients found");
+        }
+        return new ResponseEntity<>(clients, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/clientsAllDetails", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, String>> clientsAllDetails(
+            @RequestParam("contact") String contact,
+            @RequestParam("profile_picture") MultipartFile profile_Picture,
+            @RequestParam("country") String country,
+            @RequestParam("establish") String establish,
+            @RequestParam("industry") String industry) throws IOException {
+
+        ClientMasterEntity clientMasterEntity = new ClientMasterEntity(contact, country, establish, industry);
+        clientMstService.clientsAllDetails(clientMasterEntity, profile_Picture);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Client details filled successfully.");
+        response.put("data", "1");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/searchClientById/{client_id}")
+    public ResponseEntity searchUser(@PathVariable int client_id) {
+        Optional<ClientMasterEntity> existClient = clientMstService.searchClientById(client_id);
+        if (existClient.isPresent()) {
+            return new ResponseEntity(existClient.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Client not found!", HttpStatus.NOT_FOUND);
         }
     }
 
-//    @PostMapping(value = "/getAllClientsDetails", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public ResponseEntity<Map<String, String>> getAllClientsDetails(
-//            @RequestParam("first_name") String first_name,
-//            @RequestParam("last_name") String last_name,
-//            @RequestParam("email") String email,
-//            @RequestParam("password") String password,
-//            @RequestParam("role") ClientEntity.Role role) {
-//
-//        try {
-//            ClientMasterEntity clientEntity = new ClientMasterEntity(first_name, last_name, email, password, role);
-//            clientMstService.signUpClient(clientEntity);
-//
-//            Map<String, String> signUpResponse = new HashMap<>();
-//            signUpResponse.put("message", "Client registered successfully.");
-//            signUpResponse.put("data", "1");
-//            return new ResponseEntity<>(signUpResponse, HttpStatus.OK);
-//        } catch (ResourceNotFoundException ex) {
-//            Map<String, String> resNotFoundResponse = new HashMap<>();
-//            resNotFoundResponse.put("error", "Client not found! " + ex.getMessage());
-//            resNotFoundResponse.put("data", "0");
-//            return new ResponseEntity<>(resNotFoundResponse, HttpStatus.NOT_FOUND);
-//        } catch (IllegalArgumentException ex) {
-//            Map<String, String> illArgExceResponse = new HashMap<>();
-//            illArgExceResponse.put("error", ex.getMessage());
-//            illArgExceResponse.put("data", "0");
-//            return new ResponseEntity<>(illArgExceResponse, HttpStatus.BAD_REQUEST);
-//        } catch (InternalError ex) {
-//            Map<String, String> errorResponse = new HashMap<>();
-//            errorResponse.put("error", "Invalid token or token maybe expire! " + ex.getMessage());
-//            errorResponse.put("data", "0");
-//            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-//        } catch (Exception ex) {
-//            System.out.println("Something went wrong! " + ex.getMessage());
-//            Map<String, String> errorResponse = new HashMap<>();
-//            errorResponse.put("error", "Somthing wen wrong!");
-//            errorResponse.put("data", "0");
-//            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @PutMapping(value = "/updateClientDetail/{client_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, String>> updateClientDetails(
+            @PathVariable("client_id") int client_id,
+            @RequestParam("contact") String contact,
+            @RequestParam("country") String country,
+            @RequestParam("establish") String establish,
+            @RequestParam("industry") String industry,
+            @RequestParam(value = "profile_picture", required = false) MultipartFile profile_Picture) {
+        try {
+            clientMstService.updateClientDetail(client_id, contact, country, establish, industry, profile_Picture);
+            return new ResponseEntity("User updated successfully.", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
