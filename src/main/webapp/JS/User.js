@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("confirm_password").addEventListener("input", function () {
         clearError("confirm_password");
     });
-    document.getElementById("client").addEventListener("input", function () {
-        clearError("role");
-    });
-    document.getElementById("company").addEventListener("input", function () {
-        clearError("role");
-    });
+//    document.getElementById("client").addEventListener("input", function () {
+//        clearError("role");
+//    });
+//    document.getElementById("freelancer").addEventListener("input", function () {
+//        clearError("role");
+//    });
 });
 
 // Clearing error's
@@ -194,8 +194,8 @@ function userSignIn(event) {
 //                forClient.innerHTML = 'Welcome Client..';
 //                alert(forClient);
             } else {
-                localStorage.setItem('userRole', 'company');
-//                userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, company.</p>';
+                localStorage.setItem('userRole', 'freelancer');
+//                userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, freelancer.</p>';
 //                console.log(result);
 //                window.location.href = "Dashboard/UserDashboard.xhtml";
 //                const forCompany = document.getElementById('userIdentity');
