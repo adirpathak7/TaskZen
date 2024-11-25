@@ -1,0 +1,361 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+  <title>Company Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</h:head>
+<h:body>
+  <h:form>
+    <!-- Stats Cards Start-->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+      <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+        <i class="ri-eye-line text-4xl text-white"></i>
+        <div class="ml-4">
+          <div class="text-white">Total Views</div>
+          <div class="text-2xl font-semibold text-white">$3.456K</div>
+        </div>
+      </div>
+      <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+        <i class="ri-bar-chart-grouped-line text-4xl text-white"></i>
+        <div class="ml-4">
+          <div class="text-white">Total Profit</div>
+          <div class="text-2xl font-semibold text-white">$45.2K</div>
+        </div>
+      </div>
+      <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+        <i class="ri-product-hunt-line text-4xl text-white"></i>
+        <div class="ml-4">
+          <div class="text-white">Total Product</div>
+          <div class="text-2xl font-semibold text-white">2,450</div>
+        </div>
+      </div>
+      <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+        <i class="ri-user-line text-4xl text-white"></i>
+        <div class="ml-4">
+          <div class="text-white">Total Users</div>
+          <div class="text-2xl font-semibold text-white">3,456</div>
+        </div>
+      </div>
+    </div>
+    <!-- Stats Cards End-->
+
+    <!-- Charts Section Start -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">
+          Total Revenue
+        </h2>
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">
+          Profit This Week
+        </h2>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+    <!-- Charts Section Start -->
+
+    <!-- Top channels Start -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full md:grid-cols-2 gap-6">
+        <h2 class="text-xl font-semibold mb-4">Top Channels</h2>
+        <div class="">
+          <table class=" bg-white">
+            <thead>
+              <tr>
+                <th class="px-4 py-2 border-b text-left font-semibold text-gray-600">
+                  SOURCE
+                </th>
+                <th class="px-4 py-2 border-b text-left font-semibold text-gray-600">
+                  REVENUES
+                </th>
+                <th class="px-4 py-2 border-b text-left font-semibold text-gray-600">
+                  SALES
+                </th>
+                <th class="px-4 py-2 border-b text-left font-semibold text-gray-600">
+                  CONVERSION
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png"
+                    class="w-6 h-6 mr-2" alt="Google" />
+                  <span>Google</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$5,768</td>
+                <td class="px-4 py-2 border-b">590</td>
+                <td class="px-4 py-2 border-b text-blue-500">4.8%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg"
+                    class="w-6 h-6 mr-2" alt="Twitter" />
+                  <span>Twitter</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$4,635</td>
+                <td class="px-4 py-2 border-b">467</td>
+                <td class="px-4 py-2 border-b text-blue-500">4.3%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                    class="w-6 h-6 mr-2" alt="Github" />
+                  <span>Github</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$4,290</td>
+                <td class="px-4 py-2 border-b">420</td>
+                <td class="px-4 py-2 border-b text-blue-500">3.7%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Vimeo_Logo.svg" class="w-6 h-6 mr-2"
+                    alt="Vimeo" />
+                  <span>Vimeo</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$3,580</td>
+                <td class="px-4 py-2 border-b">389</td>
+                <td class="px-4 py-2 border-b text-blue-500">2.5%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                    class="w-6 h-6 mr-2" alt="Facebook" />
+                  <span>Facebook</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$2,740</td>
+                <td class="px-4 py-2 border-b">230</td>
+                <td class="px-4 py-2 border-b text-blue-500">1.9%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png"
+                    class="w-6 h-6 mr-2" alt="Google" />
+                  <span>Google</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$5,768</td>
+                <td class="px-4 py-2 border-b">590</td>
+                <td class="px-4 py-2 border-b text-blue-500">4.8%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg"
+                    class="w-6 h-6 mr-2" alt="Twitter" />
+                  <span>Twitter</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$4,635</td>
+                <td class="px-4 py-2 border-b">467</td>
+                <td class="px-4 py-2 border-b text-blue-500">4.3%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                    class="w-6 h-6 mr-2" alt="Github" />
+                  <span>Github</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$4,290</td>
+                <td class="px-4 py-2 border-b">420</td>
+                <td class="px-4 py-2 border-b text-blue-500">3.7%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Vimeo_Logo.svg" class="w-6 h-6 mr-2"
+                    alt="Vimeo" />
+                  <span>Vimeo</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$3,580</td>
+                <td class="px-4 py-2 border-b">389</td>
+                <td class="px-4 py-2 border-b text-blue-500">2.5%</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="flex items-center px-4 py-2 border-b">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                    class="w-6 h-6 mr-2" alt="Facebook" />
+                  <span>Facebook</span>
+                </td>
+                <td class="px-4 py-2 border-b text-green-500">$2,740</td>
+                <td class="px-4 py-2 border-b">230</td>
+                <td class="px-4 py-2 border-b text-blue-500">1.9%</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Top channels End -->
+
+      <!-- Communication Start -->
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Chats</h2>
+        <div class="space-y-4 divide-y divide-gray-200">
+          <!-- Chat Item -->
+          <div class="flex items-center justify-between py-3">
+            <div class="flex items-center">
+              <img src="https://via.placeholder.com/40" alt="User avatar" class="w-10 h-10 rounded-full mr-3" />
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900">
+                  Devid Heilo
+                </h3>
+                <p class="text-xs text-gray-500">
+                  Hello, how are you? ·
+                  <span class="text-gray-400">12 min</span>
+                </p>
+              </div>
+            </div>
+            <span
+              class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+          </div>
+
+          <!-- Repeat for each chat item -->
+          <div class="flex items-center justify-between py-3">
+            <div class="flex items-center">
+              <img src="https://via.placeholder.com/40" alt="User avatar" class="w-10 h-10 rounded-full mr-3" />
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900">
+                  Henry Fisher
+                </h3>
+                <p class="text-xs text-gray-500">
+                  I am waiting for you ·
+                  <span class="text-gray-400">5:54 PM</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between py-3">
+            <div class="flex items-center">
+              <img src="https://via.placeholder.com/40" alt="User avatar" class="w-10 h-10 rounded-full mr-3" />
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900">
+                  Wilium Smith
+                </h3>
+                <p class="text-xs text-gray-500">
+                  Where are you now? ·
+                  <span class="text-gray-400">10:12 PM</span>
+                </p>
+              </div>
+            </div>
+            <span
+              class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">2</span>
+          </div>
+
+          <div class="flex items-center justify-between py-3">
+            <div class="flex items-center">
+              <img src="https://via.placeholder.com/40" alt="User avatar" class="w-10 h-10 rounded-full mr-3" />
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900">
+                  Henry Deco
+                </h3>
+                <p class="text-xs text-gray-500">
+                  Thank you so much! · <span class="text-gray-400">Sun</span>
+                </p>
+              </div>
+            </div>
+            <span
+              class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">2</span>
+          </div>
+
+          <div class="flex items-center justify-between py-3">
+            <div class="flex items-center">
+              <img src="https://via.placeholder.com/40" alt="User avatar" class="w-10 h-10 rounded-full mr-3" />
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900">
+                  Jubin Jack
+                </h3>
+                <p class="text-xs text-gray-500">
+                  I really love that! ·
+                  <span class="text-gray-400">Oct 23</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between py-3">
+            <div class="flex items-center">
+              <img src="https://via.placeholder.com/40" alt="User avatar" class="w-10 h-10 rounded-full mr-3" />
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900">
+                  Wilium Smith
+                </h3>
+                <p class="text-xs text-gray-500">
+                  Where are you now? ·
+                  <span class="text-gray-400">Sep 20</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Communication End -->
+    </div>
+  </h:form>
+
+  <!-- Java Script Code -->
+  <script>
+    // Chart.js Script Start
+    const lineCtx = document.getElementById("lineChart").getContext("2d");
+    new Chart(lineCtx, {
+      type: "line",
+      data: {
+        labels: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
+        datasets: [
+          {
+            label: "Total Revenue",
+            data: [30, 50, 25, 60, 40, 55, 35],
+            borderColor: "#6b21a8",
+            backgroundColor: "rgba(107, 33, 168, 0.1)",
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+        },
+      },
+    });
+    // Chart.js Script End
+
+    // Bar chart Start
+    const barCtx = document.getElementById("barChart").getContext("2d");
+    new Chart(barCtx, {
+      type: "bar",
+      data: {
+        labels: ["M", "T", "W", "T", "F", "S", "S"],
+        datasets: [
+          {
+            label: "Sales",
+            data: [60, 80, 70, 85, 55, 90, 100],
+            backgroundColor: "#6b21a8",
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+        },
+      },
+    });
+    // Bar chart End
+
+    function showContent(contentId) {
+      const contents = document.querySelectorAll(".content-section");
+      contents.forEach((content) => {
+        if (content.id === contentId) {
+          content.classList.remove("hidden");
+        } else {
+          content.classList.add("hidden");
+        }
+      });
+    }
+  </script>
+</h:body>
+
+</html>

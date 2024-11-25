@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <title>Company Dashboard - Project</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <h:form>
+        <div class=" bg-gray-100 py-8 px-4">
+            <!-- Page Header -->
+            <div class="mb-6 flex justify-between items-center">
+                <h1 class="text-3xl font-semibold text-gray-900">Projects</h1>
+                <div class="flex items-center space-x-4">
+                    <input type="text" placeholder="Search projects..." class="p-2 border border-gray-300 rounded-md" />
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Create New
+                        Project</button>
+                </div>
+            </div>
+
+            <!-- Project List -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project Card 1 -->
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800">Website Redesign</h2>
+                    <p class="text-sm text-gray-600">In Progress</p>
+                    <div class="mt-2 flex items-center space-x-2">
+                        <span class="text-gray-500 text-sm">Due Date: Nov 25, 2024</span>
+                    </div>
+                    <div class="mt-4">
+                        <div class="w-full bg-gray-200 h-2 rounded-full">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Progress: 60%</p>
+                    </div>
+                    <div class="mt-4 flex space-x-4">
+                        <button class="text-blue-600 hover:underline">Edit</button>
+                        <button class="text-red-600 hover:underline">Delete</button>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800">Mobile App Update</h2>
+                    <p class="text-sm text-gray-600">Completed</p>
+                    <div class="mt-2 flex items-center space-x-2">
+                        <span class="text-gray-500 text-sm">Due Date: Oct 15, 2024</span>
+                    </div>
+                    <div class="mt-4">
+                        <div class="w-full bg-gray-200 h-2 rounded-full">
+                            <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Progress: 100%</p>
+                    </div>
+                    <div class="mt-4 flex space-x-4">
+                        <button class="text-blue-600 hover:underline">Edit</button>
+                        <button class="text-red-600 hover:underline">Delete</button>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800">E-commerce Store Launch</h2>
+                    <p class="text-sm text-gray-600">Pending</p>
+                    <div class="mt-2 flex items-center space-x-2">
+                        <span class="text-gray-500 text-sm">Due Date: Dec 5, 2024</span>
+                    </div>
+                    <div class="mt-4">
+                        <div class="w-full bg-gray-200 h-2 rounded-full">
+                            <div class="bg-yellow-600 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Progress: 20%</p>
+                    </div>
+                    <div class="mt-4 flex space-x-4">
+                        <button class="text-blue-600 hover:underline">Edit</button>
+                        <button class="text-red-600 hover:underline">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-full bg-gray-100 py-8 px-4">
+            <!-- Page Header -->
+            <div class="mb-6 flex justify-between items-center">
+                <h1 class="text-3xl font-semibold text-gray-900">Client Projects</h1>
+            </div>
+
+            <!-- Table Container -->
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="px-6 py-3 text-left">Client Name</th>
+                            <th class="px-6 py-3 text-left">Project Title</th>
+                            <th class="px-6 py-3 text-left">Status</th>
+                            <th class="px-6 py-3 text-left">Progress</th>
+                            <th class="px-6 py-3 text-left">Due Date</th>
+                            <th class="px-6 py-3 text-left">Last Submission</th>
+                            <th class="px-6 py-3 text-left">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <!-- Row 1 -->
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">ABC Corp</td>
+                            <td class="px-6 py-4">Website Redesign</td>
+                            <td class="px-6 py-4 text-blue-600">In Progress</td>
+                            <td class="px-6 py-4">
+                                <div class="w-full bg-gray-200 h-2 rounded-full">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">60%</p>
+                            </td>
+                            <td class="px-6 py-4">Nov 25, 2024</td>
+                            <td class="px-6 py-4">Oct 15, 2024</td>
+                            <td class="px-6 py-4">
+                                <button
+                                    class="bg-blue-500 text-white py-2 px-4 rounded-md opacity-50 cursor-not-allowed"
+                                    disabled="disabled">Pay</button>
+                            </td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">ABC Corp</td>
+                            <td class="px-6 py-4">Mobile App Update</td>
+                            <td class="px-6 py-4 text-green-600">Completed</td>
+                            <td class="px-6 py-4">
+                                <div class="w-full bg-gray-200 h-2 rounded-full">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">100%</p>
+                            </td>
+                            <td class="px-6 py-4">Oct 15, 2024</td>
+                            <td class="px-6 py-4">Oct 10, 2024</td>
+                            <td class="px-6 py-4">
+                                <button
+                                    class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Pay</button>
+                            </td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">XYZ Ltd.</td>
+                            <td class="px-6 py-4">E-commerce Website</td>
+                            <td class="px-6 py-4 text-yellow-600">Pending</td>
+                            <td class="px-6 py-4">
+                                <div class="w-full bg-gray-200 h-2 rounded-full">
+                                    <div class="bg-yellow-600 h-2 rounded-full" style="width: 30%"></div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">30%</p>
+                            </td>
+                            <td class="px-6 py-4">Dec 5, 2024</td>
+                            <td class="px-6 py-4">N/A</td>
+                            <td class="px-6 py-4">
+                                <button
+                                    class="bg-blue-500 text-white py-2 px-4 rounded-md opacity-50 cursor-not-allowed"
+                                    disabled="disabled">Pay</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center p-10 h-full">
+            <!-- Container for the chart -->
+            <div class="flex flex-col lg:flex-row items-center gap-8">
+                <!-- Chart Container -->
+                <div class="relative w-56 h-56">
+                    <canvas id="myChart"></canvas>
+                </div>
+
+                <!-- Info Cards -->
+                <div class="space-y-4">
+                    <div class="flex items-center p-4 bg-blue-600 text-white rounded-lg shadow-md">
+                        <div class="text-2xl font-bold">In Progress</div>
+                        <!-- <div class="ml-4 text-sm">Insert your desired text here.</div> -->
+                    </div>
+                    <div class="flex items-center p-4 bg-green-600 text-white rounded-lg shadow-md">
+                        <div class="text-2xl font-bold">Complete</div>
+                        <!-- <div class="ml-4 text-sm">Insert your desired text here.</div> -->
+                    </div>
+                    <div class="flex items-center p-4 bg-yellow-600 text-white rounded-lg shadow-md">
+                        <div class="text-2xl font-bold">Pending</div>
+                        <!-- <div class="ml-4 text-sm">Insert your desired text here.</div> -->
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- chat bot -->
+            <div class="flex justify-center items-center p-10 space-x-10">
+                <!-- Chat Box Container -->
+                <div class="w-full max-w-lg bg-white shadow-lg rounded-lg">
+                    <!-- Chat Header -->
+                    <div class="bg-blue-600 text-white p-4 rounded-t-lg">
+                        <h2 class="text-lg font-semibold">Chat with Client</h2>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div class="h-80 overflow-y-auto p-4 space-y-4 bg-gray-100 rounded-b-lg">
+                        <!-- Example messages -->
+                        <div class="flex items-start space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                                <span>Co</span>
+                            </div>
+                            <div class="bg-blue-100 text-blue-800 p-3 rounded-lg max-w-xs">
+                                <p>Hello! How can I help you today?</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white">
+                                <span>Cl</span>
+                            </div>
+                            <div class="bg-green-100 text-green-800 p-3 rounded-lg max-w-xs">
+                                <p>Hi! I need help with my project details.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                                <span>Co</span>
+                            </div>
+                            <div class="bg-blue-100 text-blue-800 p-3 rounded-lg max-w-xs">
+                                <p>Sure, can you share the project ID?</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white">
+                                <span>Cl</span>
+                            </div>
+                            <div class="bg-green-100 text-green-800 p-3 rounded-lg max-w-xs">
+                                <p>Here it is: #12345</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="flex items-center p-4 space-x-2 bg-gray-200 rounded-b-lg">
+                        <input type="text" placeholder="Type a message..."
+                            class="w-full p-2 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+                        <button class="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </h:form>
+        
+    <script>
+        // Chart.js setup
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['20%', '30%', '30%'],
+                datasets: [{
+                    data: [20, 30, 30],
+                    backgroundColor: ['#F59E0B', '#10B981', '#2563EB'],
+                    borderWidth: 0,
+                    hoverOffset: 10,
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                }
+            }
+        });
+    </script>
+    </body>
+</html>

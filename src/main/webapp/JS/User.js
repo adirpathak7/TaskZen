@@ -202,7 +202,7 @@ function userSignIn(event) {
 //                forCompany.innerHTML = 'Welcome Company..';
 //                alert(forCompany);
             }
-            window.location.href = "Dashboard/Client/User.xhtml";
+            window.location.href = "Dashboard/Client/Maindashboard.xhtml";
             fetchUsers();
             signInForm.reset();
         } else {

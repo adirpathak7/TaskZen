@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" 
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <head>
+        <title>Company Dashboard - Payment</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <h:body>
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Payment Success Card -->
+            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+                <i class="ri-money-dollar-circle-line text-4xl text-white"></i>
+                <div class="ml-4">
+                    <div class="text-white">Payment Success</div>
+                    <div class="text-2xl font-semibold text-white">$3.456K</div>
+                </div>
+            </div>
+
+            <!-- Payment Pending Card -->
+            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+                <i class="ri-money-dollar-circle-line text-4xl text-white"></i>
+                <div class="ml-4">
+                    <div class="text-white">Payment Pending</div>
+                    <div class="text-2xl font-semibold text-white">$3.456K</div>
+                </div>
+            </div>
+
+            <!-- Search Clients Card -->
+            <div class="flex justify-center items-center p-6 bg-purple-700 rounded-lg shadow-md w-[600px] mx-auto">
+                <div class="w-full space-y-6">
+                    <div class="flex space-x-4">
+                        <!-- Client ID Input -->
+                        <div class="flex-1">
+                            <h:inputText title="text" id="clientIdInput" p:placeholder="Enter Client ID"  class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        </div>
+
+                        <!-- Project ID Input -->
+                        <div class="flex-1">
+                            <h:inputText title="text" id="projectIdInput" p:placeholder="Enter Project ID"  class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        </div>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="flex justify-end">
+                        <button onclick="searchClient()" class="px-6 py-3 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Table -->
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold mb-6 text-gray-800">Freelancers Payment Table Data</h1>
+
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <table class="min-w-full bg-white" id="paymentTable">
+                    <thead>
+                        <tr>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Client ID</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Client Name</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Total Amount</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Status</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Date</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample Row 1 -->
+                        <tr class="border-b hover:bg-gray-50" data-client-id="001234" data-client-name="Alice Johnson" data-amount="1200.00">
+                            <td class="py-4 px-6 text-gray-700">#001234</td>
+                            <td class="py-4 px-6 text-gray-700">Alice Johnson</td>
+                            <td class="py-4 px-6 text-gray-700">$1,200.00</td>
+                            <td class="py-4 px-6">
+                                <span class="text-sm font-medium text-orange-600 bg-orange-100 py-1 px-3 rounded-full">Pending</span>
+                            </td>
+                            <td class="py-4 px-6 text-gray-700">2024-11-10</td>
+                            <td>
+                                <button onclick="openPaymentModal(this)" class="px-4 py-2 bg-purple-600 text-white rounded-md">
+                                    Pay Now
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Sample Row 2 -->
+                        <tr class="border-b hover:bg-gray-50" data-client-id="001235" data-client-name="Bob Smith" data-amount="2200.00">
+                            <td class="py-4 px-6 text-gray-700">#001235</td>
+                            <td class="py-4 px-6 text-gray-700">Bob Smith</td>
+                            <td class="py-4 px-6 text-gray-700">$2,200.00</td>
+                            <td class="py-4 px-6">
+                                <span class="text-sm font-medium text-orange-600 bg-orange-100 py-1 px-3 rounded-full">Pending</span>
+                            </td>
+                            <td class="py-4 px-6 text-gray-700">2024-11-12</td>
+                            <td>
+                                <button onclick="openPaymentModal(this)" class="px-4 py-2 bg-purple-600 text-white rounded-md">
+                                    Pay Now
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+        <!-- Recent Payment Transaction Datas -->
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold mb-6 text-gray-800">Recent Payment Transcations Data </h1>
+
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <table class="min-w-full bg-white" id="paymentTable">
+                    <thead>
+                        <tr>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Payment ID</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Client ID</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Total Amount</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Status</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Date</th>
+                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample Row 1 -->
+                        <tr class="border-b hover:bg-gray-50" data-client-id="001234" data-client-name="Alice Johnson" data-amount="1200.00">
+                            <td class="py-4 px-6 text-gray-700">#001234</td>
+                            <td class="py-4 px-6 text-gray-700">Alice Johnson</td>
+                            <td class="py-4 px-6 text-gray-700">$1,200.00</td>
+                            <td class="py-4 px-6">
+                                <span class="text-sm font-medium text-green-600 bg-green-100 py-1 px-3 rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 px-6 text-gray-700">2024-11-10</td>
+                            <td class="py-4 px-6">
+                                <div class="mt-4 flex space-x-4">
+                                    <button class="text-blue-600 hover:underline">View</button>
+                                    <button class="text-red-600 hover:underline">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Sample Row 2 -->
+                        <tr class="border-b hover:bg-gray-50" data-client-id="001235" data-client-name="Bob Smith" data-amount="2200.00">
+                            <td class="py-4 px-6 text-gray-700">#001235</td>
+                            <td class="py-4 px-6 text-gray-700">Bob Smith</td>
+                            <td class="py-4 px-6 text-gray-700">$2,200.00</td>
+                            <td class="py-4 px-6">
+                                <span class="text-sm font-medium text-green-600 bg-green-100 py-1 px-3 rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 px-6 text-gray-700">2024-11-12</td>
+                            <td class="py-4 px-6">
+                                <div class="mt-4 flex space-x-4">
+                                    <button class="text-blue-600 hover:underline">VIew</button>
+                                    <button class="text-red-600 hover:underline">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Sample Row 3 -->
+                        <tr class="border-b hover:bg-gray-50" data-client-id="001236" data-client-name="Catherine Green" data-amount="950.00">
+                            <td class="py-4 px-6 text-gray-700">#001236</td>
+                            <td class="py-4 px-6 text-gray-700">Catherine Green</td>
+                            <td class="py-4 px-6 text-gray-700">$950.00</td>
+                            <td class="py-4 px-6">
+                                <span class="text-sm font-medium text-green-600 bg-green-100 py-1 px-3 rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 px-6 text-gray-700">2024-11-14</td>
+                            <td class="py-4 px-6">
+                                <div class="mt-4 flex space-x-4">
+                                    <button class="text-blue-600 hover:underline">View</button>
+                                    <button class="text-red-600 hover:underline">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal Payment Modal -->
+        <div id="paymentModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center  ">
+            <div class="bg-white rounded-lg shadow-lg w-[400px] p-6">
+                <h2 class="text-xl font-semibold mb-4">Complete Payment</h2>
+                <p class="mb-4">Please select a payment type and fill in the required details.</p>
+
+                <!-- Client Info -->
+                <div class="mb-4">
+                    <div class="flex justify-between">
+                        <span class="text-sm font-semibold">Client ID:</span>
+                        <span id="clientIdDisplay" class="text-sm text-gray-700"></span>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <span class="text-sm font-semibold">Amount:</span>
+                        <span id="amountDisplay" class="text-sm text-gray-700"></span>
+                    </div>
+                </div>
+
+                <!-- Payment Type Selector -->
+                <div class="mb-4">
+                    <label for="paymentType" class="block text-sm font-semibold mb-2">Payment Type:</label>
+                    <select id="paymentType" class="w-full p-2 border border-gray-300 rounded-md" onchange="handlePaymentTypeChange(event)">
+                        <option value="" selected="" disabled="">Select Payment Type</option>
+                        <option value="creditCard">Credit Card</option>
+                        <option value="upi">UPI</option>
+                        <option value="bankTransfer">Bank Transfer</option>
+                    </select>
+                </div>
+
+                <!-- Credit Card Form -->
+                <div id="creditCardForm" class="hidden mb-4">
+                    <label class="block text-sm font-semibold mb-2">Card Number:</label>
+                    <input type="text" placeholder="Enter card number" class="w-full p-2 border border-gray-300 rounded-md mb-4" />
+                    <label class="block text-sm font-semibold mb-2">Expiry Date:</label>
+                    <input type="text" placeholder="MM/YY" class="w-full p-2 border border-gray-300 rounded-md mb-4" />
+                    <label class="block text-sm font-semibold mb-2">CVV:</label>
+                    <input type="text" placeholder="Enter CVV" class="w-full p-2 border border-gray-300 rounded-md mb-4" />
+                </div>
+
+                <!-- UPI Form -->
+                <div id="upiForm" class="hidden mb-4">
+                    <label class="block text-sm font-semibold mb-2">UPI ID:</label>
+                    <input type="text" placeholder="Enter UPI ID" class="w-full p-2 border border-gray-300 rounded-md mb-4" />
+                </div>
+
+                <!-- Bank Transfer Form -->
+                <div id="bankTransferForm" class="hidden mb-4">
+                    <label class="block text-sm font-semibold mb-2">Account Number:</label>
+                    <input type="text" placeholder="Enter account number" class="w-full p-2 border border-gray-300 rounded-md mb-4" />
+                    <label class="block text-sm font-semibold mb-2">IFSC Code:</label>
+                    <input type="text" placeholder="Enter IFSC code" class="w-full p-2 border border-gray-300 rounded-md mb-4" />
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-end space-x-4">
+                    <button onclick="closeModal(event)" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Close</button>
+                    <button onclick="confirmPayment(event)" class="px-4 py-2 bg-purple-600 text-white rounded-md">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script >
+            // Function to open the payment modal
+            function openPaymentModal(button) {
+                var row = button.closest('tr');
+                var clientId = row.getAttribute('data-client-id') || 'N/A';
+                var clientName = row.getAttribute('data-client-name') || 'N/A';
+                var amount = row.getAttribute('data-amount') || '0.00';
+
+                document.getElementById('clientIdDisplay').textContent = clientId;
+                document.getElementById('amountDisplay').textContent = "$" + parseFloat(amount).toFixed(2);
+
+                // Clear any previous selections
+                document.getElementById('paymentType').value = '';
+
+                // Hide all payment forms initially
+                document.getElementById('creditCardForm').classList.add('hidden');
+                document.getElementById('upiForm').classList.add('hidden');
+                document.getElementById('bankTransferForm').classList.add('hidden');
+
+                // Show the modal
+                var modal = document.getElementById('paymentModal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+// Function to handle the payment type selection
+            function handlePaymentTypeChange(event) {
+                var selectedType = event.target.value;
+
+                // Hide all forms first
+                document.getElementById('creditCardForm').classList.add('hidden');
+                document.getElementById('upiForm').classList.add('hidden');
+                document.getElementById('bankTransferForm').classList.add('hidden');
+
+                // Show the corresponding form based on the payment type
+                if (selectedType === 'creditCard') {
+                    document.getElementById('creditCardForm').classList.remove('hidden');
+                } else if (selectedType === 'upi') {
+                    document.getElementById('upiForm').classList.remove('hidden');
+                } else if (selectedType === 'bankTransfer') {
+                    document.getElementById('bankTransferForm').classList.remove('hidden');
+                }
+            }
+
+// Function to close the payment modal
+            function closeModal(event) {
+                if (event)
+                    event.preventDefault(); // Prevent default action
+                var modal = document.getElementById('paymentModal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+
+// Function to confirm the payment
+            function confirmPayment(event) {
+                event.preventDefault(); // Prevent default button action
+                alert('Payment confirmed!');
+                closeModal(event); // Close the modal after confirming the payment
+            }
+
+// Close modal on Escape key press
+            document.addEventListener('keydown', function (event) {
+                if (event.key === "Escape") {
+                    closeModal(null); // Close the modal
+                }
+            });
+
+        </script>
+    </h:body>
+</html>

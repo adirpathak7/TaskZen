@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <title>Company Dashboard - Profile</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Remix Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    </head>
+    <body>
+        <h:body class="bg-gray-100">
+  <!-- Main Container -->
+  <div class="min-h-screen flex flex-col items-center bg-gray-100">
+
+    <!-- Top Section -->
+    <div class="w-full bg-white shadow p-8 flex items-center">
+      <!-- Avatar Section -->
+      <div class="relative">
+        <div class="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center">
+          <span class="text-sm text-gray-400">Avatar</span>
+        </div>
+        <div class="absolute bottom-2 left-2 w-10 h-10 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center">
+          <i class="ri-image-edit-fill text-xl"></i>
+        </div>
+        <div class="absolute bottom-2 right-2 w-10 h-10 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center">
+          <i class="ri-edit-circle-fill text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Text Information Section -->
+      <div class="ml-8 flex-grow">
+        <div class="bg-gray-200 p-6 rounded-lg">
+          <h2 class="text-lg font-bold text-gray-700">Company Name</h2>
+          <p class="text-sm text-gray-600 mt-2">Industry</p>
+          <p class="text-sm text-gray-600 mt-2">About the Company</p>
+          <p class="text-sm text-gray-600 mt-2">Location</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="w-full p-4 bg-gray-100">
+      <div class="max-w-5xl mx-auto space-y-8">
+        <!-- Contact Information -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-bold text-gray-700">Contact Info</h3>
+          <p class="text-gray-600 mt-2"><strong>Phone:</strong> +1 234 567 8900</p>
+          <p class="text-gray-600 mt-2"><strong>Email:</strong> example@example.com</p>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-bold text-gray-700">Social Activity</h3>
+          <div class="flex items-center gap-6 mt-4">
+            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
+              <h:outputText value="LN" />
+            </div>
+            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
+              <h:outputText value="IG" />
+            </div>
+            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
+              <h:outputText value="TW" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Services Offered -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-bold text-gray-700">Services Offered</h3>
+          <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <li class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md">
+              <h4 class="text-lg font-semibold text-gray-700">Software Development</h4>
+              <p class="text-sm text-gray-600">Web, mobile, or desktop apps.</p>
+            </li>
+            <li class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md">
+              <h4 class="text-lg font-semibold text-gray-700">Cloud Solutions</h4>
+              <p class="text-sm text-gray-600">Migration, management, and integration.</p>
+            </li>
+            <li class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md">
+              <h4 class="text-lg font-semibold text-gray-700">Cybersecurity</h4>
+              <p class="text-sm text-gray-600">Threat assessment and consulting.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</h:body>
+    </body>
+</html>
