@@ -51,6 +51,21 @@ public class FreelancerEducationEntity {
         this.created_at = created_at;
     }
 
+    public FreelancerMasterEntity getFreelancer_id() {
+        return freelancer_id;
+    }
+
+    public void setFreelancer_id(FreelancerMasterEntity freelancer_id) {
+        this.freelancer_id = freelancer_id;
+    }
+
+    public FreelancerEducationEntity(String university, String course, String start_date, String end_date) {
+        this.university = university;
+        this.course = course;
+        this.start_date = start_date;
+        this.end_date = end_date;
+    }
+
     public Long getFreelancer_education_id() {
         return freelancer_education_id;
     }

@@ -5,7 +5,10 @@
 package com.it.taskzen.repositories;
 
 import com.it.taskzen.entities.FreelancerMasterEntity;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,5 +17,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface FreelancerMstRepository extends JpaRepository<FreelancerMasterEntity, Long> {
+
+    @Query("SELECT f FROM FreelancerMasterEntity f WHERE f.freelancer_id = :freelancer_id")
+    Optional<FreelancerMasterEntity> findByFreelancerId(@Param("freelancer_id") Long freelancer_id);
 
 }
