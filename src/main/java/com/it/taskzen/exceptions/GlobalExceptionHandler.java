@@ -4,6 +4,7 @@
  */
 package com.it.taskzen.exceptions;
 
+import io.jsonwebtoken.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -76,6 +77,15 @@ public class GlobalExceptionHandler {
         errorResponse.put("error", "Path variable '" + ex.getVariableName() + "' is missing");
         errorResponse.put("data", "0");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SignatureException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<Map<String, String>> handleSignatureException(SignatureException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "Invalid JWT Signature: " + ex.getMessage());
+        errorResponse.put("data", "0");
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * A sample greetings controller to return greeting text
+ * @author Aditya Pathak R
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
@@ -96,6 +97,7 @@ public class UserController {
 
         UserEntity userEntity = new UserEntity(email, password);
         Map<String, String> loginResponse = userService.loginUser(userEntity);
+
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 

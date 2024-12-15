@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -25,19 +27,9 @@ import javax.persistence.Table;
 public class SkillsEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int skill_id;
-
-    @ManyToMany(mappedBy = "skills")
-    private Set<FreelancerMasterEntity> freelancers = new HashSet<>();
-
-    @ManyToOne
-    @JoinColumn(name = "freelancer_id", referencedColumnName = "freelancer_id")
-    private FreelancerMasterEntity freelancerMasterEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
-    private ClientMasterEntity clientMasterEntity;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skill_seq")
+    @SequenceGenerator(name = "skill_seq", sequenceName = "skill_sequence", allocationSize = 1)
+    private Long skill_id;
 
     private String skill_name;
     private LocalDateTime created_at;
@@ -45,44 +37,18 @@ public class SkillsEntity {
     public SkillsEntity() {
     }
 
-    public SkillsEntity(int skill_id, FreelancerMasterEntity freelancerMasterEntity, ClientMasterEntity clientMasterEntity, String skill_name, LocalDateTime created_at) {
+    public SkillsEntity(Long skill_id, String skill_name, LocalDateTime created_at) {
         this.skill_id = skill_id;
-        this.freelancerMasterEntity = freelancerMasterEntity;
-        this.clientMasterEntity = clientMasterEntity;
         this.skill_name = skill_name;
         this.created_at = created_at;
     }
 
-    public int getSkill_id() {
+    public Long getSkill_id() {
         return skill_id;
     }
 
-    public void setSkill_id(int skill_id) {
+    public void setSkill_id(Long skill_id) {
         this.skill_id = skill_id;
-    }
-
-    public Set<FreelancerMasterEntity> getFreelancers() {
-        return freelancers;
-    }
-
-    public void setFreelancers(Set<FreelancerMasterEntity> freelancers) {
-        this.freelancers = freelancers;
-    }
-
-    public FreelancerMasterEntity getFreelancerMasterEntity() {
-        return freelancerMasterEntity;
-    }
-
-    public void setFreelancerMasterEntity(FreelancerMasterEntity freelancerMasterEntity) {
-        this.freelancerMasterEntity = freelancerMasterEntity;
-    }
-
-    public ClientMasterEntity getClientMasterEntity() {
-        return clientMasterEntity;
-    }
-
-    public void setClientMasterEntity(ClientMasterEntity clientMasterEntity) {
-        this.clientMasterEntity = clientMasterEntity;
     }
 
     public String getSkill_name() {
@@ -101,4 +67,8 @@ public class SkillsEntity {
         this.created_at = created_at;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+    }
 }

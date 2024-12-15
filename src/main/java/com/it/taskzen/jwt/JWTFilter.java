@@ -42,6 +42,7 @@ public class JWTFilter extends OncePerRequestFilter {
             UserEntity user = userService.findByEmail(email);
 
             if (jwtService.validateToken(token, user)) {
+                String role = jwtService.getRoleFromToken(token); // Extract role if needed
                 UsernamePasswordAuthenticationToken authToken
                         = new UsernamePasswordAuthenticationToken(user.getEmail(), null, null);
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

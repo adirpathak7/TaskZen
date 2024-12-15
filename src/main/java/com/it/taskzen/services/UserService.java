@@ -10,6 +10,7 @@ import com.it.taskzen.repositories.UserRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -98,7 +99,9 @@ public class UserService {
         }
 
         String role = existUser.getRole().toString();
-        String token = jwtService.generateToken(userEntity.getEmail());
+        Long user_id = existUser.getUser_id();
+
+        String token = jwtService.generateToken(userEntity.getEmail(), role, user_id);
 
         Map<String, String> loginResponse = new HashMap<>();
         loginResponse.put("role", role);
@@ -109,6 +112,10 @@ public class UserService {
 
     public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public UserEntity findByUserId(Long user_id) {
+        return userRepository.findById(user_id).orElse(null);
     }
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,28 +24,29 @@ import javax.persistence.Table;
 public class InvoiceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int invoice_id;
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_seq")
+    @SequenceGenerator(name = "invoice_seq", sequenceName = "invoice_sequence", allocationSize = 1)
+    private Long invoice_id;
+    
     @ManyToOne
     @JoinColumn(name = "freelancer_id", referencedColumnName = "freelancer_id")
-    private FreelancerMasterEntity freelancerMasterEntity;
+    private FreelancerMasterEntity freelancer_id;
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
-    private ClientMasterEntity clientMasterEntity;
+    private ClientMasterEntity client_id;
 
     @ManyToOne
     @JoinColumn(name = "freelancer_project_id", referencedColumnName = "freelancer_project_id")
-    private FreelancerProjectEntity freelancerProjectEntity;
+    private FreelancerProjectEntity freelancer_project_id;
 
     @ManyToOne
     @JoinColumn(name = "client_project_id", referencedColumnName = "client_project_id")
-    private ClientProjectEntity clientProjectEntity;
+    private ClientProjectEntity client_project_id;
 
     @ManyToOne
     @JoinColumn(name = "payment_id", referencedColumnName = "payment_id")
-    private PaymentEntity paymentEntity;
+    private PaymentEntity payment_id;
 
     @ManyToOne
     @JoinColumn(name = "start_date", referencedColumnName = "start_date")
@@ -55,64 +58,65 @@ public class InvoiceEntity {
     public InvoiceEntity() {
     }
 
-    public InvoiceEntity(int invoice_id, FreelancerMasterEntity freelancerMasterEntity, ClientMasterEntity clientMasterEntity, FreelancerProjectEntity freelancerProjectEntity, ClientProjectEntity clientProjectEntity, PaymentEntity paymentEntity, ContractEntity contractEntity, LocalDateTime created_at) {
+    public InvoiceEntity(Long invoice_id, FreelancerMasterEntity freelancer_id, ClientMasterEntity client_id, FreelancerProjectEntity freelancer_project_id, ClientProjectEntity client_project_id, PaymentEntity payment_id, ContractEntity contractEntity, LocalDateTime created_at) {
         this.invoice_id = invoice_id;
-        this.freelancerMasterEntity = freelancerMasterEntity;
-        this.clientMasterEntity = clientMasterEntity;
-        this.freelancerProjectEntity = freelancerProjectEntity;
-        this.clientProjectEntity = clientProjectEntity;
-        this.paymentEntity = paymentEntity;
+        this.freelancer_id = freelancer_id;
+        this.client_id = client_id;
+        this.freelancer_project_id = freelancer_project_id;
+        this.client_project_id = client_project_id;
+        this.payment_id = payment_id;
         this.contractEntity = contractEntity;
         this.created_at = created_at;
     }
 
-    public int getInvoice_id() {
+    public Long getInvoice_id() {
         return invoice_id;
     }
 
-    public void setInvoice_id(int invoice_id) {
+    public void setInvoice_id(Long invoice_id) {
         this.invoice_id = invoice_id;
     }
 
-    public FreelancerMasterEntity getFreelancerMasterEntity() {
-        return freelancerMasterEntity;
+    public FreelancerMasterEntity getFreelancer_id() {
+        return freelancer_id;
     }
 
-    public void setFreelancerMasterEntity(FreelancerMasterEntity freelancerMasterEntity) {
-        this.freelancerMasterEntity = freelancerMasterEntity;
+    public void setFreelancer_id(FreelancerMasterEntity freelancer_id) {
+        this.freelancer_id = freelancer_id;
     }
 
-    public ClientMasterEntity getClientMasterEntity() {
-        return clientMasterEntity;
+    public ClientMasterEntity getClient_id() {
+        return client_id;
     }
 
-    public void setClientMasterEntity(ClientMasterEntity clientMasterEntity) {
-        this.clientMasterEntity = clientMasterEntity;
+    public void setClient_id(ClientMasterEntity client_id) {
+        this.client_id = client_id;
     }
 
-    public FreelancerProjectEntity getFreelancerProjectEntity() {
-        return freelancerProjectEntity;
+    public FreelancerProjectEntity getFreelancer_project_id() {
+        return freelancer_project_id;
     }
 
-    public void setFreelancerProjectEntity(FreelancerProjectEntity freelancerProjectEntity) {
-        this.freelancerProjectEntity = freelancerProjectEntity;
+    public void setFreelancer_project_id(FreelancerProjectEntity freelancer_project_id) {
+        this.freelancer_project_id = freelancer_project_id;
     }
 
-    public ClientProjectEntity getClientProjectEntity() {
-        return clientProjectEntity;
+    public ClientProjectEntity getClient_project_id() {
+        return client_project_id;
     }
 
-    public void setClientProjectEntity(ClientProjectEntity clientProjectEntity) {
-        this.clientProjectEntity = clientProjectEntity;
+    public void setClient_project_id(ClientProjectEntity client_project_id) {
+        this.client_project_id = client_project_id;
     }
 
-    public PaymentEntity getPaymentEntity() {
-        return paymentEntity;
+    public PaymentEntity getPayment_id() {
+        return payment_id;
     }
 
-    public void setPaymentEntity(PaymentEntity paymentEntity) {
-        this.paymentEntity = paymentEntity;
+    public void setPayment_id(PaymentEntity payment_id) {
+        this.payment_id = payment_id;
     }
+
 
     public ContractEntity getContractEntity() {
         return contractEntity;
@@ -128,5 +132,10 @@ public class InvoiceEntity {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
     }
 }

@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("confirm_password").addEventListener("input", function () {
         clearError("confirm_password");
     });
-//    document.getElementById("client").addEventListener("input", function () {
-//        clearError("role");
-//    });
-//    document.getElementById("freelancer").addEventListener("input", function () {
-//        clearError("role");
-//    });
+    document.getElementById("client").addEventListener("input", function () {
+        clearError("role");
+    });
+    document.getElementById("freelancer").addEventListener("input", function () {
+        clearError("role");
+    });
 });
 
 // Clearing error's

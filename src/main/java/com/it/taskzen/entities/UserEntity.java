@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -24,8 +25,9 @@ import javax.persistence.Table;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int user_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
+    private Long user_id;
 
     private String first_name;
     private String last_name;
@@ -36,9 +38,6 @@ public class UserEntity {
     private Role role;
 
     private LocalDateTime created_at;
-
-    @OneToOne(mappedBy = "userEntity")
-    private FreelancerMasterEntity MasterEntity;
 
     public UserEntity() {
     }
@@ -56,7 +55,7 @@ public class UserEntity {
         this.password = password;
     }
 
-    public UserEntity(int user_id, String first_name, String last_name, String email, String password, Role role, LocalDateTime created_at) {
+    public UserEntity(Long user_id, String first_name, String last_name, String email, String password, Role role, LocalDateTime created_at) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -66,11 +65,11 @@ public class UserEntity {
         this.created_at = created_at;
     }
 
-    public int getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
 

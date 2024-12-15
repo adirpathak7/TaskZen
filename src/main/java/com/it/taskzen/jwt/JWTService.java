@@ -9,7 +9,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-//import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Date;
@@ -32,19 +31,19 @@ public class JWTService {
     private String secretKey = "";
 
     public JWTService() {
-        KeyGenerator keyGenerator;
         try {
-            keyGenerator = KeyGenerator.getInstance("HmacSHA256");
+            KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
             SecretKey sk = keyGenerator.generateKey();
             secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(JWTService.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
-    public String generateToken(String email) {
+    public String generateToken(String email, String role, Long user_id) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", role);
+        claims.put("user_id", String.valueOf(user_id));
         return Jwts.builder()
                 .claims()
                 .add(claims)
@@ -63,6 +62,10 @@ public class JWTService {
 
     public String getUsernameFromToken(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public String getRoleFromToken(String token) {
+        return extractAllClaims(token).get("role", String.class);
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
@@ -89,5 +92,20 @@ public class JWTService {
 
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
+    }
+
+    public Long extractUserId(String token) {
+        token = token.trim();
+        return Long.parseLong(extractClaim(token, claims -> claims.get("user_id", String.class)));
+    }
+
+    public Long extractClientId(String token) {
+        token = token.trim();
+        return Long.parseLong(extractClaim(token, claims -> claims.get("client_id", String.class)));
+    }
+    
+    public Long extractFreelancerId(String token) {
+        token = token.trim();
+        return Long.parseLong(extractClaim(token, claims -> claims.get("freelancer_id", String.class)));
     }
 }

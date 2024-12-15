@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -26,20 +30,13 @@ import javax.persistence.Table;
 public class FreelancerMasterEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int freelancer_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "freelancer_mst_seq")
+    @SequenceGenerator(name = "freelancer_mst_seq", sequenceName = "freelancer_mst_sequence", allocationSize = 1)
+    private Long freelancer_id;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private UserEntity userEntity;
-
-    @ManyToMany
-    @JoinTable(
-            name = "freelancer_skills",
-            joinColumns = @JoinColumn(name = "freelancer_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
-    private Set<SkillsEntity> skills = new HashSet<>();
+    private UserEntity user_id;
 
     private String contact;
     private String profile_picture;
@@ -51,12 +48,15 @@ public class FreelancerMasterEntity {
     private String portfolio_link;
     private LocalDateTime created_at;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public FreelancerMasterEntity() {
     }
 
-    public FreelancerMasterEntity(int freelancer_id, UserEntity userEntity, String contact, String profile_picture, String country, String dob, String gender, String github_link, String linkedin_link, String portfolio_link, LocalDateTime created_at) {
+    public FreelancerMasterEntity(Long freelancer_id, UserEntity user_id, String contact, String profile_picture, String country, String dob, String gender, String github_link, String linkedin_link, String portfolio_link, LocalDateTime created_at, Status status) {
         this.freelancer_id = freelancer_id;
-        this.userEntity = userEntity;
+        this.user_id = user_id;
         this.contact = contact;
         this.profile_picture = profile_picture;
         this.country = country;
@@ -66,30 +66,33 @@ public class FreelancerMasterEntity {
         this.linkedin_link = linkedin_link;
         this.portfolio_link = portfolio_link;
         this.created_at = created_at;
+        this.status = status;
     }
 
-    public int getFreelancer_id() {
+    public FreelancerMasterEntity(String contact, String country, String dob, String gender, String github_link, String linkedin_link, String portfolio_link) {
+        this.contact = contact;
+        this.country = country;
+        this.dob = dob;
+        this.gender = gender;
+        this.github_link = github_link;
+        this.linkedin_link = linkedin_link;
+        this.portfolio_link = portfolio_link;
+    }
+
+    public Long getFreelancer_id() {
         return freelancer_id;
     }
 
-    public void setFreelancer_id(int freelancer_id) {
+    public void setFreelancer_id(Long freelancer_id) {
         this.freelancer_id = freelancer_id;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public UserEntity getUser_id() {
+        return user_id;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-    }
-
-    public Set<SkillsEntity> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(Set<SkillsEntity> skills) {
-        this.skills = skills;
+    public void setUser_id(UserEntity user_id) {
+        this.user_id = user_id;
     }
 
     public String getContact() {
@@ -162,6 +165,36 @@ public class FreelancerMasterEntity {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+        if (status == null) {
+            status = Status.pending;
+        }
+    }
+
+    public enum Status {
+        pending("pending"), approved("approved");
+
+        private final String value;
+
+        Status(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
 }

@@ -6,12 +6,15 @@ package com.it.taskzen.entities;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -23,31 +26,37 @@ import javax.persistence.Table;
 public class ClientMasterEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int client_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_mst_seq")
+    @SequenceGenerator(name = "client_mst_seq", sequenceName = "client_mst_sequence", allocationSize = 1)
+    private Long client_id;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private UserEntity userEntity;
+    private UserEntity user_id;
 
     private String contact;
     private String profile_picture;
     private String country;
     private String establish;
     private String industry;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     private LocalDateTime created_at;
 
     public ClientMasterEntity() {
     }
 
-    public ClientMasterEntity(int client_id, UserEntity userEntity, String contact, String profile_picture, String country, String establish, String industry, LocalDateTime created_at) {
+    public ClientMasterEntity(Long client_id, UserEntity user_id, String contact, String profile_picture, String country, String establish, String industry, Status status, LocalDateTime created_at) {
         this.client_id = client_id;
-        this.userEntity = userEntity;
+        this.user_id = user_id;
         this.contact = contact;
         this.profile_picture = profile_picture;
         this.country = country;
         this.establish = establish;
         this.industry = industry;
+        this.status = status;
         this.created_at = created_at;
     }
 
@@ -58,20 +67,12 @@ public class ClientMasterEntity {
         this.industry = industry;
     }
 
-    public int getClient_id() {
+    public Long getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(int client_id) {
+    public void setClient_id(Long client_id) {
         this.client_id = client_id;
-    }
-
-    public UserEntity getUserEntity() {
-        return userEntity;
-    }
-
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
     }
 
     public String getContact() {
@@ -114,6 +115,22 @@ public class ClientMasterEntity {
         this.industry = industry;
     }
 
+    public UserEntity getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(UserEntity user_id) {
+        this.user_id = user_id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -125,5 +142,22 @@ public class ClientMasterEntity {
     @PrePersist
     protected void onCreate() {
         created_at = LocalDateTime.now();
+        if (status == null) {
+            status = Status.pending;
+        }
+    }
+
+    public enum Status {
+        pending("pending"), approved("approved");
+
+        private final String value;
+
+        Status(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

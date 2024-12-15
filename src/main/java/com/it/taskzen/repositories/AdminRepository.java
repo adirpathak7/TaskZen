@@ -4,7 +4,7 @@
  */
 package com.it.taskzen.repositories;
 
-import com.it.taskzen.entities.UserEntity;
+import com.it.taskzen.entities.AdminEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
  * @author Aditya Pathak R
  */
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
 
-    UserEntity findByEmail(String email);
+    AdminEntity findByEmail(String email);
 
 }

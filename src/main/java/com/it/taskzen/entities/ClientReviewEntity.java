@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,16 +24,17 @@ import javax.persistence.Table;
 public class ClientReviewEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int freelancer_review_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_review_seq")
+    @SequenceGenerator(name = "client_review_seq", sequenceName = "client_review_sequence", allocationSize = 1)
+    private Long client_review_id;
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
-    private ClientMasterEntity clientMasterEntity;
+    private ClientMasterEntity client_id;
 
     @ManyToOne
     @JoinColumn(name = "freelancer_id", referencedColumnName = "freelancer_id")
-    private FreelancerMasterEntity freelancerMasterEntity;
+    private FreelancerMasterEntity freelancer_id;
 
     private String comment;
     private int rating;
@@ -40,37 +43,37 @@ public class ClientReviewEntity {
     public ClientReviewEntity() {
     }
 
-    public ClientReviewEntity(int freelancer_review_id, ClientMasterEntity clientMasterEntity, FreelancerMasterEntity freelancerMasterEntity, String comment, int rating, LocalDateTime created_at) {
-        this.freelancer_review_id = freelancer_review_id;
-        this.clientMasterEntity = clientMasterEntity;
-        this.freelancerMasterEntity = freelancerMasterEntity;
+    public ClientReviewEntity(Long client_review_id, ClientMasterEntity client_id, FreelancerMasterEntity freelancer_id, String comment, int rating, LocalDateTime created_at) {
+        this.client_review_id = client_review_id;
+        this.client_id = client_id;
+        this.freelancer_id = freelancer_id;
         this.comment = comment;
         this.rating = rating;
         this.created_at = created_at;
     }
 
-    public int getFreelancer_review_id() {
-        return freelancer_review_id;
+    public Long getClient_review_id() {
+        return client_review_id;
     }
 
-    public void setFreelancer_review_id(int freelancer_review_id) {
-        this.freelancer_review_id = freelancer_review_id;
+    public void setClient_review_id(Long client_review_id) {
+        this.client_review_id = client_review_id;
     }
 
-    public ClientMasterEntity getClientMasterEntity() {
-        return clientMasterEntity;
+    public ClientMasterEntity getClient_id() {
+        return client_id;
     }
 
-    public void setClientMasterEntity(ClientMasterEntity clientMasterEntity) {
-        this.clientMasterEntity = clientMasterEntity;
+    public void setClient_id(ClientMasterEntity client_id) {
+        this.client_id = client_id;
     }
 
-    public FreelancerMasterEntity getFreelancerMasterEntity() {
-        return freelancerMasterEntity;
+    public FreelancerMasterEntity getFreelancer_id() {
+        return freelancer_id;
     }
 
-    public void setFreelancerMasterEntity(FreelancerMasterEntity freelancerMasterEntity) {
-        this.freelancerMasterEntity = freelancerMasterEntity;
+    public void setFreelancer_id(FreelancerMasterEntity freelancer_id) {
+        this.freelancer_id = freelancer_id;
     }
 
     public String getComment() {
@@ -95,5 +98,10 @@ public class ClientReviewEntity {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
     }
 }

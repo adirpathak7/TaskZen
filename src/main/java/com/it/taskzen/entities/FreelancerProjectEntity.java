@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,16 +24,17 @@ import javax.persistence.Table;
 public class FreelancerProjectEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int freelancer_project_id;
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "freelancer_project_seq")
+    @SequenceGenerator(name = "freelancer_project_seq", sequenceName = "freelancer_project_sequence", allocationSize = 1)
+    private Long freelancer_project_id;
+    
     @ManyToOne
     @JoinColumn(name = "freelancer_id", referencedColumnName = "freelancer_id")
-    private FreelancerMasterEntity freelancerMasterEntity;
+    private FreelancerMasterEntity freelancer_id;
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
-    private ClientMasterEntity clientMasterEntity;
+    private ClientMasterEntity client_id;
 
     private String freelancer_project_name;
     private String details;
@@ -43,10 +46,10 @@ public class FreelancerProjectEntity {
     public FreelancerProjectEntity() {
     }
 
-    public FreelancerProjectEntity(int freelancer_project_id, FreelancerMasterEntity freelancerMasterEntity, ClientMasterEntity clientMasterEntity, String freelancer_project_name, String details, String project_link, String freelancer_project_github_link, String freelancer_project_linkedin_link, LocalDateTime created_at) {
+    public FreelancerProjectEntity(Long freelancer_project_id, FreelancerMasterEntity freelancer_id, ClientMasterEntity client_id, String freelancer_project_name, String details, String project_link, String freelancer_project_github_link, String freelancer_project_linkedin_link, LocalDateTime created_at) {
         this.freelancer_project_id = freelancer_project_id;
-        this.freelancerMasterEntity = freelancerMasterEntity;
-        this.clientMasterEntity = clientMasterEntity;
+        this.freelancer_id = freelancer_id;
+        this.client_id = client_id;
         this.freelancer_project_name = freelancer_project_name;
         this.details = details;
         this.project_link = project_link;
@@ -55,28 +58,28 @@ public class FreelancerProjectEntity {
         this.created_at = created_at;
     }
 
-    public int getFreelancer_project_id() {
+    public Long getFreelancer_project_id() {
         return freelancer_project_id;
     }
 
-    public void setFreelancer_project_id(int freelancer_project_id) {
+    public void setFreelancer_project_id(Long freelancer_project_id) {
         this.freelancer_project_id = freelancer_project_id;
     }
 
-    public FreelancerMasterEntity getFreelancerMasterEntity() {
-        return freelancerMasterEntity;
+    public FreelancerMasterEntity getFreelancer_id() {
+        return freelancer_id;
     }
 
-    public void setFreelancerMasterEntity(FreelancerMasterEntity freelancerMasterEntity) {
-        this.freelancerMasterEntity = freelancerMasterEntity;
+    public void setFreelancer_id(FreelancerMasterEntity freelancer_id) {
+        this.freelancer_id = freelancer_id;
     }
 
-    public ClientMasterEntity getClientMasterEntity() {
-        return clientMasterEntity;
+    public ClientMasterEntity getClient_id() {
+        return client_id;
     }
 
-    public void setClientMasterEntity(ClientMasterEntity clientMasterEntity) {
-        this.clientMasterEntity = clientMasterEntity;
+    public void setClient_id(ClientMasterEntity client_id) {
+        this.client_id = client_id;
     }
 
     public String getFreelancer_project_name() {
@@ -125,5 +128,10 @@ public class FreelancerProjectEntity {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
     }
 }

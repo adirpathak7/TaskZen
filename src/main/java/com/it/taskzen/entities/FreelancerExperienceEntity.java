@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,12 +24,13 @@ import javax.persistence.Table;
 public class FreelancerExperienceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int freelancer_experience_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "freelancer_experience_seq")
+    @SequenceGenerator(name = "freelancer_experience_seq", sequenceName = "freelancer_experience_sequence", allocationSize = 1)
+    private Long freelancer_experience;
 
     @ManyToOne
     @JoinColumn(name = "freelancer_id", referencedColumnName = "freelancer_id")
-    private FreelancerMasterEntity freelancerMasterEntity;
+    private FreelancerMasterEntity freelancer_id;
 
     private String client_name;
     private String designation;
@@ -38,9 +41,9 @@ public class FreelancerExperienceEntity {
     public FreelancerExperienceEntity() {
     }
 
-    public FreelancerExperienceEntity(int freelancer_experience_id, FreelancerMasterEntity freelancerMasterEntity, String client_name, String designation, String starting_date, LocalDateTime ending_date, LocalDateTime created_at) {
-        this.freelancer_experience_id = freelancer_experience_id;
-        this.freelancerMasterEntity = freelancerMasterEntity;
+    public FreelancerExperienceEntity(Long freelancer_experience, FreelancerMasterEntity freelancer_id, String client_name, String designation, String starting_date, LocalDateTime ending_date, LocalDateTime created_at) {
+        this.freelancer_experience = freelancer_experience;
+        this.freelancer_id = freelancer_id;
         this.client_name = client_name;
         this.designation = designation;
         this.starting_date = starting_date;
@@ -48,20 +51,20 @@ public class FreelancerExperienceEntity {
         this.created_at = created_at;
     }
 
-    public int getFreelancer_experience_id() {
-        return freelancer_experience_id;
+    public Long getFreelancer_experience() {
+        return freelancer_experience;
     }
 
-    public void setFreelancer_experience_id(int freelancer_experience_id) {
-        this.freelancer_experience_id = freelancer_experience_id;
+    public void setFreelancer_experience(Long freelancer_experience) {
+        this.freelancer_experience = freelancer_experience;
     }
 
-    public FreelancerMasterEntity getFreelancerMasterEntity() {
-        return freelancerMasterEntity;
+    public FreelancerMasterEntity getFreelancer_id() {
+        return freelancer_id;
     }
 
-    public void setFreelancerMasterEntity(FreelancerMasterEntity freelancerMasterEntity) {
-        this.freelancerMasterEntity = freelancerMasterEntity;
+    public void setFreelancer_id(FreelancerMasterEntity freelancer_id) {
+        this.freelancer_id = freelancer_id;
     }
 
     public String getClient_name() {
@@ -104,4 +107,8 @@ public class FreelancerExperienceEntity {
         this.created_at = created_at;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+    }
 }

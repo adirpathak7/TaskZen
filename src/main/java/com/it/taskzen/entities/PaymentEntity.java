@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -24,24 +26,25 @@ import javax.persistence.Table;
 public class PaymentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int payment_id;
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_seq")
+    @SequenceGenerator(name = "payment_seq", sequenceName = "payment_sequence", allocationSize = 1)
+    private Long payment_id;
+    
     @ManyToOne
     @JoinColumn(name = "freelancer_id", referencedColumnName = "freelancer_id")
-    private FreelancerMasterEntity freelancerMasterEntity;
+    private FreelancerMasterEntity freelancer_id;
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
-    private ClientMasterEntity clientMasterEntity;
+    private ClientMasterEntity client_id;
 
     @ManyToOne
     @JoinColumn(name = "freelancer_project_id", referencedColumnName = "freelancer_project_id")
-    private FreelancerProjectEntity freelancerProjectEntity;
+    private FreelancerProjectEntity freelancer_project_id;
 
     @ManyToOne
     @JoinColumn(name = "client_project_id", referencedColumnName = "client_project_id")
-    private ClientProjectEntity clientProjectEntity;
+    private ClientProjectEntity client_project_id;
 
     private String total_amount;
     private String half_pay_amount;
@@ -54,12 +57,12 @@ public class PaymentEntity {
     public PaymentEntity() {
     }
 
-    public PaymentEntity(int payment_id, FreelancerMasterEntity freelancerMasterEntity, ClientMasterEntity clientMasterEntity, FreelancerProjectEntity freelancerProjectEntity, ClientProjectEntity clientProjectEntity, String total_amount, String half_pay_amount, String payment_method, Status status, LocalDateTime created_at) {
+    public PaymentEntity(Long payment_id, FreelancerMasterEntity freelancer_id, ClientMasterEntity client_id, FreelancerProjectEntity freelancer_project_id, ClientProjectEntity client_project_id, String total_amount, String half_pay_amount, String payment_method, Status status, LocalDateTime created_at) {
         this.payment_id = payment_id;
-        this.freelancerMasterEntity = freelancerMasterEntity;
-        this.clientMasterEntity = clientMasterEntity;
-        this.freelancerProjectEntity = freelancerProjectEntity;
-        this.clientProjectEntity = clientProjectEntity;
+        this.freelancer_id = freelancer_id;
+        this.client_id = client_id;
+        this.freelancer_project_id = freelancer_project_id;
+        this.client_project_id = client_project_id;
         this.total_amount = total_amount;
         this.half_pay_amount = half_pay_amount;
         this.payment_method = payment_method;
@@ -67,44 +70,44 @@ public class PaymentEntity {
         this.created_at = created_at;
     }
 
-    public int getPayment_id() {
+    public Long getPayment_id() {
         return payment_id;
     }
 
-    public void setPayment_id(int payment_id) {
+    public void setPayment_id(Long payment_id) {
         this.payment_id = payment_id;
     }
 
-    public FreelancerMasterEntity getFreelancerMasterEntity() {
-        return freelancerMasterEntity;
+    public FreelancerMasterEntity getFreelancer_id() {
+        return freelancer_id;
     }
 
-    public void setFreelancerMasterEntity(FreelancerMasterEntity freelancerMasterEntity) {
-        this.freelancerMasterEntity = freelancerMasterEntity;
+    public void setFreelancer_id(FreelancerMasterEntity freelancer_id) {
+        this.freelancer_id = freelancer_id;
     }
 
-    public ClientMasterEntity getClientMasterEntity() {
-        return clientMasterEntity;
+    public ClientMasterEntity getClient_id() {
+        return client_id;
     }
 
-    public void setClientMasterEntity(ClientMasterEntity clientMasterEntity) {
-        this.clientMasterEntity = clientMasterEntity;
+    public void setClient_id(ClientMasterEntity client_id) {
+        this.client_id = client_id;
     }
 
-    public FreelancerProjectEntity getFreelancerProjectEntity() {
-        return freelancerProjectEntity;
+    public FreelancerProjectEntity getFreelancer_project_id() {
+        return freelancer_project_id;
     }
 
-    public void setFreelancerProjectEntity(FreelancerProjectEntity freelancerProjectEntity) {
-        this.freelancerProjectEntity = freelancerProjectEntity;
+    public void setFreelancer_project_id(FreelancerProjectEntity freelancer_project_id) {
+        this.freelancer_project_id = freelancer_project_id;
     }
 
-    public ClientProjectEntity getClientProjectEntity() {
-        return clientProjectEntity;
+    public ClientProjectEntity getClient_project_id() {
+        return client_project_id;
     }
 
-    public void setClientProjectEntity(ClientProjectEntity clientProjectEntity) {
-        this.clientProjectEntity = clientProjectEntity;
+    public void setClient_project_id(ClientProjectEntity client_project_id) {
+        this.client_project_id = client_project_id;
     }
 
     public String getTotal_amount() {
@@ -145,6 +148,11 @@ public class PaymentEntity {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
     }
 
     public enum Status {

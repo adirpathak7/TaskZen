@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -24,16 +26,17 @@ import javax.persistence.Table;
 public class ContractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int contract_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_seq")
+    @SequenceGenerator(name = "contract_seq", sequenceName = "contract_sequence", allocationSize = 1)
+    private Long contract_id;
 
     @ManyToOne
     @JoinColumn(name = "freelancer_id", referencedColumnName = "freelancer_id")
-    private FreelancerMasterEntity freelancerMasterEntity;
+    private FreelancerMasterEntity freelancer_id;
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
-    private ClientMasterEntity clientMasterEntity;
+    private ClientMasterEntity client_id;
 
     private String start_date;
     private String end_date;
@@ -46,10 +49,10 @@ public class ContractEntity {
     public ContractEntity() {
     }
 
-    public ContractEntity(int contract_id, FreelancerMasterEntity freelancerMasterEntity, ClientMasterEntity clientMasterEntity, String start_date, String end_date, String amount_agreed, Status status, LocalDateTime created_at) {
+    public ContractEntity(Long contract_id, FreelancerMasterEntity freelancer_id, ClientMasterEntity client_id, String start_date, String end_date, String amount_agreed, Status status, LocalDateTime created_at) {
         this.contract_id = contract_id;
-        this.freelancerMasterEntity = freelancerMasterEntity;
-        this.clientMasterEntity = clientMasterEntity;
+        this.freelancer_id = freelancer_id;
+        this.client_id = client_id;
         this.start_date = start_date;
         this.end_date = end_date;
         this.amount_agreed = amount_agreed;
@@ -57,28 +60,28 @@ public class ContractEntity {
         this.created_at = created_at;
     }
 
-    public int getContract_id() {
+    public Long getContract_id() {
         return contract_id;
     }
 
-    public void setContract_id(int contract_id) {
+    public void setContract_id(Long contract_id) {
         this.contract_id = contract_id;
     }
 
-    public FreelancerMasterEntity getFreelancerMasterEntity() {
-        return freelancerMasterEntity;
+    public FreelancerMasterEntity getFreelancer_id() {
+        return freelancer_id;
     }
 
-    public void setFreelancerMasterEntity(FreelancerMasterEntity freelancerMasterEntity) {
-        this.freelancerMasterEntity = freelancerMasterEntity;
+    public void setFreelancer_id(FreelancerMasterEntity freelancer_id) {
+        this.freelancer_id = freelancer_id;
     }
 
-    public ClientMasterEntity getClientMasterEntity() {
-        return clientMasterEntity;
+    public ClientMasterEntity getClient_id() {
+        return client_id;
     }
 
-    public void setClientMasterEntity(ClientMasterEntity clientMasterEntity) {
-        this.clientMasterEntity = clientMasterEntity;
+    public void setClient_id(ClientMasterEntity client_id) {
+        this.client_id = client_id;
     }
 
     public String getStart_date() {
@@ -119,6 +122,11 @@ public class ContractEntity {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
     }
 
     public enum Status {

@@ -6,9 +6,13 @@ package com.it.taskzen.entities;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -20,21 +24,26 @@ import javax.persistence.Table;
 public class AdminEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int admin_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_seq")
+    @SequenceGenerator(name = "admin_seq", sequenceName = "admin_sequence", allocationSize = 1)
+    private Long admin_id;
 
     private String email;
     private String password;
     private LocalDateTime created_at;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     public AdminEntity() {
     }
 
-    public AdminEntity(int admin_id, String email, String password, LocalDateTime created_at) {
+    public AdminEntity(Long admin_id, String email, String password, LocalDateTime created_at, Role role) {
         this.admin_id = admin_id;
         this.email = email;
         this.password = password;
         this.created_at = created_at;
+        this.role = role;
     }
 
     public AdminEntity(String email, String password) {
@@ -42,11 +51,11 @@ public class AdminEntity {
         this.password = password;
     }
 
-    public int getAdmin_id() {
+    public Long getAdmin_id() {
         return admin_id;
     }
 
-    public void setAdmin_id(int admin_id) {
+    public void setAdmin_id(Long admin_id) {
         this.admin_id = admin_id;
     }
 
@@ -72,5 +81,35 @@ public class AdminEntity {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+        if (role == null) {
+            role = Role.admin;
+        }
+    }
+
+    public enum Role {
+        admin("admin");
+
+        private final String value;
+
+        Role(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,8 +24,9 @@ import javax.persistence.Table;
 public class MessagesEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int message_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
+    @SequenceGenerator(name = "message_seq", sequenceName = "message_sequence", allocationSize = 1)
+    private Long message_id;
 
     private int conversation_id;
     private int sender_id;
@@ -46,7 +49,7 @@ public class MessagesEntity {
     public MessagesEntity() {
     }
 
-    public MessagesEntity(int message_id, int conversation_id, int sender_id, int receiver_id, Sender_Role sender_role, Receiver_Role receiver_role, String message_content, LocalDateTime messageTime, Status status, LocalDateTime created_at) {
+    public MessagesEntity(Long message_id, int conversation_id, int sender_id, int receiver_id, Sender_Role sender_role, Receiver_Role receiver_role, String message_content, LocalDateTime messageTime, Status status, LocalDateTime created_at) {
         this.message_id = message_id;
         this.conversation_id = conversation_id;
         this.sender_id = sender_id;
@@ -59,11 +62,11 @@ public class MessagesEntity {
         this.created_at = created_at;
     }
 
-    public int getMessage_id() {
+    public Long getMessage_id() {
         return message_id;
     }
 
-    public void setMessage_id(int message_id) {
+    public void setMessage_id(Long message_id) {
         this.message_id = message_id;
     }
 
@@ -133,6 +136,11 @@ public class MessagesEntity {
 
     public LocalDateTime getCreated_at() {
         return created_at;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
     }
 
     public void setCreated_at(LocalDateTime created_at) {
