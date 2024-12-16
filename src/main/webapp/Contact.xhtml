@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<head>
+    <title>Task-Zen Admin Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<h:body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <header class="bg-white shadow-md">
+        <div class="max-w-screen-xl mx-auto p-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.xhtml">
+                <img class="h-12" src="images/TaskZen.jpg" alt="Task-Zen Logo"/>
+            </a>
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-10 text-lg">
+                <a href="Home.xhtml" class="text-gray-900 hover:text-blue-500 transition">Home</a>
+                <a href="About.xhtml" class="text-gray-900 hover:text-blue-500 transition">About</a>
+                <a href="Contact.xhtml" class="text-gray-900 hover:text-blue-500 transition">Contact</a>
+                <a href="Service.xhtml" class="text-gray-900 hover:text-blue-500 transition">Service</a>
+            </nav>
+            <!-- Login/Sign-up -->
+            <div class="space-x-4">
+                <a href="Login.xhtml" class="bg-gray-100 py-2 px-5 text-gray-800 rounded-lg hover:bg-blue-500 hover:text-white transition">Login</a>
+                <a href="Register.xhtml" class="bg-gray-100 py-2 px-5 text-gray-800 rounded-lg hover:bg-blue-500 hover:text-white transition">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Form Section -->
+    <div class="max-w-3xl mx-auto my-16 p-8 bg-white shadow-lg rounded-lg">
+        <h2 class="text-3xl font-semibold text-gray-800 text-center mb-6">Contact Us</h2>
+
+        <!-- JSF Form -->
+        <h:form class="space-y-6">
+            <!-- Name Field -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <h:outputLabel for="name" value="Name" class="text-sm font-medium text-gray-700"/>
+                    <h:inputText id="name" value="#{contactBean.name}" required="true" 
+                                 styleClass="mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                </div>
+
+                <!-- Email Field -->
+                <div class="flex flex-col">
+                    <h:outputLabel for="email" value="Email" class="text-sm font-medium text-gray-700"/>
+                    <h:inputText id="email" value="#{contactBean.email}" required="true" 
+                                 validatorMessage="Invalid email address"
+                                 styleClass="mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                </div>
+            </div>
+
+            <!-- Message Field -->
+            <div class="flex flex-col">
+                <h:outputLabel for="message" value="Message" class="text-sm font-medium text-gray-700"/>
+                <h:inputTextarea id="message" value="#{contactBean.message}" required="true"
+                                 styleClass="mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"/>
+            </div>
+
+            <!-- Submit Button -->
+            <h:commandButton value="Submit" action="#{contactBean.submitContact}" 
+                             class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"/>
+        </h:form>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="text-center">
+            <p>&copy; 2024 Task-Zen. All rights reserved.</p>
+        </div>
+    </footer>
+
+</h:body>
+</html>

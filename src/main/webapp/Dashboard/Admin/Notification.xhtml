@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <title>Task-Zen Admin Companys</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Remix Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    </head>
+    <h:body class="bg-gray-100">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold text-gray-700">User Activity Notifications</h1>
+                <p class="text-gray-500">Manage pending actions and reported issues for freelancers and companies.</p>
+            </div>
+
+            <!-- Tabs for Freelancers and Companies -->
+            <div class="mb-6">
+                <div class="flex border-b border-gray-300">
+                    <button class="tab-btn text-blue-600 border-b-2 border-blue-600 py-2 px-4 focus:outline-none" data-target="freelancers">
+                        Freelancers
+                    </button>
+                    <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 focus:outline-none" data-target="companies">
+                        Companies
+                    </button>
+                </div>
+            </div>
+
+            <!-- Freelancers Content -->
+            <div id="freelancers" class="tab-content">
+                <h2 class="text-xl font-semibold mb-4">Freelancer Notifications</h2>
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-600">
+                                <th class="py-2 px-4">Name</th>
+                                <th class="py-2 px-4">Activity</th>
+                                <th class="py-2 px-4">Date</th>
+                                <th class="py-2 px-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t">
+                                <td class="py-2 px-4">John Doe</td>
+                                <td class="py-2 px-4">New Registration</td>
+                                <td class="py-2 px-4">2024-12-15</td>
+                                <td class="py-2 px-4">
+                                    <button class="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600">Approve</button>
+                                    <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Reject</button>
+                                </td>
+                            </tr>
+                            <tr class="border-t">
+                                <td class="py-2 px-4">Jane Smith</td>
+                                <td class="py-2 px-4">Profile Update Pending</td>
+                                <td class="py-2 px-4">2024-12-14</td>
+                                <td class="py-2 px-4">
+                                    <button class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Companies Content -->
+            <div id="companies" class="tab-content hidden">
+                <h2 class="text-xl font-semibold mb-4">Company Notifications</h2>
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-600">
+                                <th class="py-2 px-4">Company</th>
+                                <th class="py-2 px-4">Activity</th>
+                                <th class="py-2 px-4">Date</th>
+                                <th class="py-2 px-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t">
+                                <td class="py-2 px-4">Acme Corp</td>
+                                <td class="py-2 px-4">New Sign-Up</td>
+                                <td class="py-2 px-4">2024-12-15</td>
+                                <td class="py-2 px-4">
+                                    <button class="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600">Approve</button>
+                                    <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Reject</button>
+                                </td>
+                            </tr>
+                            <tr class="border-t">
+                                <td class="py-2 px-4">Globex Inc</td>
+                                <td class="py-2 px-4">Reported Issue</td>
+                                <td class="py-2 px-4">2024-12-14</td>
+                                <td class="py-2 px-4">
+                                    <button class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">View</button>
+                                    <button class="bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600">Dismiss</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript for Tab Switching -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.tab-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        // Reset styles for all buttons
+                        document.querySelectorAll('.tab-btn').forEach(btn => {
+                            btn.classList.remove('text-blue-600', 'border-blue-600');
+                            btn.classList.add('text-gray-600', 'border-transparent');
+                        });
+
+                        // Highlight the clicked button
+                        button.classList.add('text-blue-600', 'border-blue-600');
+                        button.classList.remove('text-gray-600', 'border-transparent');
+
+                        // Hide all tab contents
+                        document.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.add('hidden');
+                        });
+
+                        // Show the target tab content
+                        const target = button.dataset.target;
+                        const contentToShow = document.getElementById(target);
+                        if (contentToShow) {
+                            contentToShow.classList.remove('hidden');
+                        } else {
+                            console.error(`No content found with ID "${target}"`);
+                        }
+                    });
+                });
+            });
+        </script>
+    </h:body>
+</html>

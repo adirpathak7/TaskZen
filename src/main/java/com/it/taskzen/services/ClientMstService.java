@@ -44,35 +44,56 @@ public class ClientMstService {
     }
 
     public ClientMasterEntity clientsAllDetails(String token, ClientMasterEntity clientMasterEntity, MultipartFile profilePicture) throws IOException {
+        // Extract the user ID from the JWT token
         Long userId = jWTService.extractUserId(token);
-        System.out.println("the user_id is in clientsAllDetails service " + userId);
+//        System.out.println("The user_id extracted from JWT: " + userId);
 
+        // Fetch the user entity based on the extracted user ID
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
-
         clientMasterEntity.setUser_id(userEntity);
 
+        // Check if a ClientMasterEntity record exists for this user based on the token
+        Optional<ClientMasterEntity> existingClient = clientMstRepository.findByUser_Id(userId);
+
+        // Upload the profile picture to Cloudinary
         Map uploadResult = cloudinary.uploader().upload(profilePicture.getBytes(), ObjectUtils.emptyMap());
         String photoUrl = uploadResult.get("url").toString();
         if (photoUrl == null || photoUrl.isEmpty()) {
             throw new IllegalArgumentException("Profile picture can't be empty!");
         }
-        clientMasterEntity.setProfile_picture(photoUrl);
 
-        return clientMstRepository.save(clientMasterEntity);
+        // Update or create the client details based on the token
+        if (existingClient.isPresent()) {
+            // Update the existing record
+            ClientMasterEntity clientToUpdate = existingClient.get();
+            clientToUpdate.setClient_name(clientMasterEntity.getClient_name());
+            clientToUpdate.setContact(clientMasterEntity.getContact());
+            clientToUpdate.setCountry(clientMasterEntity.getCountry());
+            clientToUpdate.setEstablish(clientMasterEntity.getEstablish());
+            clientToUpdate.setIndustry(clientMasterEntity.getIndustry());
+            clientToUpdate.setProfile_picture(photoUrl);
+
+            return clientMstRepository.save(clientToUpdate);
+        } else {
+            // Save a new record
+            clientMasterEntity.setProfile_picture(photoUrl);
+            return clientMstRepository.save(clientMasterEntity);
+        }
     }
 
     public Optional<ClientMasterEntity> searchClientById(Long client_id) {
         return clientMstRepository.findById(client_id);
     }
 
-    public ClientMasterEntity updateClientDetail(Long client_id, String contact, String country,
+    public ClientMasterEntity updateClientDetail(Long client_id, String client_name, String contact, String country,
             String establish, String industry, MultipartFile profile_Picture) throws IOException {
         Optional<ClientMasterEntity> existingClientOpt = clientMstRepository.findById(client_id);
 
         if (existingClientOpt.isPresent()) {
             ClientMasterEntity existingClient = existingClientOpt.get();
 
+            existingClient.setClient_name(client_name);
             existingClient.setContact(contact);
             existingClient.setCountry(country);
             existingClient.setEstablish(establish);
@@ -99,5 +120,10 @@ public class ClientMstService {
         if (updatedRows == 0) {
             throw new ResourceNotFoundException("Client not found with id: " + client_id);
         }
+    }
+
+    public List<ClientMasterEntity> getClientDetailsByToken(String token) {
+        Long client_id = jWTService.extractUserId(token);
+        return clientMstRepository.findClientById(client_id);
     }
 }

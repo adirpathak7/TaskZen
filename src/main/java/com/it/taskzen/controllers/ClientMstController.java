@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Aditya Pathak R
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:8080"}, allowCredentials = "true")
 @RequestMapping(value = "/api")
 public class ClientMstController {
 
@@ -56,13 +56,14 @@ public class ClientMstController {
     @PostMapping(value = "/clientsAllDetails", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Map<String, String>> clientsAllDetails(
             @RequestHeader("Authorization") String token,
+            @RequestParam("client_name") String client_name,
             @RequestParam("contact") String contact,
             @RequestParam("profile_picture") MultipartFile profilePicture,
             @RequestParam("country") String country,
             @RequestParam("establish") String establish,
             @RequestParam("industry") String industry) throws IOException {
 
-        ClientMasterEntity clientMasterEntity = new ClientMasterEntity(contact, country, establish, industry);
+        ClientMasterEntity clientMasterEntity = new ClientMasterEntity(client_name, contact, country, establish, industry);
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7).trim();
         }
@@ -86,13 +87,14 @@ public class ClientMstController {
     @PutMapping(value = "/updateClientDetail/{client_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Map<String, String>> updateClientDetails(
             @PathVariable("client_id") Long client_id,
+            @RequestParam("client_name") String client_name,
             @RequestParam("contact") String contact,
             @RequestParam("country") String country,
             @RequestParam("establish") String establish,
             @RequestParam("industry") String industry,
             @RequestParam(value = "profile_picture", required = false) MultipartFile profile_Picture) {
         try {
-            clientMstService.updateClientDetail(client_id, contact, country, establish, industry, profile_Picture);
+            clientMstService.updateClientDetail(client_id, client_name, contact, country, establish, industry, profile_Picture);
             return new ResponseEntity("User updated successfully.", HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -123,5 +125,19 @@ public class ClientMstController {
         } catch (Exception e) {
             return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
         }
+    }
+    
+    @GetMapping("/getClientDetailsByToken")
+    public ResponseEntity<Map<String, Object>> getClientDetailsByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<ClientMasterEntity> educationDetails = clientMstService.getClientDetailsByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Client details fetched successfully.");
+        response.put("data", educationDetails);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

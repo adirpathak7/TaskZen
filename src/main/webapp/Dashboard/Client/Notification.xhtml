@@ -5,11 +5,263 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-        <title>Company Dashboard - Notification</title>
+        <title>Client Dashboard - Notification</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
-        
+        <div class="h-full bg-gray-100 py-8 px-4">
+
+            <!-- Page Header -->
+            <div class="mb-6 flex justify-between items-center">
+                <h1 class="text-3xl font-semibold text-gray-900">Project Requests</h1>
+            </div>
+
+            <!-- Table Container -->
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="px-6 py-3 text-left">Project No.</th>
+                            <th class="px-6 py-3 text-left">Project ID</th>
+                            <th class="px-6 py-3 text-left">Project Title</th>
+                            <th class="px-6 py-3 text-left">Project Cost</th>
+                            <th class="px-6 py-3 text-left">Due Date</th>
+                            <th class="px-6 py-3 text-left">Last Submission</th>
+                            <th class="px-6 py-3 text-left">Freelancer Names</th>
+                            <th class="px-6 py-3 text-left">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <!-- Row 1 -->
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">1</td>
+                            <td class="px-6 py-4">001</td>
+                            <td class="px-6 py-4">WhatsApp</td>
+                            <td class="px-6 py-4">1,25,000</td>
+                            <td class="px-6 py-4">Dec 15, 2024</td>
+                            <td class="px-6 py-4">Jun 24, 2025</td>
+                            <td class="px-6 py-4">Alice Jone</td>
+                            <td class="px-6 py-4">
+
+                                <div class="flex items-center gap-2">
+
+                                    <button
+                                        class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+                                        disabled="disabled">Hiring</button>
+                                    <button
+                                        class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+                                        disabled="disabled">View</button>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">1</td>
+                            <td class="px-6 py-4">001</td>
+                            <td class="px-6 py-4">WhatsApp</td>
+                            <td class="px-6 py-4">1,25,000</td>
+                            <td class="px-6 py-4">Dec 15, 2024</td>
+                            <td class="px-6 py-4">Jun 24, 2025</td>
+                            <td class="px-6 py-4">Alice Jone</td>
+                            <td class="px-6 py-4">
+
+                                <div class="flex items-center gap-2">
+
+                                    <button
+                                        class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+                                        disabled="disabled">Hiring</button>
+                                    <button
+                                        class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+                                        disabled="disabled">View</button>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <!--Row-3-->
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">1</td>
+                            <td class="px-6 py-4">001</td>
+                            <td class="px-6 py-4">WhatsApp</td>
+                            <td class="px-6 py-4">1,25,000</td>
+                            <td class="px-6 py-4">Dec 15, 2024</td>
+                            <td class="px-6 py-4">Jun 24, 2025</td>
+                            <td class="px-6 py-4">Alice Jone</td>
+                            <td class="px-6 py-4">
+
+                                <div class="flex items-center gap-2">
+
+                                    <button
+                                        class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+                                        disabled="disabled">Hiring</button>
+                                    <button
+                                        class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+                                        disabled="disabled">View</button>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg h-screen mt-5">
+
+                <!-- Communication Clients Container -->
+                <div class="flex flex-l">
+                    <!-- Client Notification Box -->
+                    <div class="flex-1 bg-blue-500 flex items-center justify-center">
+                        <div class="bg-white p-6 rounded-lg shadow-lg w-full">
+                            <h2 class="text-xl font-semibold mb-4 text-gray-700">Chats</h2>
+                            <div class="space-y-4 divide-y divide-gray-200">
+                                <!-- Chat Item -->
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="flex items-center">
+                                        <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                            <i class="ri-account-pin-circle-line text-3xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-semibold text-gray-900">
+                                                Devid Heilo
+                                            </h3>
+                                            <p class="text-xs text-gray-500">
+                                                Hello, how are you? ·
+                                                <span class="text-gray-400">12 min</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                </div>
+
+                                <!-- Repeat for each chat item -->
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="flex items-center">
+                                        <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                            <i class="ri-account-pin-circle-line text-3xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-semibold text-gray-900">
+                                                Henry Fisher
+                                            </h3>
+                                            <p class="text-xs text-gray-500">
+                                                I am waiting for you ·
+                                                <span class="text-gray-400">5:54 PM</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="flex items-center">
+                                        <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                            <i class="ri-account-pin-circle-line text-3xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-semibold text-gray-900">
+                                                Wilium Smith
+                                            </h3>
+                                            <p class="text-xs text-gray-500">
+                                                Where are you now? ·
+                                                <span class="text-gray-400">10:12 PM</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">2</span>
+                                </div>
+
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="flex items-center">
+                                        <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                            <i class="ri-account-pin-circle-line text-3xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-semibold text-gray-900">
+                                                Henry Deco
+                                            </h3>
+                                            <p class="text-xs text-gray-500">
+                                                Thank you so much! · <span class="text-gray-400">Sun</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">2</span>
+                                </div>
+
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="flex items-center">
+                                        <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                            <i class="ri-account-pin-circle-line text-3xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-semibold text-gray-900">
+                                                Jubin Jack
+                                            </h3>
+                                            <p class="text-xs text-gray-500">
+                                                I really love that! ·
+                                                <span class="text-gray-400">Oct 23</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="flex items-center">
+                                        <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                            <i class="ri-account-pin-circle-line text-3xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-semibold text-gray-900">
+                                                Wilium Smith
+                                            </h3>
+                                            <p class="text-xs text-gray-500">
+                                                Where are you now? ·
+                                                <span class="text-gray-400">Sep 20</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Second 50% div -->
+                    <div class="flex-1 bg-green-500 flex items-center justify-center">
+                        <div class="flex flex-col w-full max-w-md h-3/4 bg-white shadow-lg rounded-lg overflow-hidden">
+
+                            <!-- Messages Area -->
+                            <div class="flex-1 p-4 overflow-y-auto space-y-4">
+                                <!-- Message from User -->
+                                <div class="self-end bg-blue-500 text-white p-2 rounded-lg max-w-xs">
+                                    Hi! How are you?
+                                </div>
+                                <!-- Message from Others -->
+                                <div class="self-start bg-gray-300 text-gray-800 p-2 rounded-lg max-w-xs">
+                                    I'm good, thank you! What about you?
+                                </div>
+                            </div>
+
+                            <!-- Input Area -->
+                            <div class="p-4 bg-gray-100 border-t">
+                                <div class="flex">
+                                    <input 
+                                        type="text"
+                                        placeholder="Type your message..." 
+                                        class="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        />
+                                    <button class="p-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600">
+                                        Send
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </body>
 </html>

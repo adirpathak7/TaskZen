@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <title>Task-Zen Admin Companys</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Remix Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    </head>
+    <h:body class="bg-gray-100">
+        <div class="container mx-auto mt-6">
+            <!-- Header Section -->
+            <div class="flex justify-between items-center border-b pb-4 mb-6">
+                <div class="flex items-center">
+                    <img src="https://via.placeholder.com/50" alt="Admin Avatar" class="w-12 h-12 rounded-full mr-4"/>
+                    <div>
+                        <h4 class="text-xl font-semibold">John Doe</h4>
+                        <p class="text-gray-500">Admin</p>
+                    </div>
+                </div>
+                <div class="space-x-4">
+                    <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Settings</button>
+                    <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+                </div>
+            </div>
+
+            <!-- Dashboard Overview -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-blue-500 text-white p-4 rounded shadow">
+                    <h5 class="text-lg">Total Freelancers</h5>
+                    <h2 class="text-2xl font-bold">256</h2>
+                </div>
+                <div class="bg-green-500 text-white p-4 rounded shadow">
+                    <h5 class="text-lg">Total Companies</h5>
+                    <h2 class="text-2xl font-bold">145</h2>
+                </div>
+                <div class="bg-yellow-500 text-gray-800 p-4 rounded shadow">
+                    <h5 class="text-lg">Pending Approvals</h5>
+                    <h2 class="text-2xl font-bold">12</h2>
+                </div>
+                <div class="bg-red-500 text-white p-4 rounded shadow">
+                    <h5 class="text-lg">Reported Issues</h5>
+                    <h2 class="text-2xl font-bold">3</h2>
+                </div>
+            </div>
+
+            <!-- Tabs Section -->
+            <div class="mt-6">
+                <div class="border-b">
+                    <nav class="flex space-x-4">
+                        <button class="py-2 px-4 border-b-2 border-blue-500 text-blue-500" id="freelancers-tab">Freelancers</button>
+                        <button class="py-2 px-4 text-gray-500 hover:text-blue-500" id="companies-tab">Companies</button>
+                        <button class="py-2 px-4 text-gray-500 hover:text-blue-500" id="reports-tab">Reports/Issues</button>
+                    </nav>
+                </div>
+
+                <!-- Content Tabs -->
+                <div id="freelancers" class="mt-4">
+                    <div class="bg-white p-6 rounded shadow">
+                        <h3 class="text-lg font-semibold mb-4">Freelancers</h3>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="border-b pb-2">Avatar</th>
+                                    <th class="border-b pb-2">Name</th>
+                                    <th class="border-b pb-2">Skills</th>
+                                    <th class="border-b pb-2">Status</th>
+                                    <th class="border-b pb-2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-2"><img src="https://via.placeholder.com/50" alt="Avatar" class="w-10 h-10 rounded-full"/></td>
+                                    <td class="py-2">Jane Doe</td>
+                                    <td class="py-2">Web Development</td>
+                                    <td class="py-2"><span class="px-2 py-1 bg-green-200 text-green-800 rounded">Active</span></td>
+                                    <td class="py-2 space-x-2">
+                                        <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">View</button>
+                                        <button class="px-3 py-1 bg-yellow-500 text-white text-sm rounded hover:bg-yellow-600">Warn</button>
+                                        <button class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600">Ban</button>
+                                    </td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="companies" class="hidden mt-4">
+                    <div class="bg-white p-6 rounded shadow">
+                        <h3 class="text-lg font-semibold mb-4">Companies</h3>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="border-b pb-2">Logo</th>
+                                    <th class="border-b pb-2">Company Name</th>
+                                    <th class="border-b pb-2">Industry</th>
+                                    <th class="border-b pb-2">Status</th>
+                                    <th class="border-b pb-2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-2"><img src="https://via.placeholder.com/50" alt="Logo" class="w-10 h-10 rounded"/></td>
+                                    <td class="py-2">Acme Corp</td>
+                                    <td class="py-2">IT Services</td>
+                                    <td class="py-2"><span class="px-2 py-1 bg-yellow-200 text-yellow-800 rounded">Pending</span></td>
+                                    <td class="py-2 space-x-2">
+                                        <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">View</button>
+                                        <button class="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600">Approve</button>
+                                        <button class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600">Reject</button>
+                                    </td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="reports" class="hidden mt-4">
+                    <div class="bg-white p-6 rounded shadow">
+                        <h3 class="text-lg font-semibold mb-4">Reported Issues</h3>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="border-b pb-2">Reporter</th>
+                                    <th class="border-b pb-2">Date</th>
+                                    <th class="border-b pb-2">Issue</th>
+                                    <th class="border-b pb-2">Status</th>
+                                    <th class="border-b pb-2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-2">John Smith</td>
+                                    <td class="py-2">2024-12-10</td>
+                                    <td class="py-2">Spam Content</td>
+                                    <td class="py-2"><span class="px-2 py-1 bg-red-200 text-red-800 rounded">Open</span></td>
+                                    <td class="py-2 space-x-2">
+                                        <button class="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600">Resolve</button>
+                                        <button class="px-3 py-1 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">Dismiss</button>
+                                    </td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </h:body>
+    <script>
+        const tabs = document.querySelectorAll('button[id$="-tab"]');
+        const tabContents = document.querySelectorAll('[id]');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('border-b-2', 'border-blue-500', 'text-blue-500'));
+                tab.classList.add('border-b-2', 'border-blue-500', 'text-blue-500');
+
+                tabContents.forEach(content => content.classList.add('hidden'));
+                const target = tab.id.replace('-tab', '');
+                document.getElementById(target).classList.remove('hidden');
+            });
+        });
+    </script>
+</html>

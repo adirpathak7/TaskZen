@@ -34,6 +34,7 @@ public class ClientMasterEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity user_id;
 
+    private String client_name;
     private String contact;
     private String profile_picture;
     private String country;
@@ -48,7 +49,8 @@ public class ClientMasterEntity {
     public ClientMasterEntity() {
     }
 
-    public ClientMasterEntity(Long client_id, UserEntity user_id, String contact, String profile_picture, String country, String establish, String industry, Status status, LocalDateTime created_at) {
+    public ClientMasterEntity(String client_name, Long client_id, UserEntity user_id, String contact, String profile_picture, String country, String establish, String industry, Status status, LocalDateTime created_at) {
+        this.client_name = client_name;
         this.client_id = client_id;
         this.user_id = user_id;
         this.contact = contact;
@@ -60,7 +62,8 @@ public class ClientMasterEntity {
         this.created_at = created_at;
     }
 
-    public ClientMasterEntity(String contact, String country, String establish, String industry) {
+    public ClientMasterEntity(String client_name, String contact, String country, String establish, String industry) {
+        this.client_name = client_name;
         this.contact = contact;
         this.country = country;
         this.establish = establish;
@@ -73,6 +76,14 @@ public class ClientMasterEntity {
 
     public void setClient_id(Long client_id) {
         this.client_id = client_id;
+    }
+
+    public String getClient_name() {
+        return client_name;
+    }
+
+    public void setClient_name(String client_name) {
+        this.client_name = client_name;
     }
 
     public String getContact() {

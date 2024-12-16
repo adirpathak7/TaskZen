@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <title>Task-Zen Admin Dashboard</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Remix Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    </head>
+    <body>
+        <!-- Stats Cards Start-->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+                <i class="ri-user-3-fill text-4xl text-white"></i>
+                <div class="ml-4">
+                    <div class="text-white">Total Users</div>
+                    <div class="text-2xl font-semibold text-white">$3.456K</div>
+                </div>
+            </div>
+            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+                <i class="ri-eye-fill text-4xl text-white"></i>
+                <div class="ml-4">
+                    <div class="text-white">Total Visitors</div>
+                    <div class="text-2xl font-semibold text-white">$45.2K</div>
+                </div>
+            </div>
+            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+                <i class="ri-building-2-line text-4xl text-white"></i>
+                <div class="ml-4">
+                    <div class="text-white">Total Companys</div>
+                    <div class="text-2xl font-semibold text-white">2,450</div>
+                </div>
+            </div>
+            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+                <i class="ri-user-follow-fill text-4xl text-white"></i>
+                <div class="ml-4">
+                    <div class="text-white">Total Freelsncers</div>
+                    <div class="text-2xl font-semibold text-white">3,456</div>
+                </div>
+            </div>
+        </div>
+        <!-- Stats Cards End-->
+
+
+        <!--Active Companys and Freelancers Start-->
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg h-screen mt-5">
+
+            <!-- Companys Active List Start -->
+            <div class="flex flex-l">
+
+                <div class="flex-1 bg-blue-500 flex items-center justify-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg w-full">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center">Companys List</h2>
+                        <div class="space-y-4 divide-y divide-gray-200">
+                            <!-- Chat Item -->
+                            <table class="w-full border-collapse">
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Companys Active List End -->
+
+                <!-- Freelancer Active List Start -->
+                <div class="flex-1 bg-blue-500 flex items-center justify-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg w-full">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center">Freelancers List</h2>
+                        <div class="space-y-4 divide-y divide-gray-200">
+                            <!-- Chat Item -->
+                            <table class="w-full border-collapse">
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
+                                                <i class="ri-account-pin-circle-line text-3xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-sm font-semibold text-gray-900">
+                                                    Devid Heilo
+                                                </h3>
+                                                <p class="text-xs text-gray-500">
+                                                    Hello, how are you? ·
+                                                    <span class="text-gray-400">12 min</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-right">
+                                        <span class="bg-blue-500 text-white text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Freelancer Active List End -->
+            </div>
+        </div>
+
+    </body>
+</html>

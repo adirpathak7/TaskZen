@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-        <title>Task-Zen Client Dashboard</title>
+        <title>Task-Zen Admin Dashboard</title>
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Chart.js -->
@@ -28,28 +28,17 @@
                         <span class="text-2xl font-semibold">Client Name</span>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <!-- Notification Icon -->
                         <i class="ri-notification-3-fill text-4xl"></i>
-
-                        <!-- Search Input -->
                         <input type="text" placeholder="Search..."
                                class="hidden md:block p-2 rounded-lg bg-white text-gray-700 focus:outline-none" />
-
-                        <!-- Logout Icon with Hover Message -->
-                        <div class="relative group">
-                            <!-- Logout Icon -->
-                            <button type="button" onclick="logoutClient()" class="flex items-center hover:text-gray-300">
-                                <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
-                            </button>
-
-                            <!-- Hover Message -->
-                            <span
-                                class="absolute left-1/2 transform -translate-x-1/2 top-10 bg-gray-800 text-white text-sm rounded-lg px-3 py-1 hidden group-hover:block">
-                                LogOut
-                            </span>
-                        </div>
+       <!--                    <h:commandLink value="Logout" action="#{loginBean.logout}"
+                               class="flex items-center hover:text-gray-300">
+                               <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
+                           </h:commandLink>-->
+                        <a href="../../Login.xhtml" class="flex items-center hover:text-gray-300">
+                            <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
+                        </a>
                     </div>
-
                 </header>
 
                 <!-- Sidebar -->
@@ -108,22 +97,22 @@
                         <ui:include src="./Dashboard.xhtml"></ui:include>
                     </div>
                     <div id="content2" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Project.xhtml"></ui:include>
+                        <!--<ui:include src="./Project.xhtml"></ui:include>-->
                     </div>
                     <div id="content3" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Freelancer.xhtml"></ui:include>
+                        <!--<ui:include src="./Freelancer.xhtml"></ui:include>-->
                     </div>
                     <div id="content4" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Payment.xhtml"></ui:include>
+                        <!--<ui:include src="./Payment.xhtml"></ui:include>-->
                     </div>
                     <div id="content5" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Profile.xhtml"></ui:include>
+                        <!--<ui:include src="./Profile.xhtml"></ui:include>-->
                     </div>
                     <div id="content6" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Notification.xhtml"></ui:include>
+                        <!--<ui:include src="./Notification.xhtml"></ui:include>-->
                     </div>
                     <div id="content7" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Setting.xhtml"></ui:include>
+                        <!--<ui:include src="./Setting.xhtml"></ui:include>-->
                     </div>
                 </main>
             </div>
@@ -131,10 +120,6 @@
 
         <!-- JavaScript -->
         <script>
-            function logoutClient() {
-                sessionStorage.clear();
-                window.location.href = "../../Login.xhtml";
-            }
             function showContent(contentId, btnId) {
                 // Hide all content sections
                 document.querySelectorAll('.content').forEach(content => content.classList.add('hidden'));
@@ -155,8 +140,6 @@
                 const savedBtnId = localStorage.getItem('selectedBtnId') || 'btn1';
                 showContent(savedContentId, savedBtnId);
             };
-
-
         </script>
     </h:body>
 </html>

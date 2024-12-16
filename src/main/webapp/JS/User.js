@@ -185,27 +185,20 @@ function userSignIn(event) {
     }).then(response => response.json()).then(result => {
         if (result.data === "1") {
             alert("Login successfully.");
+
+            // Store the JWT token and user role in sessionStorage
+            sessionStorage.setItem('authToken', result.token);
+            sessionStorage.setItem('userRole', result.role);
+
+            // Redirect based on user role
             if (result.role === "client") {
-                localStorage.setItem('userRole', 'client');
-//                userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, client.</p>';
-//                console.log(result);
-//                window.location.href = "Dashboard/UserDashboard.xhtml";
-//                const forClient = document.getElementById('userIdentity');
-//                forClient.innerHTML = 'Welcome Client..';
-//                alert(forClient);
+                window.location.href = "Dashboard/Client/Maindashboard.xhtml";
             } else {
-                localStorage.setItem('userRole', 'freelancer');
-//                userSignInErrorMessage.innerHTML = '<p class="text-green-500">Welcome, freelancer.</p>';
-//                console.log(result);
-//                window.location.href = "Dashboard/UserDashboard.xhtml";
-//                const forCompany = document.getElementById('userIdentity');
-//                forCompany.innerHTML = 'Welcome Company..';
-//                alert(forCompany);
+                window.location.href = "Dashboard/Freelancer/Maindashboard.xhtml";
             }
-            window.location.href = "Dashboard/Client/Maindashboard.xhtml";
-            fetchUsers();
             signInForm.reset();
         } else {
+            sessionStorage.clear();
             userSignInErrorMessage.innerHTML = '<p class="text-red-500">Invalid Password!</p>';
             console.log(result);
             signInForm.reset();

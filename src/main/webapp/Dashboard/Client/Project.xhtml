@@ -1,25 +1,99 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-        <title>Company Dashboard - Project</title>
+        <title>Client Dashboard - Project</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="../../JS/Client.js"></script>
     </head>
-    <body>
-        <h:form>
+    <h:body>
         <div class=" bg-gray-100 py-8 px-4">
             <!-- Page Header -->
             <div class="mb-6 flex justify-between items-center">
                 <h1 class="text-3xl font-semibold text-gray-900">Projects</h1>
                 <div class="flex items-center space-x-4">
                     <input type="text" placeholder="Search projects..." class="p-2 border border-gray-300 rounded-md" />
-                    <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Create New
-                        Project</button>
+                    <button type="button" onclick="openModal('newprojectModal')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Create New Project</button>
                 </div>
             </div>
+
+            <!-- Create New Project Modal -->
+            <form method="POST" onsubmit="clientProjectPost(event)">
+                <div id="newprojectModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="bg-white p-6 rounded-md shadow-lg w-full max-w-4xl">
+                        <h2 class="text-lg font-semibold mb-4 text-center">Create New Project</h2>
+
+
+                        <!-- Project Title -->
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="text" name="client_project_name" id="client_project_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
+                            <label for="client_project_name" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                <i class="ri-layout-top-fill ml-1"></i>&nbsp;Project Title</label>
+                            <span class="error-message text-red-400" id="error-client_project_name"></span>
+                        </div>
+
+                        <!-- Project Details -->
+                        <div class="relative z-0 w-full mb-5 group">
+                            <textarea name="description" id="description" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" "></textarea>
+                            <label for="description" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                <i class="ri-edit-2-fill ml-1"></i>&nbsp;Project Details</label>
+                            <span class="error-message text-red-400" id="error-description"></span>
+                        </div>
+
+                        <!-- Project Picture -->
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="file" name="project_picture" id="project_picture" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
+                            <span class="error-message text-red-400" id="error-project_picture"></span>
+                        </div>
+
+
+
+                        <!-- Project Duration -->
+                        <div class="relative z-0 w-full mb-5">
+                            <select name="duration" id="duration" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-800">
+                                <option value="">Select Duration</option>
+                                <option value="1 Weak">1 Week</option>
+                                <option value="2 Weak">2 Weeks</option>
+                                <option value="15 Day's">15 Days</option>
+                                <option value="1 Months">1 Month</option>
+                                <option value="3 Months">3 Months</option>
+                                <option value="6 Months">6 Months</option>
+                                <option value="1 Year">1 Year</option>
+                            </select>
+                            <span class="error-message text-red-400" id="error-duration"></span>
+                        </div>
+
+                        <!-- Minimum Range -->
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="number" name="minimum_range" id="minimum_range" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
+                            <label for="minimum_range" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                <i class="ri-price-tag-3-fill ml-1"></i>&nbsp;Minimum Range</label>
+                            <span class="error-message text-red-400" id="error-minimum_range"></span>
+                        </div>
+
+                        <!-- Maximum Range -->
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="number" name="maximum_range" id="maximum_range" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
+                            <label for="maximum_range" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                <i class="ri-price-tag-3-fill ml-1"></i>&nbsp;Maximum Range</label>
+                            <span class="error-message text-red-400" id="error-maximum_range"></span>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="flex justify-end mt-4 gap-4">
+                            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none">
+                                Upload Project
+                            </button>
+                            <button type="button" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 focus:outline-none" onclick="closeModal('newprojectModal')">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
             <!-- Project List -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -169,29 +243,29 @@
             <div class="flex flex-col lg:flex-row items-center gap-8">
                 <!-- Chart Container -->
                 <div class="relative w-56 h-56">
-                    <canvas id="myChart"></canvas>
+                    <canvas id="myChart1"></canvas>
                 </div>
 
                 <!-- Info Cards -->
                 <div class="space-y-4">
                     <div class="flex items-center p-4 bg-blue-600 text-white rounded-lg shadow-md">
                         <div class="text-2xl font-bold">In Progress</div>
-                        <!-- <div class="ml-4 text-sm">Insert your desired text here.</div> -->
+                        <div class="ml-4 text-sm">Insert your desired text here.</div> 
                     </div>
                     <div class="flex items-center p-4 bg-green-600 text-white rounded-lg shadow-md">
                         <div class="text-2xl font-bold">Complete</div>
-                        <!-- <div class="ml-4 text-sm">Insert your desired text here.</div> -->
+                        <div class="ml-4 text-sm">Insert your desired text here.</div> 
                     </div>
                     <div class="flex items-center p-4 bg-yellow-600 text-white rounded-lg shadow-md">
                         <div class="text-2xl font-bold">Pending</div>
-                        <!-- <div class="ml-4 text-sm">Insert your desired text here.</div> -->
+                        <div class="ml-4 text-sm">Insert your desired text here.</div> 
                     </div>
                 </div>
             </div>
 
 
 
-            <!-- chat bot -->
+            <!-- chat box -->
             <div class="flex justify-center items-center p-10 space-x-10">
                 <!-- Chat Box Container -->
                 <div class="w-full max-w-lg bg-white shadow-lg rounded-lg">
@@ -243,32 +317,139 @@
                     <!-- Chat Input -->
                     <div class="flex items-center p-4 space-x-2 bg-gray-200 rounded-b-lg">
                         <input type="text" placeholder="Type a message..."
-                            class="w-full p-2 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+                               class="w-full p-2 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
                         <button class="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                             Send
                         </button>
                     </div>
                 </div>
             </div>
-
         </div>
+    </h:body>
 
-
-    </h:form>
-        
     <script>
+
+        function clientProjectPost(event) {
+            event.preventDefault();
+
+            // Collect form data
+            const projectTitle = document.getElementById("client_project_name").value;
+            const projectDetail = document.getElementById("description").value;
+            const projectPicture = document.getElementById("project_picture").files[0];
+            const projectDuration = document.getElementById("duration").value;
+            const minimum_range = document.getElementById("minimum_range").value;
+            const maximum_range = document.getElementById("maximum_range").value;
+
+            // Validation
+            clearError("client_project_name");
+            clearError("description");
+            clearError("project_picture");
+            clearError("duration");
+            clearError("minimum_range");
+            clearError("maximum_range");
+
+
+            if (!projectTitle) {
+                document.getElementById("error-client_project_name").innerHTML = "Please enter the Project Title!";
+                document.getElementById("client_project_name").focus();
+                return false;
+            }
+
+            if (!projectDetail) {
+                document.getElementById("error-description").innerHTML = "Please provide the Project Details!";
+                document.getElementById("description").focus();
+                return false;
+            }
+
+            if (!projectPicture) {
+                document.getElementById("error-project_picture").innerHTML = "Please upload a Project Picture!";
+                document.getElementById("project_picture").focus();
+                return false;
+            }
+
+            if (!projectDuration) {
+                document.getElementById("error-duration").innerHTML = "Please select the Project Duration!";
+                document.getElementById("duration").focus();
+                return false;
+            }
+
+            if (!minimum_range) {
+                document.getElementById("error-minimum_range").innerHTML = "Please enter the Minimum range of project!";
+                document.getElementById("minimum_range").focus();
+                return false;
+            }
+
+            if (!maximum_range) {
+                document.getElementById("error-maximum_range").innerHTML = "Please enter the Maximum range of project!";
+                document.getElementById("maximum_range").focus();
+                return false;
+            }
+
+            // Create FormData object
+            const formData = new FormData();
+            formData.append("client_project_name", projectTitle);
+            formData.append("description", projectDetail);
+            formData.append("project_picture", projectPicture);
+            formData.append("duration", projectDuration);
+            formData.append("minimum_range", minimum_range);
+            formData.append("maximum_range", maximum_range);
+
+            // Set API endpoint and JWT token
+            const apiUrl = "http://localhost:8000/api/createClientProject"; // Update this to match your endpoint
+            const token = sessionStorage.getItem("authToken"); // JWT token stored in sessionStorage
+            console.log("Token used for API call: ", token);
+
+            if (!token) {
+                alert("Token is missing. Please login again.");
+                return;
+            }
+
+            fetch(apiUrl, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }).then(response => response.json()).then(result => {
+                if (result.data === "1") {
+
+                    alert("Project created successfully!");
+
+                    // Optionally handle token refresh if provided in the response
+//                    if (result.token) {
+//                        sessionStorage.setItem("authToken", result.token);
+//                    }
+
+                    // Close modal or reset form after success
+                    closeModal('newprojectModal');
+//                    formData = new FormData();
+
+                } else {
+                    alert("Failed to create project. Please try again.");
+                    console.error(result);
+                }
+            }).catch(error => {
+                console.error("Error occurred while creating project: ", error);
+                alert("An error occurred. Please try again.");
+            });
+        }
+// Helper function to clear error messages
+        function clearError(fieldId) {
+            document.getElementById(`error-${fieldId}`).innerHTML = "";
+        }
+
         // Chart.js setup
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
+        const ctx1 = document.getElementById('myChart1').getContext('2d');
+        new Chart(ctx1, {
             type: 'doughnut',
             data: {
                 labels: ['20%', '30%', '30%'],
                 datasets: [{
-                    data: [20, 30, 30],
-                    backgroundColor: ['#F59E0B', '#10B981', '#2563EB'],
-                    borderWidth: 0,
-                    hoverOffset: 10,
-                }]
+                        data: [20, 30, 30],
+                        backgroundColor: ['#F59E0B', '#10B981', '#2563EB'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
             },
             options: {
                 responsive: true,
@@ -283,6 +464,48 @@
                 }
             }
         });
+
+
+        // Function to open the modal
+        function openModal(modalId) {
+//            e.preventDefault();
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+
+            // Add event listener for Escape key
+            document.addEventListener('keydown', function handleEscape(event) {
+                if (event.key === 'Escape') {
+                    closeModal('newprojectModal');
+                    document.removeEventListener('keydown', handleEscape); // Remove listener after closing modal
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("project_picture").addEventListener("change", function () {
+                clearError("project_picture");
+            });
+            document.getElementById("client_project_name").addEventListener("input", function () {
+                clearError("client_project_name");
+            });
+            document.getElementById("description").addEventListener("input", function () {
+                clearError("description");
+            });
+            document.getElementById("skill").addEventListener("input", function () {
+                clearError("skill");
+            });
+            document.getElementById("duration").addEventListener("change", function () {
+                clearError("duration");
+            });
+        });
+
+// Close Modal
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add("hidden");
+            }
+        }
+
     </script>
-    </body>
 </html>
