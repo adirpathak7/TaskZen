@@ -32,7 +32,7 @@ public interface ClientMstRepository extends JpaRepository<ClientMasterEntity, L
     @Query("UPDATE ClientMasterEntity c SET c.status = 'approved' WHERE c.client_id = :client_id")
     int approveClientStatus(@Param("client_id") Long client_id);
 
-    @Query("SELECT c FROM ClientMasterEntity c WHERE c.client_id.client_id = :client_id")
-    List<ClientMasterEntity> findClientById(@Param("client_id") Long client_id);
+    @Query("SELECT c FROM ClientMasterEntity c WHERE c.user_id.user_id = :user_id")
+    List<ClientMasterEntity> findClientByUserId(@Param("user_id") Long user_id);
 
 }

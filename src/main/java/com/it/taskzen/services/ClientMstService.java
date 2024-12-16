@@ -124,6 +124,6 @@ public class ClientMstService {
 
     public List<ClientMasterEntity> getClientDetailsByToken(String token) {
         Long client_id = jWTService.extractUserId(token);
-        return clientMstRepository.findClientById(client_id);
+        return clientMstRepository.findClientByUserId(client_id);
     }
 }
