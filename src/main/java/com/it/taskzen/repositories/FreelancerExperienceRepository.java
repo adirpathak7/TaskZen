@@ -21,7 +21,10 @@ public interface FreelancerExperienceRepository extends JpaRepository<Freelancer
 
     @Query("SELECT e FROM FreelancerExperienceEntity e WHERE e.freelancer_id.freelancer_id = :freelancer_id")
     List<FreelancerExperienceEntity> findByFreelancerId(@Param("freelancer_id") Long freelancer_id);
-    
+
     @Query("SELECT e FROM FreelancerExperienceEntity e WHERE e.freelancer_experience_id = :freelancer_experience_id AND e.freelancer_id.freelancer_id = :freelancer_id")
     Optional<FreelancerExperienceEntity> findByIdAndFreelancerId(@Param("freelancer_experience_id") Long freelancer_education_id, @Param("freelancer_id") Long freelancer_id);
+
+    @Query("SELECT fe FROM FreelancerExperienceEntity fe WHERE fe.freelancer_experience_id.freelancer_experience_id = :freelancer_experience_id")
+    List<FreelancerExperienceEntity> findByFreelancerExperienceByFreelancerId(@Param("freelancer_experience_id") Long freelancer_experience_id);
 }

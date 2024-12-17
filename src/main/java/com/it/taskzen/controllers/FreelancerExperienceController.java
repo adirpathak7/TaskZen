@@ -87,4 +87,18 @@ public class FreelancerExperienceController {
         response.put("data", "1");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    
+    @GetMapping("/getFreelancerExperienceByFreelancerId")
+    public ResponseEntity<Map<String, Object>> getFreelancerExperienceByFreelancerId(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<FreelancerExperienceEntity> experience = freelancerExperienceService.findByFreelancerExperienceByFreelancerId(token);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Freelancer experience details fetched successfully.");
+        response.put("data", experience);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

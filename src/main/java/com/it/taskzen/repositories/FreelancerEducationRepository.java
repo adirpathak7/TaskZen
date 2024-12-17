@@ -21,7 +21,10 @@ public interface FreelancerEducationRepository extends JpaRepository<FreelancerE
 
     @Query("SELECT e FROM FreelancerEducationEntity e WHERE e.freelancer_id.freelancer_id = :freelancer_id")
     List<FreelancerEducationEntity> findByFreelancerId(@Param("freelancer_id") Long freelancer_id);
-    
+
     @Query("SELECT e FROM FreelancerEducationEntity e WHERE e.freelancer_education_id = :freelancer_education_id AND e.freelancer_id.freelancer_id = :freelancer_id")
     Optional<FreelancerEducationEntity> findByIdAndFreelancerId(@Param("freelancer_education_id") Long freelancer_education_id, @Param("freelancer_id") Long freelancer_id);
+
+    @Query("SELECT fe FROM FreelancerEducationEntity fe WHERE fe.freelancer_id.freelancer_id = :freelancer_id")
+    List<FreelancerEducationEntity> findByFreelancerEducationByFreelancerId(@Param("freelancer_id") Long freelancer_id);
 }

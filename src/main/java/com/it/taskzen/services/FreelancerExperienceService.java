@@ -46,12 +46,17 @@ public class FreelancerExperienceService {
 
     public void updateFreelancerExperienceDetails(Long freelancer_experience_id, String company_name, String designation, String starting_date, String ending_date) {
         FreelancerExperienceEntity freelancerExperienceEntity = freelancerExperienceRepository.findById(freelancer_experience_id)
-                .orElseThrow(() -> new IllegalStateException("Education record not found with ID: " + freelancer_experience_id));
+                .orElseThrow(() -> new IllegalStateException("Experience record not found with ID: " + freelancer_experience_id));
 
         freelancerExperienceEntity.setCompany_name(company_name);
         freelancerExperienceEntity.setDesignation(designation);
         freelancerExperienceEntity.setStarting_date(starting_date);
         freelancerExperienceEntity.setEnding_date(ending_date);
         freelancerExperienceRepository.save(freelancerExperienceEntity);
+    }
+
+    public List<FreelancerExperienceEntity> findByFreelancerExperienceByFreelancerId(String token) {
+        Long freelancer_id = jWTService.extractFreelancerId(token);
+        return freelancerExperienceRepository.findByFreelancerExperienceByFreelancerId(freelancer_id);
     }
 }

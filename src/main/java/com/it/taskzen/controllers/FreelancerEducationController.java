@@ -93,4 +93,17 @@ public class FreelancerEducationController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/getFreelancerEducationByFreelancerId")
+    public ResponseEntity<Map<String, Object>> getFreelancerEducationByFreelancerId(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<FreelancerEducationEntity> education = freelancerEducationService.findByFreelancerEducationByFreelancerId(token);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Freelancer education details fetched successfully.");
+        response.put("data", education);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

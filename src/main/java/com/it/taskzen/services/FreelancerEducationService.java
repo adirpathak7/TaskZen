@@ -58,4 +58,9 @@ public class FreelancerEducationService {
 
         freelancerEducationRepository.save(educationEntity);
     }
+
+    public List<FreelancerEducationEntity> findByFreelancerEducationByFreelancerId(String token) {
+        Long freelancer_id = jWTService.extractFreelancerId(token);
+        return freelancerEducationRepository.findByFreelancerEducationByFreelancerId(freelancer_id);
+    }
 }

@@ -93,21 +93,16 @@ public class FreelancerMstController {
         }
 
         try {
-            // Extract the user_id from the token
             Long userId = jWTService.extractUserId(token);
             System.out.println("Extracted user_id from token: " + userId);
 
-            // Fetch the UserEntity based on user_id
             UserEntity userEntity = userRepository.findById(userId)
                     .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
 
-            // Create a new FreelancerMasterEntity
             FreelancerMasterEntity freelancerMasterEntity = new FreelancerMasterEntity(contact, country, dob, gender, githubLink, linkedinLink, portfolio_link);
 
-            // Set the user_id (which is a UserEntity object) in the FreelancerMasterEntity
             freelancerMasterEntity.setUser(userEntity);
 
-            // Now pass the entity and file to the service
             freelancerMstService.freelancersAllDetails(token, freelancerMasterEntity, profilePicture);
 
             response.put("message", "Freelancer details filled successfully.");
@@ -150,5 +145,43 @@ public class FreelancerMstController {
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+    
+    @GetMapping(value = "/getFreelancerStatusPending")
+    public ResponseEntity<List<FreelancerMasterEntity>> getClientStatusPending() {
+        List<FreelancerMasterEntity> freelancers = freelancerMstService.getFreelancerStatusPending();
+        if (freelancers == null || freelancers.isEmpty()) {
+            throw new ResourceNotFoundException("No Freelancer found with pending status!");
+        }
+        return new ResponseEntity<>(freelancers, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/approveFreelancerStatus/{freelancer_id}")
+    public ResponseEntity<Map<String, String>> updateClientDetails(
+            @PathVariable("freelancer_id") Long freelancer_id) {
+        try {
+            freelancerMstService.approveFreelancerStatus(freelancer_id);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Freelancer status approved by admin.");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @GetMapping("/getFreelancerDetailsByToken")
+    public ResponseEntity<Map<String, Object>> getClientDetailsByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        FreelancerMasterEntity freelancerDetails = freelancerMstService.getFreelancerDetailsByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Freelancer details fetched successfully.");
+        response.put("data", freelancerDetails);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

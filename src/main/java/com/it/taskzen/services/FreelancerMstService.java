@@ -118,4 +118,21 @@ public class FreelancerMstService {
         }
     }
 
+    public List<FreelancerMasterEntity> getFreelancerStatusPending() {
+        return freelancerMstRepository.findFreelancerByPendingStatus();
+    }
+
+    public void approveFreelancerStatus(Long freelancer_id) {
+        int updatedRows = freelancerMstRepository.approveFreelancerStatus(freelancer_id);
+
+        if (updatedRows == 0) {
+            throw new ResourceNotFoundException("Freelancer not found with id: " + freelancer_id);
+        }
+    }
+
+    public FreelancerMasterEntity getFreelancerDetailsByToken(String token) {
+        Long freelancer_id = jWTService.extractUserId(token);
+        return freelancerMstRepository.findByUserId(freelancer_id);
+    }
+
 }

@@ -133,11 +133,11 @@ public class ClientMstController {
             token = token.substring(7).trim();
         }
 
-        ClientMasterEntity educationDetails = clientMstService.getClientDetailsByToken(token);
+        ClientMasterEntity clientDetails = clientMstService.getClientDetailsByToken(token);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Client details fetched successfully.");
-        response.put("data", educationDetails);
+        response.put("data", clientDetails);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
