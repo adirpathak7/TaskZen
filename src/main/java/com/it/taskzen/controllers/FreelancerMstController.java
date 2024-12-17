@@ -105,7 +105,7 @@ public class FreelancerMstController {
             FreelancerMasterEntity freelancerMasterEntity = new FreelancerMasterEntity(contact, country, dob, gender, githubLink, linkedinLink, portfolio_link);
 
             // Set the user_id (which is a UserEntity object) in the FreelancerMasterEntity
-            freelancerMasterEntity.setUser_id(userEntity);
+            freelancerMasterEntity.setUser(userEntity);
 
             // Now pass the entity and file to the service
             freelancerMstService.freelancersAllDetails(token, freelancerMasterEntity, profilePicture);

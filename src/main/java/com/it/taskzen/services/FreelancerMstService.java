@@ -68,7 +68,7 @@ public class FreelancerMstService {
         }
 
         // Set the UserEntity in the FreelancerMasterEntity
-        freelancerMasterEntity.setUser_id(userEntity);  // Set the entire UserEntity object here
+        freelancerMasterEntity.setUser(userEntity);  // Set the entire UserEntity object here
         freelancerMasterEntity.setProfile_picture(photoUrl);
 
         // Save the freelancer profile

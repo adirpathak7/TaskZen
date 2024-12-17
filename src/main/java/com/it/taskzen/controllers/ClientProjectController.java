@@ -81,4 +81,18 @@ public class ClientProjectController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/getProjectsByClientId")
+    public ResponseEntity<Map<String, Object>> getProjectByClientId(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<ClientProjectEntity> project = clientProjectService.findByProjectByClientId(token);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Client projects fetched successfully.");
+        response.put("data", project);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

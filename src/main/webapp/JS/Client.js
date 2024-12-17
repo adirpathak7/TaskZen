@@ -114,9 +114,7 @@ function closeModal(modalId) {
     modal.classList.add('hidden');
 }
 
-
 async function fetchClientDetails() {
-//    event.preventDefault();
     const apiUrl = "http://localhost:8000/api/getClientDetailsByToken";
     const token = sessionStorage.getItem("authToken");
     try {
@@ -131,10 +129,15 @@ async function fetchClientDetails() {
             throw new Error("Failed to fetch client details");
         }
 
+        console.log("res " + response.status);
+
         const result = await response.json();
-        const client = result.data[0];
-//        console.log(result);
-//        console.log(client);
+        console.log("result is : " + JSON.stringify(result));
+        console.log("result.data:", result.data);
+
+        // Since result.data is an object, no need to treat it as an array
+        const client = result.data;
+        console.log("client data: ", client);
 
         if (client) {
             displayProfile(client);
@@ -147,7 +150,6 @@ async function fetchClientDetails() {
 }
 
 function displayProfile(client) {
-//    console.log("Client Data in displayProfile:", client);
     const show_profile_picture = document.getElementById("show_profile_picture");
     const showclient_name = document.getElementById("showclient_name");
     const showindustry = document.getElementById("showindustry");
@@ -156,20 +158,20 @@ function displayProfile(client) {
     const showstatus = document.getElementById("showstatus");
     const showcontact = document.getElementById("showcontact");
 
-
     if (!show_profile_picture || !showclient_name || !showindustry || !showestablish || !showcountry || !showstatus || !showcontact) {
         console.log("One or more elements are missing.");
         return;
     }
-//    console.log(client.client_name);
+
     show_profile_picture.src = client.profile_picture || '';
     showclient_name.textContent = client.client_name || 'N/A';
     showindustry.textContent = `Industry: ${client.industry || 'N/A'}`;
     showestablish.textContent = `Established: ${client.establish || 'N/A'}`;
     showcountry.textContent = `Country: ${client.country || 'N/A'}`;
     showstatus.textContent = `Status: ${client.status || 'N/A'}`;
-    showcontact.textContent = `Contact No. : ${client.contact || 'N/A'}`;
-
+    showcontact.textContent = `Contact No.: ${client.contact || 'N/A'}`;
 }
 
-document.addEventListener("DOMContentLoaded", fetchClientDetails);
+document.addEventListener('DOMContentLoaded', function () {
+    fetchClientDetails();
+});

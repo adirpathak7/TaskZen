@@ -133,7 +133,7 @@ public class ClientMstController {
             token = token.substring(7).trim();
         }
 
-        List<ClientMasterEntity> educationDetails = clientMstService.getClientDetailsByToken(token);
+        ClientMasterEntity educationDetails = clientMstService.getClientDetailsByToken(token);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Client details fetched successfully.");

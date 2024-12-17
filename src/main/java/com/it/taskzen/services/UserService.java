@@ -4,8 +4,14 @@
  */
 package com.it.taskzen.services;
 
+import com.it.taskzen.entities.AdminEntity;
+import com.it.taskzen.entities.ClientMasterEntity;
+import com.it.taskzen.entities.FreelancerMasterEntity;
 import com.it.taskzen.entities.UserEntity;
 import com.it.taskzen.jwt.JWTService;
+import com.it.taskzen.repositories.AdminRepository;
+import com.it.taskzen.repositories.ClientMstRepository;
+import com.it.taskzen.repositories.FreelancerMstRepository;
 import com.it.taskzen.repositories.UserRepository;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +36,15 @@ public class UserService {
 
     @Autowired
     private JWTService jwtService;
+
+    @Autowired
+    private FreelancerMstRepository freelancerMstRepository;
+
+    @Autowired
+    private ClientMstRepository clientMstRepository;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(7);
 
@@ -101,12 +116,39 @@ public class UserService {
         String role = existUser.getRole().toString();
         Long user_id = existUser.getUser_id();
 
-        String token = jwtService.generateToken(userEntity.getEmail(), role, user_id);
+        // Retrieve client_id, freelancer_id, or admin_id based on the role
+        Long client_id = null;
+        Long freelancer_id = null;
+        Long admin_id = null;
+
+        if (role.equals("client")) {
+            // Get client_id for client role
+            ClientMasterEntity client = clientMstRepository.findByUserId(user_id);
+            if (client != null) {
+                client_id = client.getClient_id();
+            }
+        } else if (role.equals("freelancer")) {
+            // Get freelancer_id for freelancer role
+            FreelancerMasterEntity freelancer = freelancerMstRepository.findByUserId(user_id);
+            if (freelancer != null) {
+                freelancer_id = freelancer.getFreelancer_id();
+            }
+        } else if (role.equals("admin")) {
+            // Get admin_id for admin role (if applicable)
+            AdminEntity admin = adminRepository.findAdminById(user_id);
+            if (admin != null) {
+                admin_id = admin.getAdmin_id();
+            }
+        }
+
+        // Generate token with the relevant IDs
+        String token = jwtService.generateToken(userEntity.getEmail(), role, user_id, client_id, freelancer_id, admin_id);
 
         Map<String, String> loginResponse = new HashMap<>();
         loginResponse.put("role", role);
         loginResponse.put("token", token);
         loginResponse.put("data", "1");
+
         return loginResponse;
     }
 

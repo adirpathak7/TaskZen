@@ -43,13 +43,15 @@ public class ClientProjectService {
     }
 
     public ClientProjectEntity clientProjects(String token, ClientProjectEntity clientProjectEntity, MultipartFile project_picture) throws IOException {
-        Long user_id = jWTService.extractUserId(token);
-        System.out.println("User ID from JWT: " + user_id);
+        Long client_id = jWTService.extractClientId(token);
+        System.out.println("User ID from JWT: " + client_id);
 
-        ClientMasterEntity clientMasterEntity = clientMstRepository.findByUser_Id(user_id)
-                .orElseThrow(() -> new IllegalStateException("Please create your profile first."));
+        ClientMasterEntity exist_client_id = clientMstRepository.findByUserId(client_id);
 
-        clientProjectEntity.setClient_id(clientMasterEntity);
+        if (exist_client_id == null) {
+            throw new IllegalArgumentException("Please create your profile first!");
+        }
+        clientProjectEntity.setClient_id(exist_client_id);
 
         Map uploadResult = cloudinary.uploader().upload(project_picture.getBytes(), ObjectUtils.emptyMap());
         String photoUrl = uploadResult.get("url").toString();
@@ -59,6 +61,15 @@ public class ClientProjectService {
 
         clientProjectEntity.setProject_picture(photoUrl);
         return clientProjectRepository.save(clientProjectEntity);
+    }
+
+    public List<ClientProjectEntity> findByProjectByClientId(String token) {
+        Long client_id = jWTService.extractClientId(token);
+//        List<ClientProjectEntity> checkClient = clientProjectRepository.findByProjectByClientId(client_id);
+//        System.out.println("the client_id is: " + client_id);
+//        System.out.println("the checkClient is: " + checkClient);
+
+        return clientProjectRepository.findByProjectByClientId(client_id);
     }
 
 }

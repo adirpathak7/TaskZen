@@ -4,7 +4,13 @@
  */
 package com.it.taskzen.jwt;
 
+import com.it.taskzen.entities.AdminEntity;
+import com.it.taskzen.entities.ClientMasterEntity;
+import com.it.taskzen.entities.FreelancerMasterEntity;
 import com.it.taskzen.entities.UserEntity;
+import com.it.taskzen.repositories.AdminRepository;
+import com.it.taskzen.repositories.ClientMstRepository;
+import com.it.taskzen.repositories.FreelancerMstRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -19,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,6 +34,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class JWTService {
+
+    @Autowired
+    private ClientMstRepository clientMstRepository;
+
+    @Autowired
+    private FreelancerMstRepository freelancerMstRepository;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
     private String secretKey = "";
 
@@ -40,11 +56,16 @@ public class JWTService {
         }
     }
 
-    public String generateToken(String email, String role, Long user_id) {
+//    when you have to use JWT for admin so add Long admin_id
+    public String generateToken(String email, String role, Long user_id, Long client_id, Long freelancer_id, Long admin_id) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", role);
         claims.put("user_id", String.valueOf(user_id));
-        
+        // Ensure only the client_id (Long) is added, not the entire entity
+        claims.put("client_id", client_id != null ? String.valueOf(client_id) : null);
+        claims.put("freelancer_id", freelancer_id != null ? String.valueOf(freelancer_id) : null);
+        claims.put("admin_id", admin_id != null ? String.valueOf(admin_id) : null);
+        claims.put("role", role);
+
         return Jwts.builder()
                 .claims()
                 .add(claims)
@@ -59,6 +80,14 @@ public class JWTService {
     private SecretKey getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private Claims parseToken(String token) {
+        return Jwts.parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     public String getUsernameFromToken(String token) {
@@ -96,17 +125,29 @@ public class JWTService {
     }
 
     public Long extractUserId(String token) {
-        token = token.trim();
-        return Long.parseLong(extractClaim(token, claims -> claims.get("user_id", String.class)));
+        Claims claims = parseToken(token);
+        return Long.parseLong(claims.get("user_id", String.class));
     }
 
     public Long extractClientId(String token) {
-        token = token.trim();
-        return Long.parseLong(extractClaim(token, claims -> claims.get("client_id", String.class)));
+        Claims claims = parseToken(token);
+        String clientIdStr = claims.get("client_id", String.class);
+        if (clientIdStr == null) {
+            throw new RuntimeException("Client profile not created yet");
+        }
+        return Long.parseLong(clientIdStr);  // Parse as Long, not as an object
     }
-    
+
     public Long extractFreelancerId(String token) {
-        token = token.trim();
-        return Long.parseLong(extractClaim(token, claims -> claims.get("freelancer_id", String.class)));
+        Claims claims = extractAllClaims(token);
+        String freelancerIdStr = claims.get("freelancer_id", String.class);
+        return freelancerIdStr != null ? Long.parseLong(freelancerIdStr) : null;
     }
+
+    public Long extractAdminId(String token) {
+        Claims claims = extractAllClaims(token);
+        String adminIdStr = claims.get("admin_id", String.class);
+        return adminIdStr != null ? Long.parseLong(adminIdStr) : null;
+    }
+
 }

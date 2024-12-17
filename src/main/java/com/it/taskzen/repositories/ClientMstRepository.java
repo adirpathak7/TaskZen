@@ -21,8 +21,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientMstRepository extends JpaRepository<ClientMasterEntity, Long> {
 
-    @Query("SELECT c FROM ClientMasterEntity c WHERE c.user_id.user_id = :user_id")
-    Optional<ClientMasterEntity> findByUser_Id(@Param("user_id") Long user_id);
+    @Query("SELECT c FROM ClientMasterEntity c WHERE c.user.user_id = :user_id")
+    ClientMasterEntity findByUserId(@Param("user_id") Long user_id);
 
     @Query("SELECT c FROM ClientMasterEntity c WHERE c.status = 'pending'")
     List<ClientMasterEntity> findClientByPendingStatus();
@@ -31,8 +31,5 @@ public interface ClientMstRepository extends JpaRepository<ClientMasterEntity, L
     @Transactional
     @Query("UPDATE ClientMasterEntity c SET c.status = 'approved' WHERE c.client_id = :client_id")
     int approveClientStatus(@Param("client_id") Long client_id);
-
-    @Query("SELECT c FROM ClientMasterEntity c WHERE c.user_id.user_id = :user_id")
-    List<ClientMasterEntity> findClientByUserId(@Param("user_id") Long user_id);
 
 }

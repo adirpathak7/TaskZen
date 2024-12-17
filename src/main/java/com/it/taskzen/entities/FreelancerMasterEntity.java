@@ -36,7 +36,7 @@ public class FreelancerMasterEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private UserEntity user_id;
+    private UserEntity user;
 
     private String contact;
     private String profile_picture;
@@ -54,9 +54,9 @@ public class FreelancerMasterEntity {
     public FreelancerMasterEntity() {
     }
 
-    public FreelancerMasterEntity(Long freelancer_id, UserEntity user_id, String contact, String profile_picture, String country, String dob, String gender, String github_link, String linkedin_link, String portfolio_link, LocalDateTime created_at, Status status) {
+    public FreelancerMasterEntity(Long freelancer_id, UserEntity user, String contact, String profile_picture, String country, String dob, String gender, String github_link, String linkedin_link, String portfolio_link, LocalDateTime created_at, Status status) {
         this.freelancer_id = freelancer_id;
-        this.user_id = user_id;
+        this.user = user;
         this.contact = contact;
         this.profile_picture = profile_picture;
         this.country = country;
@@ -87,12 +87,12 @@ public class FreelancerMasterEntity {
         this.freelancer_id = freelancer_id;
     }
 
-    public UserEntity getUser_id() {
-        return user_id;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUser_id(UserEntity user_id) {
-        this.user_id = user_id;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public String getContact() {

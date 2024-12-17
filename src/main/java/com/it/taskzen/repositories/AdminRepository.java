@@ -6,6 +6,8 @@ package com.it.taskzen.repositories;
 
 import com.it.taskzen.entities.AdminEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,5 +18,8 @@ import org.springframework.stereotype.Repository;
 public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
 
     AdminEntity findByEmail(String email);
+
+    @Query("SELECT a FROM AdminEntity a WHERE a.admin_id = :admin_id")
+    AdminEntity findAdminById(@Param("admin_id") Long admin_id);
 
 }
