@@ -34,7 +34,6 @@ function clientProfileCreation(event) {
         return false;
     }
 
-
     if (!profilePicture) {
         document.getElementById("error-profile_picture").innerHTML = "Please upload a profile picture!";
         profilePictureInput.focus();
@@ -103,24 +102,8 @@ function clearError(field) {
     document.getElementById("error-" + field).innerHTML = "";
 }
 
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.remove('hidden');
-    document.addEventListener('keydown', function handleEscape(event) {
-        if (event.key === 'Escape') {
-            closeModal('editprofileModal');
-            document.removeEventListener('keydown', handleEscape);
-        }
-    });
-}
-
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.add('hidden');
-}
-
 async function fetchClientDetails() {
-    const apiUrl = "http://localhost:8000/api/getClientDetailsByToken";
+    const apiUrl = "http://localhost:8000/api/client/getClientDetailsByToken";
     const token = sessionStorage.getItem("authToken");
     try {
         const response = await fetch(apiUrl, {
@@ -177,7 +160,7 @@ function displayClientProfile(client) {
 
 
 async function fetchClientProjectsDetails() {
-    const apiUrl = "http://localhost:8000/api/getProjectsByClientId";
+    const apiUrl = "http://localhost:8000/api/client/getProjectsByClientId";
     const token = sessionStorage.getItem("authToken");
 
     try {
@@ -195,6 +178,7 @@ async function fetchClientProjectsDetails() {
 
         const result = await response.json();
         const clientProjects = result.data;
+//        console.log(clientProjects);
 
         if (clientProjects && Array.isArray(clientProjects)) {
             displayClientProjects(clientProjects);
@@ -214,18 +198,22 @@ function displayClientProjects(clientProjects) {
         return;
     }
 
-    projectsContainer.innerHTML = ""; // Clear previous content
+    projectsContainer.innerHTML = "";
 
     clientProjects.forEach(project => {
+//        console.log(project.client_project_id);
         const projectCard = document.createElement("div");
         projectCard.classList.add("bg-white", "p-5", "rounded-lg", "shadow-md", "mb-4");
 
-        // Project Name
+        const projectId = document.createElement("input");
+        projectId.value = project.client_project_id;
+        projectId.classList.add("text-xl", "font-semibold", "text-red-900");
+        projectId.style.display = "none";
+
         const projectName = document.createElement("h2");
         projectName.textContent = project.client_project_name || 'N/A';
         projectName.classList.add("text-xl", "font-semibold", "text-gray-800");
 
-        // Project Status
         const projectStatus = document.createElement("p");
         const statusText = document.createElement("span");
         statusText.textContent = project.status || 'N/A';
@@ -234,22 +222,18 @@ function displayClientProjects(clientProjects) {
         projectStatus.appendChild(statusText);
         projectStatus.classList.add("text-sm", "text-gray-600");
 
-        // Project Duration
         const projectDuration = document.createElement("p");
         projectDuration.textContent = `Duration: ${project.duration || 'N/A'}`;
         projectDuration.classList.add("text-sm", "text-gray-500");
 
-        // Range Container
         const rangeContainer = document.createElement("p");
         rangeContainer.textContent = `Range: ${project.minimum_range || 'N/A'} - ${project.maximum_range || 'N/A'}`;
         rangeContainer.classList.add("text-sm", "text-gray-500");
 
-        // Description
         const description = document.createElement("p");
         description.textContent = `Description: ${project.description || 'N/A'}`;
         description.classList.add("text-sm", "text-gray-600");
 
-        // Progress Bar
         const progressBarContainer = document.createElement("div");
         progressBarContainer.classList.add("w-full", "bg-gray-200", "h-2", "rounded-full", "mt-2");
 
@@ -282,13 +266,17 @@ function displayClientProjects(clientProjects) {
         progressFill.style.width = `${progressWidth}%`;
         progressBarContainer.appendChild(progressFill);
 
-        // Buttons
         const buttonsContainer = document.createElement("div");
         buttonsContainer.classList.add("mt-2");
 
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
         editButton.classList.add("text-blue-600", "hover:underline", "mr-2");
+
+        editButton.addEventListener("click", function () {
+            openModal('editProjectModal');
+            populateModalFields(project);
+        });
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
@@ -297,7 +285,7 @@ function displayClientProjects(clientProjects) {
         buttonsContainer.appendChild(editButton);
         buttonsContainer.appendChild(deleteButton);
 
-        // Append all elements to the card
+        projectCard.appendChild(projectId);
         projectCard.appendChild(projectName);
         projectCard.appendChild(projectStatus);
         projectCard.appendChild(projectDuration);
@@ -314,3 +302,120 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchClientDetails();
     fetchClientProjectsDetails();
 });
+
+function clientProjectPost(event) {
+    event.preventDefault();
+
+    const projectTitle = document.getElementById("client_project_name").value;
+    const projectDetail = document.getElementById("description").value;
+    const projectPicture = document.getElementById("project_picture").files[0];
+    const projectDuration = document.getElementById("duration").value;
+    const minimum_range = document.getElementById("minimum_range").value;
+    const maximum_range = document.getElementById("maximum_range").value;
+
+    clearError("client_project_name");
+    clearError("description");
+    clearError("project_picture");
+    clearError("duration");
+    clearError("minimum_range");
+    clearError("maximum_range");
+
+
+    if (!projectTitle) {
+        document.getElementById("error-client_project_name").innerHTML = "Please enter the Project Title!";
+        document.getElementById("client_project_name").focus();
+        return false;
+    }
+
+    if (!projectDetail) {
+        document.getElementById("error-description").innerHTML = "Please provide the Project Details!";
+        document.getElementById("description").focus();
+        return false;
+    }
+
+    if (!projectPicture) {
+        document.getElementById("error-project_picture").innerHTML = "Please upload a Project Picture!";
+        document.getElementById("project_picture").focus();
+        return false;
+    }
+
+    if (!projectDuration) {
+        document.getElementById("error-duration").innerHTML = "Please select the Project Duration!";
+        document.getElementById("duration").focus();
+        return false;
+    }
+
+    if (!minimum_range) {
+        document.getElementById("error-minimum_range").innerHTML = "Please enter the Minimum range of project!";
+        document.getElementById("minimum_range").focus();
+        return false;
+    }
+
+    if (!maximum_range) {
+        document.getElementById("error-maximum_range").innerHTML = "Please enter the Maximum range of project!";
+        document.getElementById("maximum_range").focus();
+        return false;
+    }
+
+    const formData = new FormData();
+    formData.append("client_project_name", projectTitle);
+    formData.append("description", projectDetail);
+    formData.append("project_picture", projectPicture);
+    formData.append("duration", projectDuration);
+    formData.append("minimum_range", minimum_range);
+    formData.append("maximum_range", maximum_range);
+
+    const apiUrl = "http://localhost:8000/api/client/createClientProject";
+    const token = sessionStorage.getItem("authToken");
+//    console.log("Token used for API call: ", token);
+
+    if (!token) {
+        alert("Token is missing. Please login again.");
+        return;
+    }
+
+    fetch(apiUrl, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    }).then(response => response.json()).then(result => {
+        if (result.data === "1") {
+
+            alert("Project created successfully!");
+
+            closeModal('newprojectModal');
+
+        } else {
+            alert("Failed to create project. Please try again.");
+            console.error(result);
+        }
+    }).catch(error => {
+        console.error("Error occurred while creating project: ", error);
+        alert("An error occurred. Please try again.");
+    });
+}
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.remove("hidden");
+    document.getElementById("client_project_name").focus();
+//    alert(modal);
+}
+
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.add('hidden');
+}
+
+function populateModalFields(project) {
+    alert("in populateModalFields");
+    document.getElementById("client_project_name").value = project.client_project_name || "";
+    document.getElementById("description").value = project.description || "";
+    document.getElementById("duration").value = project.duration || "";
+    document.getElementById("minimum_range").value = project.minimum_range || "";
+    document.getElementById("maximum_range").value = project.maximum_range || "";
+}
+

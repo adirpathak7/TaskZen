@@ -15,6 +15,7 @@ import com.it.taskzen.repositories.ClientProjectRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -70,6 +71,29 @@ public class ClientProjectService {
 //        System.out.println("the checkClient is: " + checkClient);
 
         return clientProjectRepository.findByProjectByClientId(client_id);
+    }
+
+    public ClientProjectEntity updateClientProjectDetail(Long client_project_id, String client_project_name, String description, String duration, String minimum_range, String maximum_range, MultipartFile profile_Picture) throws IOException {
+        Optional<ClientProjectEntity> existingClientOpt = clientProjectRepository.findById(client_project_id);
+
+        if (existingClientOpt.isPresent()) {
+            ClientProjectEntity existingClient = existingClientOpt.get();
+
+            existingClient.setClient_project_name(client_project_name);
+            existingClient.setDescription(description);
+            existingClient.setDuration(duration);
+            existingClient.setMinimum_range(minimum_range);
+            existingClient.setMaximum_range(maximum_range);
+
+            if (profile_Picture != null && !profile_Picture.isEmpty()) {
+                Map uploadResult = cloudinary.uploader().upload(profile_Picture.getBytes(), ObjectUtils.emptyMap());
+                existingClient.setProject_picture(uploadResult.get("url").toString());
+            }
+
+            return clientProjectRepository.save(existingClient);
+        } else {
+            throw new ResourceNotFoundException("Project not found on this id: " + client_project_id);
+        }
     }
 
 }

@@ -19,7 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/client")
 public class ClientProjectController {
 
     @Autowired
@@ -93,6 +95,25 @@ public class ClientProjectController {
         response.put("message", "Client projects fetched successfully.");
         response.put("data", project);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/updateProjectDetail/{client_project_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, String>> updateClientProjectDetails(
+            @PathVariable("client_project_id") Long client_project_id,
+            @RequestParam("client_project_name") String client_project_name,
+            @RequestParam("description") String description,
+            @RequestParam("duration") String duration,
+            @RequestParam("minimum_range") String minimum_range,
+            @RequestParam("maximum_range") String maximum_range,
+            @RequestParam(value = "project_picture", required = false) MultipartFile project_picture) {
+        try {
+            clientProjectService.updateClientProjectDetail(client_project_id, client_project_name, description, duration, minimum_range, maximum_range, project_picture);
+            return new ResponseEntity("Proejct details updated successfully.", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

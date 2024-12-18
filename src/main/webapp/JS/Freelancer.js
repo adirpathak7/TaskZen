@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 function freelancerProfileCreation(event) {
-//    alert(1);
     event.preventDefault();
+
     const contact = document.getElementById("contact").value;
     const profilePictureInput = document.getElementById("profile_picture");
     const profilePicture = profilePictureInput.files.length > 0 ? profilePictureInput.files[0] : null;
