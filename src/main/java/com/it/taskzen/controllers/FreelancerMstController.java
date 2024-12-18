@@ -39,7 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/freelancer")
 public class FreelancerMstController {
 
     @Autowired

@@ -46,33 +46,36 @@ public class FreelancerMstService {
     }
 
     public FreelancerMasterEntity freelancersAllDetails(String token, FreelancerMasterEntity freelancerMasterEntity, MultipartFile profilePicture) throws IOException {
-        Long userId;
-        try {
-            // Extract the user_id from the JWT token
-            userId = jWTService.extractUserId(token);
-            System.out.println("Extracted user_id from token: " + userId);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid or inappropriate token. Ensure you are using a freelancer token.");
-        }
+        Long userId = jWTService.extractUserId(token);
+//        System.out.println("The user_id extracted from JWT: " + userId);
 
-        // Fetch the UserEntity using the user_id
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
+        freelancerMasterEntity.setUser(userEntity);
 
-        // Upload the profile picture (as before)
+        FreelancerMasterEntity existingFreelancer = freelancerMstRepository.findByUserId(userId);
+
         Map uploadResult = cloudinary.uploader().upload(profilePicture.getBytes(), ObjectUtils.emptyMap());
         String photoUrl = uploadResult.get("url").toString();
-
         if (photoUrl == null || photoUrl.isEmpty()) {
             throw new IllegalArgumentException("Profile picture can't be empty!");
         }
 
-        // Set the UserEntity in the FreelancerMasterEntity
-        freelancerMasterEntity.setUser(userEntity);  // Set the entire UserEntity object here
-        freelancerMasterEntity.setProfile_picture(photoUrl);
+        if (existingFreelancer != null) {
+            existingFreelancer.setContact(freelancerMasterEntity.getContact());
+            existingFreelancer.setCountry(freelancerMasterEntity.getCountry());
+            existingFreelancer.setDob(freelancerMasterEntity.getDob());
+            existingFreelancer.setGender(freelancerMasterEntity.getGender());
+            existingFreelancer.setGithub_link(freelancerMasterEntity.getGithub_link());
+            existingFreelancer.setLinkedin_link(freelancerMasterEntity.getLinkedin_link());
+            existingFreelancer.setPortfolio_link(freelancerMasterEntity.getPortfolio_link());
 
-        // Save the freelancer profile
-        return freelancerMstRepository.save(freelancerMasterEntity);
+            return freelancerMstRepository.save(existingFreelancer);
+        } else {
+            freelancerMasterEntity.setProfile_picture(photoUrl);
+            return freelancerMstRepository.save(freelancerMasterEntity);
+        }
+
     }
 
     public Optional<FreelancerMasterEntity> searchFreelancerById(Long freelancerId) {

@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <title>Freelancer Dashboard - Profile</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Remix Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+        <script src="../../JS/Freelancer.js"></script>
+    </head>
+
+    <body class="bg-gray-100">
+        <!-- Main Container -->
+        <div class="min-h-screen flex flex-col items-center bg-gray-100">
+
+            <!-- Top Section -->
+            <div class="w-full bg-white shadow p-8 flex items-center">
+                <!-- Avatar Section -->
+                <div class="relative">
+                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-300">
+                        <img id="show_profile_picture" alt="Freelancer Avatar" class="w-full h-full object-cover" />
+                        <div
+                            class="absolute bottom-2 right-2 w-10 h-10 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center cursor-pointer"
+                            onclick="openModal('editprofileModal')">
+
+                            <i class="ri-edit-circle-fill text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-8 flex-grow">
+                    <div class="bg-gray-200 p-6 rounded-lg">
+                        <h2 id="error-freelancer_name" class="text-lg font-bold text-gray-700"></h2>
+                        <p id="showfreelancer_name" class="text-sm text-gray-600 mt-2"></p>
+                        <p id="showdob" class="text-sm text-gray-600 mt-2">DOB: </p>
+                        <p id="showcountry" class="text-sm text-gray-600 mt-2">Country:</p>
+                        <p id="showstatus" class="text-sm text-gray-600 mt-2">Status:</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="w-full p-4 bg-gray-100">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <div class="max-w-5xl mx-auto space-y-8">
+                        <!-- Contact Information -->
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-xl font-bold text-gray-700">Contact Info</h3>
+                            <p id="showcontact" class="text-gray-600 mt-2"><strong>Phone:</strong></p>
+                        </div>
+                    </div>
+
+                    <div id="detailsSection" class="w-full p-4 bg-gray-100"></div>
+
+                    <!-- Social Media Links -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-700">Social Activity</h3>
+                        <div class="flex items-center gap-6 mt-4">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
+                                <link><i class="ri-linkedin-fill text-xl"></i></link>
+                            </div>
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
+                                <link><i class="ri-github-fill text-xl"></i></link>
+                            </div>
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
+                                <link><i class="ri-instagram-fill text-xl"></i></link>
+                            </div>
+                            <!--<button type="button" onclick="FreelancerDetails(event)">FreelancerDetails</button>-->
+                        </div>
+                    </div>
+
+                    <!-- Services Offered -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-700">Services Offered</h3>
+                        <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <li class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md">
+                                <h4 class="text-lg font-semibold text-gray-700">Software Development</h4>
+                                <p class="text-sm text-gray-600">Web, mobile, or desktop apps.</p>
+                            </li>
+                            <li class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md">
+                                <h4 class="text-lg font-semibold text-gray-700">Cloud Solutions</h4>
+                                <p class="text-sm text-gray-600">Migration, management, and integration.</p>
+                            </li>
+                            <li class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md">
+                                <h4 class="text-lg font-semibold text-gray-700">Cybersecurity</h4>
+                                <p class="text-sm text-gray-600">Threat assessment and consulting.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div
+            id="editprofileModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            >
+            <div class="bg-white p-6 rounded-md shadow-lg w-96">
+                <h2 class="text-lg font-semibold mb-4">Edit Profile</h2>
+                <form method="POST" >
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" name="contact" id="contact"
+
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <label for="contact"
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <i class="ri-contacts-fill ml-1"></i>&nbsp;Contact Number</label>
+                        <span class="error-message text-red-400" id="error-contact"></span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="file" name="profile_picture" id="profile_picture"
+
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <span class="error-message text-red-400" id="error-profile_picture"></span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" name="country" id="country"
+
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <label for="country"
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <i class="ri-earth-fill ml-1"></i>&nbsp;Country</label>
+                        <span class="error-message text-red-400" id="error-country"></span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="date" name="dob" id="dob"
+
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <span class="error-message text-red-400" id="error-dob"></span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        Gender <br/>
+                        <input type="radio" name="gender" id="male" value="Male"  />
+                        <label for="male" >Male</label>
+
+                        <input type="radio" name="gender" id="female" value="Female"/>
+                        <label for="female" >Female</label>
+
+                        <input type="radio" name="gender" id="other" value="Other" />
+                        <label for="other" >Other</label>
+
+                        <span class="error-message text-red-400" id="error-gender"></span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="url" name="github_link" id="github_link"
+
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <label for="github_link"
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <i class="ri-building-fill ml-1"></i>&nbsp;GitHub</label>
+                        <span class="error-message text-red-400" id="error-github_link"></span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="url" name="linkedin_link" id="linkedin_link"
+
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <label for="linkedin_link"
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <i class="ri-building-fill ml-1"></i>&nbsp;LinkedIn</label>
+                        <span class="error-message text-red-400" id="error-linkedin_link"></span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="url" name="portfolio_link" id="portfolio_link"
+
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
+                               placeholder=" " />
+                        <label for="portfolio_link"
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <i class="ri-building-fill ml-1"></i>&nbsp;Portfolio</label>
+                        <span class="error-message text-red-400" id="error-portfolio_link"></span>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                        onclick="freelancerProfileCreation(event)"
+                        >
+                        Upload
+                    </button>
+
+                    <button
+                        type="button"
+                        class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 ml-4"
+                        onclick="closeModal('editprofileModal')">
+                        Cancel
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </body>
+
+</html>

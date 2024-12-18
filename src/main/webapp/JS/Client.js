@@ -2,6 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
+
+
 function clientProfileCreation(event) {
     event.preventDefault();
 
@@ -15,6 +17,7 @@ function clientProfileCreation(event) {
 
     clearError("client_name");
     clearError("contact");
+    clearError("profile_picture");
     clearError("country");
     clearError("establish");
     clearError("industry");
@@ -28,6 +31,13 @@ function clientProfileCreation(event) {
     if (!contact) {
         document.getElementById("error-contact").innerHTML = "Please enter the Contact Number!";
         document.getElementById("contact").focus();
+        return false;
+    }
+
+
+    if (!profilePicture) {
+        document.getElementById("error-profile_picture").innerHTML = "Please upload a profile picture!";
+        profilePictureInput.focus();
         return false;
     }
 
@@ -49,11 +59,6 @@ function clientProfileCreation(event) {
         return false;
     }
 
-    if (!profilePicture) {
-        document.getElementById("error-profile_picture").innerHTML = "Please upload a profile picture!";
-        profilePictureInput.focus();
-        return false;
-    }
 
     const formData = new FormData();
     formData.append("client_name", clientName);
