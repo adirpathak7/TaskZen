@@ -31,13 +31,9 @@
                         <i class="ri-notification-3-fill text-4xl"></i>
                         <input type="text" placeholder="Search..."
                                class="hidden md:block p-2 rounded-lg bg-white text-gray-700 focus:outline-none" />
-       <!--                    <h:commandLink value="Logout" action="#{loginBean.logout}"
-                               class="flex items-center hover:text-gray-300">
-                               <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
-                           </h:commandLink>-->
-                        <a href="../../Login.xhtml" class="flex items-center hover:text-gray-300">
+                        <button type="button" onclick="logoutClient()" class="flex items-center hover:text-gray-300">
                             <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
-                        </a>
+                        </button>
                     </div>
                 </header>
 
@@ -120,6 +116,10 @@
 
         <!-- JavaScript -->
         <script>
+            function logoutClient() {
+                sessionStorage.clear();
+                window.location.href = "../../Login.xhtml";
+            }
             function showContent(contentId, btnId) {
                 // Hide all content sections
                 document.querySelectorAll('.content').forEach(content => content.classList.add('hidden'));
