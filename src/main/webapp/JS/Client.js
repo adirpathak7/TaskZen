@@ -203,7 +203,16 @@ function displayClientProjects(clientProjects) {
     clientProjects.forEach(project => {
 //        console.log(project.client_project_id);
         const projectCard = document.createElement("div");
-        projectCard.classList.add("bg-white", "p-5", "rounded-lg", "shadow-md", "mb-4");
+        projectCard.classList.add("bg-white", "p-8", "rounded-lg", "shadow-md", "mb-4");
+        projectCard.style.display = "flex";
+        projectCard.style.flexDirection = "column";
+        projectCard.style.justifyContent = "center";
+        projectCard.style.alignItems = "center";
+
+        const projectImg = document.createElement("img");
+        projectImg.src = project.project_picture;
+        projectImg.classList.add("text-xl", "font-semibold", "text-red-900");
+        projectImg.alt = "Not suported";
 
         const projectId = document.createElement("input");
         projectId.value = project.client_project_id;
@@ -212,7 +221,7 @@ function displayClientProjects(clientProjects) {
 
         const projectName = document.createElement("h2");
         projectName.textContent = project.client_project_name || 'N/A';
-        projectName.classList.add("text-xl", "font-semibold", "text-gray-800");
+        projectName.classList.add("text-xl", "font-semibold", "hover:underline", "text-gray-800");
 
         const projectStatus = document.createElement("p");
         const statusText = document.createElement("span");
@@ -273,7 +282,8 @@ function displayClientProjects(clientProjects) {
         editButton.textContent = "Edit";
         editButton.classList.add("text-blue-600", "hover:underline", "mr-2");
 
-        editButton.addEventListener("click", function () {
+        editButton.addEventListener("click", function (event) {
+            event.preventDefault();
             openModal('editProjectModal');
             populateModalFields(project);
         });
@@ -287,6 +297,7 @@ function displayClientProjects(clientProjects) {
 
         projectCard.appendChild(projectId);
         projectCard.appendChild(projectName);
+        projectCard.appendChild(projectImg);
         projectCard.appendChild(projectStatus);
         projectCard.appendChild(projectDuration);
         projectCard.appendChild(rangeContainer);
@@ -399,19 +410,22 @@ function clientProjectPost(event) {
 
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
-    modal.classList.remove("hidden");
-    document.getElementById("client_project_name").focus();
-//    alert(modal);
-}
 
+    if (modal) {
+        modal.classList.remove("hidden");
+    } else {
+        console.log("Modal with ID '" + modalId + "' not found!");
+    }
+}
 
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
-    modal.classList.add('hidden');
+    if (modal) {
+        modal.classList.add("hidden");
+    }
 }
 
 function populateModalFields(project) {
-    alert("in populateModalFields");
     document.getElementById("client_project_name").value = project.client_project_name || "";
     document.getElementById("description").value = project.description || "";
     document.getElementById("duration").value = project.duration || "";
