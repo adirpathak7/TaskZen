@@ -22,12 +22,12 @@ import javax.persistence.Table;
  * @author Aditya Pathak R
  */
 @Entity
-@Table(name = "post_tbl")
+@Table(name = "freelancer_applied_project_tbl")
 public class PostEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq")
-    @SequenceGenerator(name = "post_seq", sequenceName = "post_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "freelancer_applied_project_seq")
+    @SequenceGenerator(name = "freelancer_applied_project_seq", sequenceName = "freelancer_applied_project_sequence", allocationSize = 1)
     private Long post_id;
 
     private String freelancer_range;
@@ -63,6 +63,14 @@ public class PostEntity {
         this.client_id = client_id;
         this.client_project_id = client_project_id;
         this.created_at = created_at;
+    }
+
+    public PostEntity(String freelancer_range, String freelancer_description, String duration, ClientMasterEntity client_id, ClientProjectEntity client_project_id) {
+        this.freelancer_range = freelancer_range;
+        this.freelancer_description = freelancer_description;
+        this.duration = duration;
+        this.client_id = client_id;
+        this.client_project_id = client_project_id;
     }
 
     public Long getPost_id() {

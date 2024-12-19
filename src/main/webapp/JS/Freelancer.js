@@ -4,7 +4,6 @@
  */
 function freelancerProfileCreation(event) {
     event.preventDefault();
-
     const contact = document.getElementById("contact").value;
     const profilePictureInput = document.getElementById("profile_picture");
     const profilePicture = profilePictureInput.files.length > 0 ? profilePictureInput.files[0] : null;
@@ -113,7 +112,6 @@ async function fetchFreelancerDetails() {
 //        console.log("result is : " + JSON.stringify(result));
 //        console.log("result.data:", result.data);
         const freelancer = result.data;
-
         if (freelancer) {
             displayProfile(freelancer);
         } else {
@@ -150,14 +148,12 @@ function displayProfile(freelancer) {
     show_github_link.href = freelancer.github_link;
     show_linkedin_link.href = freelancer.linkedin_link;
     show_portfolio_link.href = freelancer.portfolio_link;
-
 }
 
 
 async function fetchClientsProjectsDetails() {
     const apiUrl = "http://localhost:8000/api/client/getAllClientsProjects";
     const token = sessionStorage.getItem("authToken");
-
     try {
         const response = await fetch(apiUrl, {
             method: "GET",
@@ -166,7 +162,6 @@ async function fetchClientsProjectsDetails() {
                 "Content-Type": "application/json"
             }
         });
-
         if (!response.ok) {
             throw new Error("Failed to fetch client project details");
         }
@@ -188,14 +183,12 @@ async function fetchClientsProjectsDetails() {
 
 function displayFreelancerProjects(freelancerProjects) {
     const projectsContainer = document.getElementById("freelancer_projects_container");
-
     if (!projectsContainer) {
         console.log("Projects container element is missing.");
         return;
     }
 
-    projectsContainer.innerHTML = "";  // Clear the container
-
+    projectsContainer.innerHTML = "";
     freelancerProjects.forEach(project => {
 
         const clientDetails = project.client_id || {};
@@ -205,58 +198,50 @@ function displayFreelancerProjects(freelancerProjects) {
         const clientCountry = clientDetails.country || "N/A";
         const clientEstablish = clientDetails.establish || "N/A";
         const clientIndustry = clientDetails.industry || "N/A";
-        const clientProfilePicture = clientDetails.profile_picture || "default-profile.jpg";  // Assuming default image if none provided
-        const projectPicture = project.project_picture || "default-project.jpg";  // Assuming default image if none provided
-        const projectRange = `${project.minimum_range || 'N/A'} - ${project.maximum_range || 'N/A'}`;
-
+        const clientProfilePicture = clientDetails.profile_picture || "default-profile.jpg";
+        const projectPicture = project.project_picture || "default-project.jpg";
+        const projectMinimumRange = project.minimum_range;
+        const projectMaximumRange = project.maximum_range;
         const projectCard = document.createElement("div");
         projectCard.classList.add("bg-white", "p-5", "rounded-lg", "shadow-md", "mb-4");
-
         // Project ID (hidden)
         const projectId = document.createElement("input");
         projectId.value = project.client_project_id || "N/A";
+        projectId.id = "client_project_id";
         projectId.classList.add("text-xl", "font-semibold", "text-red-900");
         projectId.style.display = "none";
-
         // Project Name
         const projectName = document.createElement("h2");
         projectName.textContent = project.client_project_name || "N/A";
         projectName.classList.add("text-xl", "font-semibold", "text-gray-800");
-
         // Client Name
         const clientNameEl = document.createElement("p");
         clientNameEl.textContent = `Client Name: ${clientName}`;
         clientNameEl.classList.add("text-lg", "font-semibold", "text-gray-800");
-
         // Project Duration
         const projectDuration = document.createElement("p");
         projectDuration.textContent = `Duration: ${project.duration || 'N/A'}`;
         projectDuration.classList.add("text-sm", "text-gray-500");
-
         // Project Range
         const projectRangeEl = document.createElement("p");
-        projectRangeEl.textContent = `Project Range: ${projectRange}`;
+        const projectRangeEl1 = document.createElement("p");
+        projectRangeEl.textContent = `Project Range: ${projectMinimumRange} - ${projectMaximumRange} Rs.`;
+        projectRangeEl.id = "project-minimum-range";
+        projectRangeEl1.id = "project-maximum-range";
         projectRangeEl.classList.add("text-sm", "text-gray-500");
-
         // Project Image
         const projectImg = document.createElement("img");
         projectImg.src = projectPicture;
         projectImg.alt = "Project picture not supported";
         projectImg.classList.add("w-20", "h-20");
-
         // View More Button
         const viewButton = document.createElement("button");
         viewButton.type = "button";
         viewButton.textContent = "View More";
-        viewButton.classList.add("text-red-600", "hover:underline");
-
-        // View More Button click handler
+        viewButton.classList.add("text-blue-600", "hover:text-blue-800");
         viewButton.addEventListener("click", (event) => {
             event.preventDefault();
-
-            // Populate modal with full client and project details
             const modalDetails = document.getElementById("client-details");
-
             if (modalDetails) {
                 modalDetails.innerHTML = `
                     <strong>Client Name:</strong> ${clientName}<br>
@@ -264,35 +249,28 @@ function displayFreelancerProjects(freelancerProjects) {
                     <strong>Country:</strong> ${clientCountry}<br>
                     <strong>Established:</strong> ${clientEstablish}<br>
                     <strong>Industry:</strong> ${clientIndustry}<br>
+                    <input type="hidden" id="client_id" value="${clientId}"/>
                     <img src="${clientProfilePicture}" alt="Client Profile Picture" class="w-20 h-20 rounded-full mb-4"><br>
                     <strong>Project Description:</strong> ${project.description || "N/A"}<br>
-                    <strong>Project Range:</strong> ${projectRange}<br>
+                    <strong>Project Range:</strong> ${projectMinimumRange} - ${projectMaximumRange} Rs.<br>
                 `;
             }
 
-            // Populate the freelancer form (this can be optional if needed)
-            const freelancerForm = document.getElementById("freelancer-form");
-            if (freelancerForm) {
-                // You can clear or set default values for the form here if necessary
-                document.getElementById("freelancer-range").value = '';  // Reset fields as needed
-                document.getElementById("freelancer-description").value = '';
-                document.getElementById("duration").value = '';
-            }
-
-            // Open modal
+            // Store the project ranges in the form
+            document.getElementById("project-minimum-range").value = project.minimum_range;
+            document.getElementById("project-maximum-range").value = project.maximum_range;
+            document.getElementById("client_project_id").value = project.client_project_id;
+            document.getElementById("client_id").value = clientId;
             openModal("freelancerOpendProject");
         });
-
-        // Append elements to the project card
         projectCard.appendChild(projectId);
         projectCard.appendChild(projectName);
         projectCard.appendChild(clientNameEl);
         projectCard.appendChild(projectDuration);
         projectCard.appendChild(projectRangeEl);
+        projectCard.appendChild(projectRangeEl1);
         projectCard.appendChild(projectImg);
         projectCard.appendChild(viewButton);
-
-        // Add project card to the container
         projectsContainer.appendChild(projectCard);
     });
 }
@@ -300,40 +278,52 @@ function displayFreelancerProjects(freelancerProjects) {
 
 function freelanverApplyForProject(event) {
     event.preventDefault();
-
-    const freelancer_range = document.getElementById("freelancer-range").value;
+    // Get freelancer input values
+    const freelancer_range = parseFloat(document.getElementById("freelancer-range").value);
     const freelancer_description = document.getElementById("freelancer-description").value;
+    const client_project_id = document.getElementById("client_project_id").value;
+    const client_id = document.getElementById("client_id").value;
     const duration = document.getElementById("duration").value;
-
+    // Get project range values from the hidden input fields
+    const project_minimum_range = parseFloat(document.getElementById("project-minimum-range").value);
+    const project_maximum_range = parseFloat(document.getElementById("project-maximum-range").value);
+    // Clear any previous error messages
     clearError("freelancer-range");
     clearError("freelancer-description");
     clearError("duration");
-
+    // Range validation
     if (!freelancer_range) {
-        document.getElementById("error-freelancer-range").innerHTML = "Please enter the Contact Number!";
+        document.getElementById("error-freelancer-range").innerHTML = "Please enter a valid range!";
+        document.getElementById("freelancer-range").focus();
+        return false;
+    }
+
+    if (freelancer_range < project_minimum_range || freelancer_range > project_maximum_range) {
+        document.getElementById("error-freelancer-range").innerHTML = `Freelancer range should be between ${project_minimum_range} and ${project_maximum_range} Rs.`;
         document.getElementById("freelancer-range").focus();
         return false;
     }
 
     if (!freelancer_description) {
-        document.getElementById("error-freelancer-description").innerHTML = "Please upload a profile picture!";
+        document.getElementById("error-freelancer-description").innerHTML = "Please provide a description!";
         document.getElementById("freelancer-description").focus();
         return false;
     }
 
     if (!duration) {
-        document.getElementById("error-duration").innerHTML = "Please select the Country!";
+        document.getElementById("error-duration").innerHTML = "Please select the project duration!";
         document.getElementById("duration").focus();
         return false;
     }
 
     const formData = new FormData();
-    formData.append("freelancer-range", freelancer_range);
-    formData.append("freelancer-description", freelancer_description);
+    formData.append("freelancer_range", freelancer_range);
+    formData.append("freelancer_description", freelancer_description);
+    formData.append("client_project_id", client_project_id);
+    formData.append("client_id", client_id);
     formData.append("duration", duration);
-
-
-    const apiUrl = "http://localhost:8000/api/freelancer/freelancersAllDetails";
+    
+    const apiUrl = "http://localhost:8000/api/freelancer/applyProjects";
     const token = sessionStorage.getItem("authToken");
     fetch(apiUrl, {
         method: "POST",
@@ -343,22 +333,21 @@ function freelanverApplyForProject(event) {
         }
     }).then(response => response.json()).then(result => {
         if (result.data === "1") {
-            alert("Profile updated successfully!");
+            alert("Application applied successfully!");
             if (result.token) {
                 sessionStorage.setItem("authToken", result.token);
             }
             if (result.role) {
                 sessionStorage.setItem("userRole", result.role);
             }
-
-            closeModal('editprofileModal');
+            formData();
             fetchFreelancerDetails();
+            closeModal("freelancerOpendProject");
         } else {
-            alert("Failed to update profile. Please try again.");
-//            console.log(result);
+            alert("Failed to apply project. Please try again.");
         }
     }).catch(error => {
-        console.error("Error occurred while updating profile: ", error);
+        console.error("Error occurred while applied project: ", error);
         alert("An error occurred. Please try again.");
     });
 }
@@ -366,7 +355,6 @@ function freelanverApplyForProject(event) {
 
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
-
     if (modal) {
         modal.classList.remove("hidden");
     } else {
@@ -382,7 +370,6 @@ function closeModal(modalId) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // All initialization code goes here
     fetchFreelancerDetails();
     fetchClientsProjectsDetails();
 });

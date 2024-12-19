@@ -4,7 +4,10 @@
  */
 package com.it.taskzen.services;
 
+import com.it.taskzen.entities.FreelancerMasterEntity;
 import com.it.taskzen.entities.PostEntity;
+import com.it.taskzen.jwt.JWTService;
+import com.it.taskzen.repositories.FreelancerMstRepository;
 import com.it.taskzen.repositories.PostRepository;
 import java.util.List;
 import java.util.Optional;
@@ -21,12 +24,27 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    // Insert or Save Post
-    public PostEntity savePost(PostEntity postEntity) {
+    @Autowired
+    private FreelancerMstRepository freelancerMstRepository;
+
+    @Autowired
+    private JWTService jWTService;
+
+    public PostEntity applyProjects(String token, PostEntity postEntity) {
+        Long freelancer_id = jWTService.extractFreelancerId(token);
+        System.out.println("User ID from JWT: " + freelancer_id);
+
+        FreelancerMasterEntity exist_freelancer_id = freelancerMstRepository.findByUserId(freelancer_id);
+
+        if (exist_freelancer_id == null) {
+            throw new IllegalArgumentException("Please create your profile first!");
+        }
+        postEntity.setFreelancer_id(exist_freelancer_id);
+
         return postRepository.save(postEntity);
     }
 
-    // Update Post
+
     public PostEntity updatePost(Long postId, PostEntity updatedPost) {
         Optional<PostEntity> existingPost = postRepository.findById(postId);
         if (existingPost.isPresent()) {
@@ -43,7 +61,6 @@ public class PostService {
         throw new RuntimeException("Post with ID " + postId + " not found.");
     }
 
-    // Delete Post
     public void deletePost(Long postId) {
         if (postRepository.existsById(postId)) {
             postRepository.deleteById(postId);
@@ -52,12 +69,10 @@ public class PostService {
         }
     }
 
-    // Retrieve All Posts
     public List<PostEntity> getAllPosts() {
         return postRepository.findAll();
     }
 
-    // Find Post by ID
     public PostEntity findPostById(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post with ID " + postId + " not found."));

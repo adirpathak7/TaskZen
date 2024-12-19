@@ -4,7 +4,8 @@
  */
 package com.it.taskzen.controllers;
 
-import com.it.taskzen.entities.FreelancerMasterEntity;
+import com.it.taskzen.entities.ClientMasterEntity;
+import com.it.taskzen.entities.ClientProjectEntity;
 import com.it.taskzen.entities.PostEntity;
 import com.it.taskzen.exceptions.ResourceNotFoundException;
 import com.it.taskzen.services.PostService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,32 +33,32 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/freelancer")
 public class PostController {
 
     @Autowired
     private PostService postService;
 
-    @PostMapping(value = "/postProject", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Map<String, Object>> createPost(
+    @PostMapping(value = "/applyProjects", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, Object>> applyProjects(
             @RequestParam("freelancer_range") String freelancer_range,
             @RequestParam("freelancer_description") String freelancer_description,
             @RequestParam("duration") String duration,
-            @RequestParam("freelancer_id") FreelancerMasterEntity freelancer_id) {
+            @RequestParam("client_id") ClientMasterEntity client_id,
+            @RequestParam("client_project_id") ClientProjectEntity client_project_id,
+            @RequestHeader("Authorization") String token) {
 
-        PostEntity postEntity = new PostEntity();
-        postEntity.setFreelancer_range(freelancer_range);
-        postEntity.setFreelancer_description(freelancer_description);
-        postEntity.setDuration(duration);
-        postEntity.setFreelancer_id(freelancer_id);
+        PostEntity postEntity = new PostEntity(freelancer_range, freelancer_description, duration, client_id, client_project_id);
 
-        PostEntity savedPost = postService.savePost(postEntity);
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+        postService.applyProjects(token, postEntity);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Post created successfully.");
-        response.put("data", savedPost);
-
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        response.put("message", "Freelancer applied for project.");
+        response.put("data", "1");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "/updateProject/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
