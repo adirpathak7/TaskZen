@@ -93,22 +93,6 @@ function clearError(field) {
     document.getElementById("error-" + field).innerHTML = "";
 }
 
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.remove('hidden');
-    document.addEventListener('keydown', function handleEscape(event) {
-        if (event.key === 'Escape') {
-            closeModal('editprofileModal');
-            document.removeEventListener('keydown', handleEscape);
-        }
-    });
-}
-
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.add('hidden');
-}
-
 
 async function fetchFreelancerDetails() {
     const apiUrl = "http://localhost:8000/api/freelancer/getFreelancerDetailsByToken";
@@ -169,6 +153,236 @@ function displayProfile(freelancer) {
 
 }
 
+
+async function fetchClientsProjectsDetails() {
+    const apiUrl = "http://localhost:8000/api/client/getAllClientsProjects";
+    const token = sessionStorage.getItem("authToken");
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch client project details");
+        }
+
+        const result = await response.json();
+        const freelancerProjects = result;
+//        console.log(freelancerProjects);
+
+
+        if (freelancerProjects && Array.isArray(freelancerProjects)) {
+            displayFreelancerProjects(freelancerProjects);
+        } else {
+            console.error("No client project data found.");
+        }
+    } catch (error) {
+        console.error("Error fetching client project details:", error);
+    }
+}
+
+function displayFreelancerProjects(freelancerProjects) {
+    const projectsContainer = document.getElementById("freelancer_projects_container");
+
+    if (!projectsContainer) {
+        console.log("Projects container element is missing.");
+        return;
+    }
+
+    projectsContainer.innerHTML = "";  // Clear the container
+
+    freelancerProjects.forEach(project => {
+
+        const clientDetails = project.client_id || {};
+        const clientId = clientDetails.client_id || "N/A";
+        const clientName = clientDetails.client_name || "N/A";
+        const clientContact = clientDetails.contact || "N/A";
+        const clientCountry = clientDetails.country || "N/A";
+        const clientEstablish = clientDetails.establish || "N/A";
+        const clientIndustry = clientDetails.industry || "N/A";
+        const clientProfilePicture = clientDetails.profile_picture || "default-profile.jpg";  // Assuming default image if none provided
+        const projectPicture = project.project_picture || "default-project.jpg";  // Assuming default image if none provided
+        const projectRange = `${project.minimum_range || 'N/A'} - ${project.maximum_range || 'N/A'}`;
+
+        const projectCard = document.createElement("div");
+        projectCard.classList.add("bg-white", "p-5", "rounded-lg", "shadow-md", "mb-4");
+
+        // Project ID (hidden)
+        const projectId = document.createElement("input");
+        projectId.value = project.client_project_id || "N/A";
+        projectId.classList.add("text-xl", "font-semibold", "text-red-900");
+        projectId.style.display = "none";
+
+        // Project Name
+        const projectName = document.createElement("h2");
+        projectName.textContent = project.client_project_name || "N/A";
+        projectName.classList.add("text-xl", "font-semibold", "text-gray-800");
+
+        // Client Name
+        const clientNameEl = document.createElement("p");
+        clientNameEl.textContent = `Client Name: ${clientName}`;
+        clientNameEl.classList.add("text-lg", "font-semibold", "text-gray-800");
+
+        // Project Duration
+        const projectDuration = document.createElement("p");
+        projectDuration.textContent = `Duration: ${project.duration || 'N/A'}`;
+        projectDuration.classList.add("text-sm", "text-gray-500");
+
+        // Project Range
+        const projectRangeEl = document.createElement("p");
+        projectRangeEl.textContent = `Project Range: ${projectRange}`;
+        projectRangeEl.classList.add("text-sm", "text-gray-500");
+
+        // Project Image
+        const projectImg = document.createElement("img");
+        projectImg.src = projectPicture;
+        projectImg.alt = "Project picture not supported";
+        projectImg.classList.add("w-20", "h-20");
+
+        // View More Button
+        const viewButton = document.createElement("button");
+        viewButton.type = "button";
+        viewButton.textContent = "View More";
+        viewButton.classList.add("text-red-600", "hover:underline");
+
+        // View More Button click handler
+        viewButton.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            // Populate modal with full client and project details
+            const modalDetails = document.getElementById("client-details");
+
+            if (modalDetails) {
+                modalDetails.innerHTML = `
+                    <strong>Client Name:</strong> ${clientName}<br>
+                    <strong>Contact:</strong> ${clientContact}<br>
+                    <strong>Country:</strong> ${clientCountry}<br>
+                    <strong>Established:</strong> ${clientEstablish}<br>
+                    <strong>Industry:</strong> ${clientIndustry}<br>
+                    <img src="${clientProfilePicture}" alt="Client Profile Picture" class="w-20 h-20 rounded-full mb-4"><br>
+                    <strong>Project Description:</strong> ${project.description || "N/A"}<br>
+                    <strong>Project Range:</strong> ${projectRange}<br>
+                `;
+            }
+
+            // Populate the freelancer form (this can be optional if needed)
+            const freelancerForm = document.getElementById("freelancer-form");
+            if (freelancerForm) {
+                // You can clear or set default values for the form here if necessary
+                document.getElementById("freelancer-range").value = '';  // Reset fields as needed
+                document.getElementById("freelancer-description").value = '';
+                document.getElementById("duration").value = '';
+            }
+
+            // Open modal
+            openModal("freelancerOpendProject");
+        });
+
+        // Append elements to the project card
+        projectCard.appendChild(projectId);
+        projectCard.appendChild(projectName);
+        projectCard.appendChild(clientNameEl);
+        projectCard.appendChild(projectDuration);
+        projectCard.appendChild(projectRangeEl);
+        projectCard.appendChild(projectImg);
+        projectCard.appendChild(viewButton);
+
+        // Add project card to the container
+        projectsContainer.appendChild(projectCard);
+    });
+}
+
+
+function freelanverApplyForProject(event) {
+    event.preventDefault();
+
+    const freelancer_range = document.getElementById("freelancer-range").value;
+    const freelancer_description = document.getElementById("freelancer-description").value;
+    const duration = document.getElementById("duration").value;
+
+    clearError("freelancer-range");
+    clearError("freelancer-description");
+    clearError("duration");
+
+    if (!freelancer_range) {
+        document.getElementById("error-freelancer-range").innerHTML = "Please enter the Contact Number!";
+        document.getElementById("freelancer-range").focus();
+        return false;
+    }
+
+    if (!freelancer_description) {
+        document.getElementById("error-freelancer-description").innerHTML = "Please upload a profile picture!";
+        document.getElementById("freelancer-description").focus();
+        return false;
+    }
+
+    if (!duration) {
+        document.getElementById("error-duration").innerHTML = "Please select the Country!";
+        document.getElementById("duration").focus();
+        return false;
+    }
+
+    const formData = new FormData();
+    formData.append("freelancer-range", freelancer_range);
+    formData.append("freelancer-description", freelancer_description);
+    formData.append("duration", duration);
+
+
+    const apiUrl = "http://localhost:8000/api/freelancer/freelancersAllDetails";
+    const token = sessionStorage.getItem("authToken");
+    fetch(apiUrl, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }).then(response => response.json()).then(result => {
+        if (result.data === "1") {
+            alert("Profile updated successfully!");
+            if (result.token) {
+                sessionStorage.setItem("authToken", result.token);
+            }
+            if (result.role) {
+                sessionStorage.setItem("userRole", result.role);
+            }
+
+            closeModal('editprofileModal');
+            fetchFreelancerDetails();
+        } else {
+            alert("Failed to update profile. Please try again.");
+//            console.log(result);
+        }
+    }).catch(error => {
+        console.error("Error occurred while updating profile: ", error);
+        alert("An error occurred. Please try again.");
+    });
+}
+
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+
+    if (modal) {
+        modal.classList.remove("hidden");
+    } else {
+        console.log("Modal with ID '" + modalId + "' not found!");
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add("hidden");
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+    // All initialization code goes here
     fetchFreelancerDetails();
+    fetchClientsProjectsDetails();
 });

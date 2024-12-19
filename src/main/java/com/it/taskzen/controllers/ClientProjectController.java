@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -115,5 +116,16 @@ public class ClientProjectController {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+//    @DeleteMapping("/{client_project_id}")
+//    public ResponseEntity<Map<String, String>> deletePost(@PathVariable Long postId) {
+//        clientProjectService.deletePost(postId);
+//
+//        Map<String, String> response = new HashMap<>();
+//        response.put("message", "Post deleted successfully.");
+//        response.put("postId", String.valueOf(postId));
+//
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
 }
