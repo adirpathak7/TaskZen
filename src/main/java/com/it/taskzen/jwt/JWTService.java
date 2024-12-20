@@ -83,11 +83,7 @@ public class JWTService {
     }
 
     private Claims parseToken(String token) {
-        return Jwts.parser()
-                .verifyWith(getKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        return extractAllClaims(token);
     }
 
     public String getUsernameFromToken(String token) {

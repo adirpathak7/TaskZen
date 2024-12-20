@@ -39,7 +39,7 @@ public class PostEntity {
 
     @ManyToOne
     @JoinColumn(name = "freelancer_id", referencedColumnName = "freelancer_id")
-    private FreelancerMasterEntity freelancer_id;
+    private FreelancerMasterEntity freelancer;
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
@@ -47,30 +47,30 @@ public class PostEntity {
 
     @ManyToOne
     @JoinColumn(name = "client_project_id", referencedColumnName = "client_project_id")
-    private ClientProjectEntity client_project_id;
+    private ClientProjectEntity clientProject;
     private LocalDateTime created_at;
 
     public PostEntity() {
     }
 
-    public PostEntity(Long post_id, String freelancer_range, String freelancer_description, String duration, Status status, FreelancerMasterEntity freelancer_id, ClientMasterEntity client_id, ClientProjectEntity client_project_id, LocalDateTime created_at) {
+    public PostEntity(Long post_id, String freelancer_range, String freelancer_description, String duration, Status status, FreelancerMasterEntity freelancer, ClientMasterEntity client_id, ClientProjectEntity clientProject, LocalDateTime created_at) {
         this.post_id = post_id;
         this.freelancer_range = freelancer_range;
         this.freelancer_description = freelancer_description;
         this.duration = duration;
         this.status = status;
-        this.freelancer_id = freelancer_id;
+        this.freelancer = freelancer;
         this.client_id = client_id;
-        this.client_project_id = client_project_id;
+        this.clientProject = clientProject;
         this.created_at = created_at;
     }
 
-    public PostEntity(String freelancer_range, String freelancer_description, String duration, ClientMasterEntity client_id, ClientProjectEntity client_project_id) {
+    public PostEntity(String freelancer_range, String freelancer_description, String duration, ClientMasterEntity client_id, ClientProjectEntity clientProject) {
         this.freelancer_range = freelancer_range;
         this.freelancer_description = freelancer_description;
         this.duration = duration;
         this.client_id = client_id;
-        this.client_project_id = client_project_id;
+        this.clientProject = clientProject;
     }
 
     public Long getPost_id() {
@@ -113,12 +113,12 @@ public class PostEntity {
         this.status = status;
     }
 
-    public FreelancerMasterEntity getFreelancer_id() {
-        return freelancer_id;
+    public FreelancerMasterEntity getFreelancer() {
+        return freelancer;
     }
 
-    public void setFreelancer_id(FreelancerMasterEntity freelancer_id) {
-        this.freelancer_id = freelancer_id;
+    public void setFreelancer(FreelancerMasterEntity freelancer) {
+        this.freelancer = freelancer;
     }
 
     public ClientMasterEntity getClient_id() {
@@ -129,12 +129,12 @@ public class PostEntity {
         this.client_id = client_id;
     }
 
-    public ClientProjectEntity getClient_project_id() {
-        return client_project_id;
+    public ClientProjectEntity getClientProject() {
+        return clientProject;
     }
 
-    public void setClient_project_id(ClientProjectEntity client_project_id) {
-        this.client_project_id = client_project_id;
+    public void setClientProject(ClientProjectEntity clientProject) {
+        this.clientProject = clientProject;
     }
 
     public LocalDateTime getCreated_at() {

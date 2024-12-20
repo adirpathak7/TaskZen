@@ -5,6 +5,8 @@
 package com.it.taskzen.controllers;
 
 import com.it.taskzen.entities.FreelancerEducationEntity;
+import com.it.taskzen.entities.FreelancerMasterEntity;
+import com.it.taskzen.exceptions.ResourceNotFoundException;
 import com.it.taskzen.services.FreelancerEducationService;
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Aditya Pathak R
  */
-    @RestController
+@RestController
 @CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
 @RequestMapping(value = "/api/freelancer")
 public class FreelancerEducationController {
@@ -93,8 +94,8 @@ public class FreelancerEducationController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/getFreelancerEducationByFreelancerId")
-    public ResponseEntity<Map<String, Object>> getFreelancerEducationByFreelancerId(@RequestHeader("Authorization") String token) throws IOException {
+    @GetMapping("/getFreelancerEducationByToken")
+    public ResponseEntity<Map<String, Object>> getFreelancerEducationByToken(@RequestHeader("Authorization") String token) throws IOException {
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7).trim();
         }
@@ -106,4 +107,22 @@ public class FreelancerEducationController {
         response.put("data", education);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/getFreelancerEducationDetailsById/{freelancer_id}")
+    public ResponseEntity<Map<String, Object>> getFreelancerEducationDetailsById(
+            @PathVariable("freelancer_id") Long freelancer_id) {
+        try {
+            List<FreelancerEducationEntity> educationDetails = freelancerEducationService.getFreelancerEducationDetailsById(freelancer_id);
+            if (educationDetails.isEmpty()) {
+                return new ResponseEntity<>(Map.of("message", "No education details found for this freelancer."), HttpStatus.NOT_FOUND);
+            }
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Freelancer education details fetched successfully.");
+            response.put("data", educationDetails);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

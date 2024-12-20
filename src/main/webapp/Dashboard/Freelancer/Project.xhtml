@@ -7,7 +7,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="../../JS/Freelancer.js"></script>
+        <script src="../../JS/Freelancer.js"></script>       
+        <script src="../../JS/FreelancerProject.js"></script>
+
     </head>
     <body>
         <div class=" bg-gray-100 py-8 px-4">
@@ -37,7 +39,7 @@
                     </div>
 
                     <!-- Freelancer Form -->
-                    <form id="freelancer-form">
+                    <form id="freelancer-project-application-form">
                         <div class="mb-4">
                             <label for="freelancer-range" class="block text-sm font-medium text-gray-700">Freelancer Range</label>
                             <input type="text" id="freelancer-range" name="freelancer_range" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
@@ -67,7 +69,7 @@
         <div class="h-full bg-gray-100 py-8 px-4">
             <!-- Page Header -->
             <div class="mb-6 flex justify-between items-center">
-                <h1 class="text-3xl font-semibold text-gray-900">Freelancer Projects</h1>
+                <h1 class="text-3xl font-semibold text-gray-900">Applied Projects</h1>
             </div>
 
             <!-- Table Container -->
@@ -75,75 +77,23 @@
                 <table class="min-w-full table-auto">
                     <thead class="bg-gray-800 text-white">
                         <tr>
-                            <th class="px-6 py-3 text-left">Freelancer Name</th>
-                            <th class="px-6 py-3 text-left">Project Title</th>
-                            <th class="px-6 py-3 text-left">Status</th>
-                            <th class="px-6 py-3 text-left">Progress</th>
-                            <th class="px-6 py-3 text-left">Due Date</th>
-                            <th class="px-6 py-3 text-left">Last Submission</th>
-                            <th class="px-6 py-3 text-left">Action</th>
+                            <th class="px-6 py-3 text-left">Client Name</th>
+                            <th class="px-6 py-3 text-left">Project Name</th>
+                            <th class="px-6 py-3 text-left">Client Range</th>
+                            <th class="px-6 py-3 text-left">Client Status</th>
+                            <th class="px-6 py-3 text-left">Client Duration</th>
+                            <th class="px-6 py-3 text-left">My Range</th>
+                            <th class="px-6 py-3 text-left">My Duration</th>  
+                            <th class="px-6 py-3 text-left">My Status</th>
+                            <th class="px-6 py-3 text-left">Apply Date</th>
                         </tr>
                     </thead>
-                    <tbody class="text-gray-700">
-                        <!-- Row 1 -->
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4">ABC Corp</td>
-                            <td class="px-6 py-4">Website Redesign</td>
-                            <td class="px-6 py-4 text-blue-600">In Progress</td>
-                            <td class="px-6 py-4">
-                                <div class="w-full bg-gray-200 h-2 rounded-full">
-                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
-                                </div>
-                                <p class="text-sm text-gray-600 mt-1">60%</p>
-                            </td>
-                            <td class="px-6 py-4">Nov 25, 2024</td>
-                            <td class="px-6 py-4">Oct 15, 2024</td>
-                            <td class="px-6 py-4">
-                                <button
-                                    class="bg-blue-500 text-white py-2 px-4 rounded-md opacity-50 cursor-not-allowed"
-                                    disabled="disabled">Pay</button>
-                            </td>
-                        </tr>
-                        <!-- Row 2 -->
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4">ABC Corp</td>
-                            <td class="px-6 py-4">Mobile App Update</td>
-                            <td class="px-6 py-4 text-green-600">Completed</td>
-                            <td class="px-6 py-4">
-                                <div class="w-full bg-gray-200 h-2 rounded-full">
-                                    <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
-                                </div>
-                                <p class="text-sm text-gray-600 mt-1">100%</p>
-                            </td>
-                            <td class="px-6 py-4">Oct 15, 2024</td>
-                            <td class="px-6 py-4">Oct 10, 2024</td>
-                            <td class="px-6 py-4">
-                                <button
-                                    class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Pay</button>
-                            </td>
-                        </tr>
-                        <!-- Row 3 -->
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4">XYZ Ltd.</td>
-                            <td class="px-6 py-4">E-commerce Website</td>
-                            <td class="px-6 py-4 text-yellow-600">Pending</td>
-                            <td class="px-6 py-4">
-                                <div class="w-full bg-gray-200 h-2 rounded-full">
-                                    <div class="bg-yellow-600 h-2 rounded-full" style="width: 30%"></div>
-                                </div>
-                                <p class="text-sm text-gray-600 mt-1">30%</p>
-                            </td>
-                            <td class="px-6 py-4">Dec 5, 2024</td>
-                            <td class="px-6 py-4">N/A</td>
-                            <td class="px-6 py-4">
-                                <button
-                                    class="bg-blue-500 text-white py-2 px-4 rounded-md opacity-50 cursor-not-allowed"
-                                    disabled="disabled">Pay</button>
-                            </td>
-                        </tr>
+                    <tbody id="table-body" class="text-gray-700">
+                        <!-- Data rows will be inserted here -->
                     </tbody>
                 </table>
             </div>
+
         </div>
     </body>
 

@@ -67,7 +67,7 @@ function clientProfileCreation(event) {
     formData.append("establish", establish);
     formData.append("industry", industry);
 
-    const apiUrl = "http://localhost:8000/api/clientsAllDetails";
+    const apiUrl = "http://localhost:8000/api/client/clientsAllDetails";
     const token = sessionStorage.getItem("authToken");
 
     fetch(apiUrl, {

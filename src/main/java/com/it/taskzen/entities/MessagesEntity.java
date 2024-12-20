@@ -28,18 +28,14 @@ public class MessagesEntity {
     @SequenceGenerator(name = "message_seq", sequenceName = "message_sequence", allocationSize = 1)
     private Long message_id;
 
-    private int conversation_id;
-    private int sender_id;
-    private int receiver_id;
+    private Long sender_id;
+    private Long receiver_id;
 
-    @Enumerated(EnumType.STRING)
-    private Sender_Role sender_role;
+    private String sender_role;
 
-    @Enumerated(EnumType.STRING)
-    private Receiver_Role receiver_role;
+    private String receiver_role;
 
     private String message_content;
-    private LocalDateTime messageTime;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -49,17 +45,19 @@ public class MessagesEntity {
     public MessagesEntity() {
     }
 
-    public MessagesEntity(Long message_id, int conversation_id, int sender_id, int receiver_id, Sender_Role sender_role, Receiver_Role receiver_role, String message_content, LocalDateTime messageTime, Status status, LocalDateTime created_at) {
+    public MessagesEntity(Long message_id, Long sender_id, Long receiver_id, String sender_role, String receiver_role, String message_content, Status status, LocalDateTime created_at) {
         this.message_id = message_id;
-        this.conversation_id = conversation_id;
         this.sender_id = sender_id;
         this.receiver_id = receiver_id;
         this.sender_role = sender_role;
         this.receiver_role = receiver_role;
         this.message_content = message_content;
-        this.messageTime = messageTime;
         this.status = status;
         this.created_at = created_at;
+    }
+
+    public MessagesEntity(String message_content) {
+        this.message_content = message_content;
     }
 
     public Long getMessage_id() {
@@ -70,43 +68,35 @@ public class MessagesEntity {
         this.message_id = message_id;
     }
 
-    public int getConversation_id() {
-        return conversation_id;
-    }
-
-    public void setConversation_id(int conversation_id) {
-        this.conversation_id = conversation_id;
-    }
-
-    public int getSender_id() {
+    public Long getSender_id() {
         return sender_id;
     }
 
-    public void setSender_id(int sender_id) {
+    public void setSender_id(Long sender_id) {
         this.sender_id = sender_id;
     }
 
-    public int getReceiver_id() {
+    public Long getReceiver_id() {
         return receiver_id;
     }
 
-    public void setReceiver_id(int receiver_id) {
+    public void setReceiver_id(Long receiver_id) {
         this.receiver_id = receiver_id;
     }
 
-    public Sender_Role getSender_role() {
+    public String getSender_role() {
         return sender_role;
     }
 
-    public void setSender_role(Sender_Role sender_role) {
+    public void setSender_role(String sender_role) {
         this.sender_role = sender_role;
     }
 
-    public Receiver_Role getReceiver_role() {
+    public String getReceiver_role() {
         return receiver_role;
     }
 
-    public void setReceiver_role(Receiver_Role receiver_role) {
+    public void setReceiver_role(String receiver_role) {
         this.receiver_role = receiver_role;
     }
 
@@ -116,14 +106,6 @@ public class MessagesEntity {
 
     public void setMessage_content(String message_content) {
         this.message_content = message_content;
-    }
-
-    public LocalDateTime getMessageTime() {
-        return messageTime;
-    }
-
-    public void setMessageTime(LocalDateTime messageTime) {
-        this.messageTime = messageTime;
     }
 
     public Status getStatus() {
@@ -141,42 +123,17 @@ public class MessagesEntity {
     @PrePersist
     protected void onCreate() {
         created_at = LocalDateTime.now();
+        if (status == null) {
+            status = Status.delivered;
+        }
     }
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 
-    public enum Sender_Role {
-        admin("admin"), freelancer("freelancer"), client("client");
-
-        private final String value;
-
-        Sender_Role(String value) {
-            this.value = value;
-        }
-
-        public String getSender_Role() {
-            return value;
-        }
-    }
-
-    public enum Receiver_Role {
-        admin("admin"), freelancer("freelancer"), client("client");
-
-        private final String value;
-
-        Receiver_Role(String value) {
-            this.value = value;
-        }
-
-        public String getReceiver_Role() {
-            return value;
-        }
-    }
-
     public enum Status {
-        sent("sent"), delivered("delivered"), read("read");
+        delivered("delivered"), read("read");
 
         private final String value;
 

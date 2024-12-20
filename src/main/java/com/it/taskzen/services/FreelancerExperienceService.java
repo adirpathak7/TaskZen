@@ -59,4 +59,10 @@ public class FreelancerExperienceService {
         Long freelancer_id = jWTService.extractFreelancerId(token);
         return freelancerExperienceRepository.findByFreelancerExperienceByFreelancerId(freelancer_id);
     }
+    
+    public List<FreelancerExperienceEntity> getFreelancerExperienceDetailsById(Long freelancer_id) {
+        List<FreelancerExperienceEntity> experienceDetails = freelancerExperienceRepository.findByFreelancerId(freelancer_id);
+        return experienceDetails;
+    }
+
 }

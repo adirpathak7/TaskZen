@@ -2,6 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
+
+document.addEventListener('DOMContentLoaded', function () {
+    fetchFreelancerDetails();
+    fetchClientsProjectsDetails();
+});
+
 function freelancerProfileCreation(event) {
     event.preventDefault();
     const contact = document.getElementById("contact").value;
@@ -316,13 +322,13 @@ function freelanverApplyForProject(event) {
         return false;
     }
 
-    const formData = new FormData();
+    var formData = new FormData();
     formData.append("freelancer_range", freelancer_range);
     formData.append("freelancer_description", freelancer_description);
     formData.append("client_project_id", client_project_id);
     formData.append("client_id", client_id);
     formData.append("duration", duration);
-    
+
     const apiUrl = "http://localhost:8000/api/freelancer/applyProjects";
     const token = sessionStorage.getItem("authToken");
     fetch(apiUrl, {
@@ -332,19 +338,28 @@ function freelanverApplyForProject(event) {
             "Authorization": `Bearer ${token}`
         }
     }).then(response => response.json()).then(result => {
-        if (result.data === "1") {
-            alert("Application applied successfully!");
-            if (result.token) {
-                sessionStorage.setItem("authToken", result.token);
-            }
-            if (result.role) {
-                sessionStorage.setItem("userRole", result.role);
-            }
-            formData();
+
+        if (result.message === "not") {
+            alert("You have already applied for this project!");
+            document.querySelector('form').reset();
             fetchFreelancerDetails();
             closeModal("freelancerOpendProject");
         } else {
-            alert("Failed to apply project. Please try again.");
+
+            if (result.data === "1") {
+                alert("Application applied successfully!");
+                if (result.token) {
+                    sessionStorage.setItem("authToken", result.token);
+                }
+                if (result.role) {
+                    sessionStorage.setItem("userRole", result.role);
+                }
+                formData();
+                fetchFreelancerDetails();
+                closeModal("freelancerOpendProject");
+            } else {
+                alert("Failed to apply project. Please try again.");
+            }
         }
     }).catch(error => {
         console.error("Error occurred while applied project: ", error);
@@ -368,8 +383,3 @@ function closeModal(modalId) {
         modal.classList.add("hidden");
     }
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    fetchFreelancerDetails();
-    fetchClientsProjectsDetails();
-});

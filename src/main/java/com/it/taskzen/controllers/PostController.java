@@ -6,12 +6,15 @@ package com.it.taskzen.controllers;
 
 import com.it.taskzen.entities.ClientMasterEntity;
 import com.it.taskzen.entities.ClientProjectEntity;
+import com.it.taskzen.entities.FreelancerMasterEntity;
 import com.it.taskzen.entities.PostEntity;
 import com.it.taskzen.exceptions.ResourceNotFoundException;
 import com.it.taskzen.services.PostService;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,17 +51,24 @@ public class PostController {
             @RequestParam("client_project_id") ClientProjectEntity client_project_id,
             @RequestHeader("Authorization") String token) {
 
-        PostEntity postEntity = new PostEntity(freelancer_range, freelancer_description, duration, client_id, client_project_id);
-
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7).trim();
         }
-        postService.applyProjects(token, postEntity);
 
+        // Call service to handle the logic
+        boolean isApplied = postService.applyProjects(token, freelancer_range, freelancer_description, duration, client_id, client_project_id);
+
+        // Prepare response
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Freelancer applied for project.");
-        response.put("data", "1");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        if (isApplied) {
+            response.put("message", "Freelancer applied for project.");
+            response.put("data", "1");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            response.put("message", "not");
+            response.put("data", "0");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping(value = "/updateProject/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -116,6 +126,44 @@ public class PostController {
         response.put("message", "Post retrieved successfully.");
         response.put("data", post);
 
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getFreelancerAppliedPostByToken")
+    public ResponseEntity<Map<String, Object>> getFreelancerAppliedPostByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> postDetails = postService.getFreelancerAppliedPostByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!postDetails.isEmpty()) {
+            response.put("message", "Freelancer applied posts fetched successfully.");
+            response.put("data", postDetails);
+        } else {
+            response.put("message", "No applied posts found.");
+            response.put("data", null);
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getClientsFreelancersByProjectsByToken")
+    public ResponseEntity<Map<String, Object>> getClientsFreelancersByProjectsByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> details = postService.getClientsFreelancersByProjectsByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!details.isEmpty()) {
+            response.put("message", "Freelancer and Projects details fetched successfully.");
+            response.put("data", details);
+        } else {
+            response.put("message", "No applied Freelancer found for this Client projects.");
+            response.put("data", null);
+        }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -64,11 +64,11 @@ public class FreelancerExperienceController {
             token = token.substring(7).trim();
         }
 
-        List<FreelancerExperienceEntity> educationDetails = freelancerExperienceService.getFreelancerExperienceByToken(token);
+        List<FreelancerExperienceEntity> experienceDetails = freelancerExperienceService.getFreelancerExperienceByToken(token);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Freelancer experience details fetched successfully.");
-        response.put("data", educationDetails);
+        response.put("data", experienceDetails);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -87,7 +87,7 @@ public class FreelancerExperienceController {
         response.put("data", "1");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
+
     @GetMapping("/getFreelancerExperienceByFreelancerId")
     public ResponseEntity<Map<String, Object>> getFreelancerExperienceByFreelancerId(@RequestHeader("Authorization") String token) throws IOException {
         if (token != null && token.startsWith("Bearer ")) {
@@ -101,4 +101,22 @@ public class FreelancerExperienceController {
         response.put("data", experience);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/getFreelancerExperienceDetailsById/{freelancer_id}")
+    public ResponseEntity<Map<String, Object>> getFreelancerExperienceDetailsById(
+            @PathVariable("freelancer_id") Long freelancer_id) {
+        try {
+            List<FreelancerExperienceEntity> experienceDetails = freelancerExperienceService.getFreelancerExperienceDetailsById(freelancer_id);
+            if (experienceDetails.isEmpty()) {
+                return new ResponseEntity<>(Map.of("message", "No experience details found for this freelancer."), HttpStatus.NOT_FOUND);
+            }
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Freelancer experience details fetched successfully.");
+            response.put("data", experienceDetails);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
