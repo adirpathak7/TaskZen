@@ -354,7 +354,7 @@ function freelanverApplyForProject(event) {
                 if (result.role) {
                     sessionStorage.setItem("userRole", result.role);
                 }
-                formData();
+                document.querySelectorAll('form').reset;
                 fetchFreelancerDetails();
                 closeModal("freelancerOpendProject");
             } else {

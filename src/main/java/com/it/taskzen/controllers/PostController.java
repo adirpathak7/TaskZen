@@ -166,4 +166,47 @@ public class PostController {
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PutMapping(value = "/approveFreelancerProjectStatus")
+    public ResponseEntity<Map<String, String>> approveFreelancerProjectStatus(
+            @RequestHeader("Authorization") String token,
+            @RequestParam("client_project_id") ClientProjectEntity clientProject,
+            @RequestParam("freelancer_id") FreelancerMasterEntity freelancer_id) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        try {
+            postService.approveFreelancerProjectStatus(clientProject, token, freelancer_id);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Freelancer project status approved by client.");
+            response.put("data", "1");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = "/rejectFreelancerProjectStatus")
+    public ResponseEntity<Map<String, String>> rejectFreelancerProjectStatus(
+            @RequestHeader("Authorization") String token,
+            @RequestParam("client_project_id") ClientProjectEntity clientProject) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        try {
+            postService.rejectFreelancerProjectStatus(clientProject, token);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Freelancer project status rejected by client.");
+            response.put("data", "1");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

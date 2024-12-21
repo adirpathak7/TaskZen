@@ -61,14 +61,17 @@ public class UserController {
     }
 
     @GetMapping(value = "/getAllUsers")
-    public ResponseEntity<Map<String, String>> getUsers(UserEntity userEntity) {
+    public ResponseEntity<Map<String, Object>> getUsers(UserEntity userEntity) {
         List<UserEntity> usersList = userService.getUsers(userEntity);
-        Map<String, String> response = new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
+
         if (usersList == null || usersList.isEmpty()) {
             throw new ResourceNotFoundException("No users found");
         }
+
         response.put("message", "Users retrieved successfully");
-        response.put("data", "1");
+        response.put("data", usersList);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -101,4 +104,8 @@ public class UserController {
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/count/totalUsers")
+    public ResponseEntity<Long> getTotalUsers() {
+        return ResponseEntity.ok(userService.getTotalUsers());
+    }
 }

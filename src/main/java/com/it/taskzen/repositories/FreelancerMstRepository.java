@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 public interface FreelancerMstRepository extends JpaRepository<FreelancerMasterEntity, Long> {
 
     @Query("SELECT f FROM FreelancerMasterEntity f WHERE f.freelancer_id = :freelancer_id")
-    Optional<FreelancerMasterEntity> findByFreelancerId(@Param("freelancer_id") Long freelancer_id);
+    FreelancerMasterEntity findByFreelancerId(@Param("freelancer_id") Long freelancer_id);
 
     @Query("SELECT c FROM FreelancerMasterEntity c WHERE c.user.user_id = :user_id")
     FreelancerMasterEntity findByUserId(@Param("user_id") Long user_id);

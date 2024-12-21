@@ -9,32 +9,33 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="../../JS/ClientFreelancerApplyProjects.js"></script>
+        <link rel="stylesheet" href="../../CSS/index.css"/>
     </head>
     <body>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-
-            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
-                <i class="ri-eye-line text-4xl text-white"></i>
-                <div class="ml-4">
-                    <div class="text-white">Visited Freelancers</div>
-                    <div class="text-2xl font-semibold text-white">$3.456K</div>
-                </div>
-            </div>
-
-            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
-                <i class="ri-user-6-fill text-white text-4xl"></i>
-                <div class="ml-4">
-                    <div class="text-white">Most Working in this Client</div>
-                    <div class="text-white">Freelancer name</div>
-                    <div class="text-2xl font-semibold text-white">$3.456K</div>
-                </div>
-            </div>
-
-            <div class="flex items-center p-6 border-purple-600 border-solid rounded-lg shadow-md">
-
-            </div>
-        </div>
+        <!--        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        
+                    <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+                        <i class="ri-eye-line text-4xl text-white"></i>
+                        <div class="ml-4">
+                            <div class="text-white">Visited Freelancers</div>
+                            <div class="text-2xl font-semibold text-white">$3.456K</div>
+                        </div>
+                    </div>
+        
+                    <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
+                        <i class="ri-user-6-fill text-white text-4xl"></i>
+                        <div class="ml-4">
+                            <div class="text-white">Most Working in this Client</div>
+                            <div class="text-white">Freelancer name</div>
+                            <div class="text-2xl font-semibold text-white">$3.456K</div>
+                        </div>
+                    </div>
+        
+                    <div class="flex items-center p-6 border-purple-600 border-solid rounded-lg shadow-md">
+        
+                    </div>
+                </div>-->
 
         <!-- Content Area -->
         <main class="flex-1 p-8 space-y-6">
@@ -57,7 +58,7 @@
 
             <!-- Clients Table -->
             <section class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-2xl font-bold mb-4">Clients</h3>
+                <h3 class="text-2xl font-bold mb-4">Freelancer's Details</h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left table-auto">
                         <thead>
@@ -71,7 +72,8 @@
                                 <th class="px-4 py-2">Freelancer Duration</th>
                                 <th class="px-4 py-2">Freelancer Status</th>
                                 <th class="px-4 py-2">Created Date</th>
-                                <th class="px-4 py-2">Action</th>
+                                <th class="px-4 py-2">View</th>
+                                <th class="px-4 py-2">Reject</th>
                             </tr>
                         </thead>
                         <tbody id="table-body">
@@ -85,49 +87,53 @@
 
             <div id="viewFreelancerDetailsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <div class="bg-white p-6 rounded-md shadow-lg w-full max-w-4xl">
-                    <h2 class="text-lg font-semibold mb-4 text-center">Freelancer Details</h2>
+                    <form id="clientFreelancerHireButton" onsubmit="clientFreelancerHireButton(event)" method="POST">
+                        <h2 class="text-lg font-semibold mb-4 text-center">Freelancer Details</h2>
 
-                    <input type="hidden" id="clientsFreelancerIdForShoeModal" />
-                    <!-- Personal Data -->
-                    <p id="clientsFreelancerName"></p>
-                    <p id="clientsFreelancerEmail"></p>
-                    <p id="clientsFreelancerContact"></p>
-                    <img src="" id="clientsFreelancerprofile_picture" class="rounded-full w-24 h-24 object-cover"/>
+                        <input type="" name="freelancer_id" id="freelancer_id"/>
+                        <input type="" name="client_project_id" id="client_project_id" />
 
-                    <div class="mt-4">
-                        <p><a href="" id="clientsFreelancergithub_link" target="_blank"><i class="ri-github-fill text-lg"></i></a></p>
-                        <p><a href="" id="clientsFreelancerlinkedin_link" target="_blank"><i class="ri-linkedin-fill text-lg"></i></a></p>
-                        <p><a href="" id="clientsFreelancerportfolio_link" target="_blank"><i class="ri-profile-fill text-lg"></i></a></p>
-                    </div>
+                        <!-- Personal Data -->
+                        <p id="clientsFreelancerName"></p>
+                        <p id="clientsFreelancerEmail"></p>
+                        <p id="clientsFreelancerContact"></p>
+                        <img src="" id="clientsFreelancerprofile_picture" class="rounded-full w-24 h-24 object-cover"/>
 
-                    <!-- Education Details -->
-                    <div id="freelancerEducationContainer" class="mt-6">
-                        <h3 class="font-semibold">Education</h3>
-                        <p id="clientsFreelancerUniversity"></p>
-                        <p id="clientsFreelancerstart_date"></p>
-                        <p id="clientsFreelancerend_date"></p>             
-                        <p id="clientsFreelancerCoures"></p>
-                        <p id="clientsFreelancerend_date"></p>
+                        <div class="mt-4">
+                            <p><a href="" id="clientsFreelancergithub_link" target="_blank"><i class="ri-github-fill text-lg"></i></a></p>
+                            <p><a href="" id="clientsFreelancerlinkedin_link" target="_blank"><i class="ri-linkedin-fill text-lg"></i></a></p>
+                            <p><a href="" id="clientsFreelancerportfolio_link" target="_blank"><i class="ri-profile-fill text-lg"></i></a></p>
+                        </div>
 
-                    </div>
+                        <!-- Education Details -->
+                        <div id="freelancerEducationContainer" class="mt-6">
+                            <h3 class="font-semibold">Education</h3>
+                            <p id="clientsFreelancerUniversity"></p>
+                            <p id="clientsFreelancerstart_date"></p>
+                            <p id="clientsFreelancerend_date"></p>             
+                            <p id="clientsFreelancerCoures"></p>
+                            <p id="clientsFreelancerend_date"></p>
 
-                    <!-- Experience Details -->
-                    <div id="freelancerExperienceContainer" class="mt-6">
-                        <h3 class="font-semibold">Experience</h3>
-                        <p id="clientsFreelancercompany_name"></p>
-                        <p id="clientsFreelancerdesignation"></p>
-                        <p id="clientsFreelancerstarting_date"></p>             
-                        <p id="clientsFreelancerending_date"></p>
-                    </div>
+                        </div>
 
-                    <div class="flex justify-end mt-4 gap-4">
-                        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none">
-                            Hire
-                        </button>
-                        <button type="button" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 focus:outline-none" onclick="closeModal('viewFreelancerDetailsModal')">
-                            Cancel
-                        </button>
-                    </div>
+                        <!-- Experience Details -->
+                        <div id="freelancerExperienceContainer" class="mt-6">
+                            <h3 class="font-semibold">Experience</h3>
+                            <p id="clientsFreelancercompany_name"></p>
+                            <p id="clientsFreelancerdesignation"></p>
+                            <p id="clientsFreelancerstarting_date"></p>             
+                            <p id="clientsFreelancerending_date"></p>
+                        </div>
+
+                        <div class="flex justify-end mt-4 gap-4">
+                            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none">
+                                Hire
+                            </button>
+                            <button type="button" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 focus:outline-none" onclick="closeModal('viewFreelancerDetailsModal')">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </main>

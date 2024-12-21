@@ -1,103 +1,108 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>TaskZen</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="JS/User.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"/>
-    </h:head>
-    <h:body>
+        <!-- Include Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <title>Task-Zen Login</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+        <!-- Add Font Awesome for the eye icon -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <link rel="stylesheet" href="CSS/index.css"/>
+    </head>
+
+    <body>
         <ui:include src="Navbar.xhtml"></ui:include>
 
-        <div class="min-h-screen bg-purple-800 p-4 sm:p-12">
-            <div class="m-auto max-w-2xl px-6 py-12 bg-white border-0 shadow-lg sm:rounded-lg">
-                <div class="flex w-full justify-center mb-4">
-                    <img src="images/TaskZen.jpg" alt="Task-Zen" class="w-24"/>
+        <div class="flex justify-center items-center min-h-screen">
+            <div class="flex bg-purple-600 p-8 rounded-lg shadow-lg w-full max-w-4xl">
+                <div class="flex-1 flex justify-center items-center">
+                    <img src="Images/Signupimg.png" alt="Login Image" />
                 </div>
-                <h1 class="text-2xl font-bold mb-4 text-center text-purple-800">Sign-Up</h1>
+                <div class="flex-1 text-white px-8">
+                    <h2 class="text-4xl font-bold mb-6">Sign-up To Task-Zen</h2>
+                    <!-- Sign Up Form -->
+                    <form id="signUpForm" onsubmit="userSingUp(event)" method="post">
 
-                <form class="max-w-md mx-auto" id="signUpForm" onsubmit="userSingUp(event)" method="post">
-                    <div class="grid md:grid-cols-2 md:gap-6">
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" name="first_name" id="first_name"
-                                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
-                                   placeholder=" " />
-                            <label for="first_name"
-                                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-purple-800  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                <i class="ri-user-3-fill ml-1"></i>&nbsp;First Name
-                            </label>
-                            <span class="error-message text-red-400" id="error-first_name"></span>
+                        <!-- First Name and Last Name (On Same Line) -->
+                        <div class="flex space-x-2 mb-4">
+                            <div class="w-1/2">
+                                <label for="first_name" name="first_name"><i class="ri-user-3-fill"> First Name
+                                        :</i></label>
+                                <input type="text" id="first_name" name="first_name"
+                                       class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <span class="error-message" id="error-first_name"></span>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="last_name" name="last_name"><i class="ri-user-3-fill"> Last Name :</i></label>
+                                <input type="text" id="last_name"
+                                       class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <span class="error-message" id="error-last_name"></span>
+                            </div>
                         </div>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" name="last_name" id="last_name"
-                                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
-                                   placeholder=" " />
-                            <label for="last_name"
-                                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-purple-800  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                <i class="ri-user-3-fill ml-1"></i>&nbsp;Last Name</label>
-                            <span class="error-message text-red-400" id="error-last_name"></span>
-                        </div>
-                    </div>
 
-                    <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" name="email" id="email"
-                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
-                               placeholder=" " />
-                        <label for="email"
-                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-purple-800  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            <i class="ri-mail-fill ml-1" ></i>&nbsp;Email   
-                        </label>
-
-                        <span class="error-message text-red-400" id="error-email"></span>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 md:gap-6">
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="password" name="password" id="password"
-                                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
-                                   placeholder=" " />
-                            <label for="password"
-                                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-purple-800  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                <i class="ri-key-fill ml-1"></i>&nbsp;Password</label>
-                            <i class="ri-eye-off-fill absolute right-3 top-2 cursor-pointer text-gray-500" id="eyeicon"></i>
-                            <span class="error-message text-red-400" id="error-password"></span>
+                        <!-- Email (On One Line) -->
+                        <div class="mb-4">
+                            <label for="email" name="email"><i class="ri-mail-send-fill"> Email :</i></label>
+                            <input type="email" id="email"
+                                   class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <span class="error-message" id="error-email"></span>
                         </div>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="password" name="confirm_password" id="confirm_password"
-                                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer"
-                                   placeholder=" " />
-                            <label for="confirm_password"
-                                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-purple-800  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                <i class="ri-key-fill ml-1"></i>&nbsp;Confirm Password</label>
-                            <span class="error-message text-red-400" id="error-confirm_password"></span>
-                        </div>
-                    </div>
 
-                    <div class="relative z-0 w-full mb-5">
-                        <label class="block mb-2 text-sm font-medium text-gray-500">Join as a</label>
-                        <div class="flex items-center mb-2">
-                            <input type="radio" name="role" id="freelancer" value="freelancer"
-                                   class="mr-2 text-lime-600 border-gray-300 focus:ring-lime-500 dark:border-gray-600 dark:focus:ring-lime-500" />
-                            <label for="freelancer" class="text-sm text-gray-700 dark:text-gray-400">Freelancer</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="radio" name="role" id="client" value="client"
-                                   class="mr-2 text-lime-600 border-gray-300 focus:ring-lime-500 dark:border-gray-600 dark:focus:ring-lime-500" />
-                            <label for="client" class="text-sm text-gray-700 dark:text-gray-400">Client</label>
-                        </div>
-                        <span class="error-message text-red-400" id="error-role"></span>
-                    </div>
+                        <!-- Password and Confirm Password (On Same Line) -->
+                        <div class="flex space-x-2 mb-4">
+                            <div class="w-1/2">
+                                <label for="password" name="password"><i class="ri-lock-password-fill"> Password
+                                        :</i></label>
+                                <input type="password" id="password" name="password"
+                                       class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <span class="error-message" id="error-password"></span>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="confirm_password" name="confirm_password"><i class="ri-lock-password-fill">
+                                        Confirm Password :</i></label>
+                                <input type="password" id="confirm_password" name="confirm_password"
+                                       class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <span class="error-message" id="error-confirm_password"></span>
 
-                    <button type="submit"
-                            class="items-center bg-purple-800 border-0 py-3 px-7 hover:font-semibold focus:outline-none text-white hover:text-purple-800 hover:bg-gray-300 rounded-md text-base mt-4 md:mt-0 transition duration-300 ease-in-out">
-                        Sign-Up
-                    </button>
-                    <div id="userSignUpErrorMessage"></div>
-                </form>
+                            </div>
+                        </div>
+
+                        <!-- Join As Freelancer or Company (Radio Buttons) -->
+                        <div class="mb-4">
+                            <label for="join" name="join"><i class="ri-shake-hands-line"> Join as :</i></label>
+                            <div class="flex items-center space-x-4 mt-2">
+                                <input type="radio" id="freelancer" name="role" value="freelancer"
+                                       class="mr-2 text-2xl" />Freelancer
+                                <input type="radio" id="client" name="role" value="client" class="mr-2 text-2xl" />Client
+                            </div>
+                            <span class="error-message" id="error-role"></span>
+
+                        </div>
+
+                        <!-- Sign-Up Button -->
+                        <div class="mb-4">
+                            <button type="submit"
+                                    class="w-full py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Sign-Up</button>
+                        </div>
+
+                        <!-- Login Link -->
+                        <div class="text-center text-sm">
+                            <p>Already have an account? <a href="Login.xhtml"
+                                                           class="text-black hover:underline hover:text-white"> Login</a></p>
+                        </div>
+                        <div id="userSignUpErrorMessage"></div>
+
+                    </form>
+                </div>
             </div>
         </div>
-    </h:body>
+    </body>
+
 </html>

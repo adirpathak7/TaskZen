@@ -119,4 +119,16 @@ public class ClientMstService {
         Long client_id = jWTService.extractUserId(token);
         return clientMstRepository.findByUserId(client_id);
     }
+
+    public long getTotalClients() {
+        return clientMstRepository.countAllClients();
+    }
+
+    public long getTotalPendingClients() {
+        return clientMstRepository.countClientsByPendingStatus();
+    }
+
+    public long getTotalApprovedClients() {
+        return clientMstRepository.countClientsByApprovedStatus();
+    }
 }

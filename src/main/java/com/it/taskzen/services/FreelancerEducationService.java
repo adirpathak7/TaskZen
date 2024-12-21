@@ -34,8 +34,8 @@ public class FreelancerEducationService {
         Long freelancer_id = jWTService.extractUserId(token);
         System.out.println("User ID from JWT: " + freelancer_id);
 
-        FreelancerMasterEntity freelancerMasterEntity = freelancerMstRepository.findByFreelancerId(freelancer_id)
-                .orElseThrow(() -> new IllegalStateException("Please create your profile first."));
+        FreelancerMasterEntity freelancerMasterEntity = freelancerMstRepository.findByFreelancerId(freelancer_id);
+//                .orElseThrow(() -> new IllegalStateException("Please create your profile first."));
 
         freelancerEducationEntity.setFreelancer_id(freelancerMasterEntity);
 

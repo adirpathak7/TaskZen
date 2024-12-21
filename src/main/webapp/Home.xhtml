@@ -4,119 +4,257 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-    <title>Task-Zen Admin Dashboard</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-</head>
-    <h:body class="bg-gray-50">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="JS/Userc.js"></script>
+        <!-- Include Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <title>TaskZen</title>
 
-        <!-- Task-Zen Navigation Bar Start -->
-        <header class="bg-white shadow-md">
-            <div class="container mx-auto flex justify-between items-center p-4">
-                <!-- Logo -->
-                <a href="index.xhtml">
-                    <img class="h-12" src="images/TaskZen.jpg" alt="Task-Zen Logo"/>
-                </a>
+        <!-- Add Font Awesome for the eye icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <link rel="stylesheet" href="CSS/index.css"/>
+    </head>
+    <body>
+        <ui:include src="Navbar.xhtml"></ui:include>
 
-                <!-- Navigation Links -->
-                <nav class="hidden md:flex space-x-8 text-lg">
-                    <a href="Home.xhtml" class="text-gray-900 hover:text-indigo-600 transition">Home</a>
-                    <a href="About.xhtml" class="text-gray-900 hover:text-indigo-600 transition">About</a>
-                    <a href="Contact.xhtml" class="text-gray-900 hover:text-indigo-600 transition">Contact</a>
-                    <a href="Service.xhtml" class="text-gray-900 hover:text-indigo-600 transition">Service</a>
-                </nav>
-
-                <!-- Login/Sign-up Buttons -->
-                <div class="space-x-4">
-                    <a href="Login.xhtml" class="bg-gray-100 py-2 px-5 text-gray-800 rounded-lg hover:bg-indigo-600 hover:text-white transition">Login</a>
-                    <a href="Register.xhtml" class="bg-gray-100 py-2 px-5 text-gray-800 rounded-lg hover:bg-indigo-600 hover:text-white transition">Sign Up</a>
+        <div class="bg-purple-700 text-white">
+            <div
+                class="container mx-auto flex flex-col md:flex-row items-center p-8 md:py-16"
+                >
+                <div class="md:w-1/2 space-y-4">
+                    <h1 class="text-4xl md:text-5xl font-bold">
+                        Find Your Perfect <span class="text-sky-300">Freelancer</span>
+                        <span class="text-sky-300">Companys</span> Quick and Easy
+                    </h1>
+                    <p class="text-lg">
+                        Explore thousands of skilled professionals to bring your ideas to
+                        life.
+                    </p>
+                    <div class="flex space-x-4">
+                        <select class="bg-white text-gray-700 rounded px-4 py-2">
+                            <option>All Categories</option>
+                            <option>Design  Creative</option>
+                            <option>Development</option>
+                            <option>Digital Marketing</option>
+                        </select>
+                        <input
+                            type="text"
+                            placeholder="Search for any service..."
+                            class="flex-1 bg-white text-gray-700 rounded px-4 py-2"
+                            />
+                        <button class="bg-white text-purple-800 hover:bg-gray-100 px-4 py-2 rounded">
+                            Search
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-4">
+                        <div class="flex -space-x-2">
+                            <img
+                                src="https://via.placeholder.com/40"
+                                alt="User"
+                                class="w-10 h-10 rounded-full border-2 border-white"
+                                />
+                            <img
+                                src="https://via.placeholder.com/40"
+                                alt="User"
+                                class="w-10 h-10 rounded-full border-2 border-white"
+                                />
+                            <img
+                                src="https://via.placeholder.com/40"
+                                alt="User"
+                                class="w-10 h-10 rounded-full border-2 border-white"
+                                />
+                        </div>
+                        <div>
+                            <p class="font-semibold">2465+ Happy Customers</p>
+                            <p class="text-sm">4.9 ★★★★★</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 mt-8 md:mt-0">
+                    <img
+                        src="Images/online-security.png"
+                        alt="Freelancer Illustration"
+                        class="p-6 rounded-full"
+                        />
                 </div>
             </div>
-        </header>
-        <!-- Task-Zen Navigation Bar End -->
+        </div>
 
-        <!-- Hero Section -->
-        <section class="bg-gradient-to-r from-purple-800 to-indigo-600 text-white py-20">
-            <div class="max-w-7xl mx-auto text-center px-6">
-                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
-                    Connect Freelancers with Companies Effortlessly
-                </h1>
-                <p class="text-lg md:text-xl mb-8">
-                    Empowering professionals to collaborate, innovate, and achieve success.
+
+        <!-- Featured Categories -->
+        <div class="bg-white py-16">
+            <div class="container mx-auto">
+                <h2 class="text-3xl font-bold text-center text-gray-800">
+                    Featured Categories
+                </h2>
+                <p class="text-center text-gray-600 mt-2">
+                    Get some inspirations from 86K+ skills
                 </p>
-                <div class="space-x-4">
-                    <button class="bg-white text-indigo-600 py-3 px-6 rounded-lg shadow hover:bg-gray-100 transition">
-                        Hire Talent
-                    </button>
-                    <button class="bg-transparent border-2 border-white py-3 px-6 rounded-lg text-white hover:bg-white hover:text-indigo-600 transition">
-                        Find Jobs
-                    </button>
+                <div class="relative">
+                    <div
+                        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+                        >
+                        <!-- Card 1 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                            <img
+                                src="Images/programing.avif"
+                                alt="Programming"
+                                class="mx-auto"
+                                />
+                            <h3 class="font-semibold text-lg">Programming</h3>
+                            <p class="text-gray-500">2 Skills</p>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                            <img
+                                src="Images/salesmarkting.webp"
+                                alt="Sales Marketing"
+                                class="mx-auto mb-4"
+                                />
+                            <h3 class="font-semibold text-lg">Sales Marketing</h3>
+                            <p class="text-gray-500">3 Skills</p>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                            <img
+                                src="Images/videoani.png"
+                                alt="Video Animation"
+                                class="mx-auto mb-4"
+                                />
+                            <h3 class="font-semibold text-lg">Video Animation</h3>
+                            <p class="text-gray-500">0 Skills</p>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                            <img
+                                src="Images/aiservice.jpg"
+                                alt="AI Service"
+                                class="mx-auto mb-4"
+                                />
+                            <h3 class="font-semibold text-lg">AI Service</h3>
+                            <p class="text-gray-500">3 Skills</p>
+                        </div>
+                        <!-- Card 5 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                            <img
+                                src="Images/architecture.jpg"
+                                alt="Architecture"
+                                class="mx-auto mb-4"
+                                />
+                            <h3 class="font-semibold text-lg">Architecture</h3>
+                            <p class="text-gray-500">2 Skills</p>
+                        </div>
+                        <!-- Card 6 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                            <img
+                                src="Images/brand.jpg"
+                                alt="Brand Design"
+                                class="mx-auto mb-4"
+                                />
+                            <h3 class="font-semibold text-lg">Brand Design</h3>
+                            <p class="text-gray-500">3 Skills</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Features Section -->
-        <section class="py-20">
-            <div class="max-w-7xl mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Why Choose Us?</h2>
-                <p class="text-gray-600 mb-10">
-                    Trusted by thousands of professionals and businesses worldwide.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Feature 1 -->
-                    <div class="bg-white p-6 shadow-lg rounded-lg">
-                        <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21V3m4 7h5m-2 4l3-3-3-3" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Seamless Collaboration</h3>
-                        <p class="text-gray-600">Work together effectively with built-in tools and smart integrations.</p>
-                    </div>
-                    <!-- Feature 2 -->
-                    <div class="bg-white p-6 shadow-lg rounded-lg">
-                        <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4H8l4-5 4 5h-3v4z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Diverse Talent</h3>
-                        <p class="text-gray-600">Access a global network of skilled freelancers and companies.</p>
-                    </div>
-                    <!-- Feature 3 -->
-                    <div class="bg-white p-6 shadow-lg rounded-lg">
-                        <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l8.293 8.293a1 1 0 001.414 0L21 7" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Secure Payments</h3>
-                        <p class="text-gray-600">Safeguard your transactions with our trusted payment system.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Call to Action Section -->
-        <section class="bg-purple-700 text-white py-12">
-            <div class="max-w-7xl mx-auto px-6 text-center">
-                <h3 class="text-2xl md:text-3xl font-bold mb-6">
-                    Ready to Start? Join Our Community Today!
-                </h3>
+        <!--advice-->
+        <div class="bg-purple-700 text-white py-16 px-8 md:px-20 lg:px-32">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <!-- Left Content -->
                 <div>
-                    <button class="bg-white text-indigo-600 py-3 px-8 rounded-lg shadow hover:bg-gray-100 transition">
-                        Get Started
-                    </button>
+                    <h4 class="text-lg font-semibold uppercase">Explore New Life</h4>
+                    <h1 class="text-4xl font-bold mt-2">
+                        Don’t just find. Be found <br /> put your CV in front of great employers
+                    </h1>
+                    <p class="text-gray-300 mt-4">
+                        There are many variations of passages of Lorem Ipsum available, but the majority
+                        have suffered alteration in some form, by injected humour, or randomised words.
+                    </p>
+                    <a href="#" class="inline-block bg-green-600 text-white px-6 py-3 mt-6 rounded-lg font-semibold hover:bg-green-700">
+                        Job Post Now →
+                    </a>
+                    <div class="flex justify-start gap-8 mt-10">
+                        <div>
+                            <p class="text-3xl font-bold">950M+</p>
+                            <p class="text-gray-300">Total Freelancers</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold">32M+</p>
+                            <p class="text-gray-300">Total Freelancers</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold">120M+</p>
+                            <p class="text-gray-300">Total Freelancers</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Image -->
+                <div>
+                    <img src="Images/work.png" alt="Team working" class="rounded-lg shadow-lg"/>
                 </div>
             </div>
-        </section>
+        </div>
 
-    </h:body>
+
+
+        <!--footer section-->
+        <footer class="bg-gray-900 text-white py-10 p-10">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Navigation -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Home.xhtml" class="hover:underline">Home</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">About</a></li>
+                        <li><a href="Contact.xhtml" class="hover:underline">Contact</a></li>
+                        <li><a href="Service.xhtml" class="hover:underline">Services</a></li>
+                    </ul>
+                </div>
+
+                <!-- Started -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Get Started</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Login</a></li>
+                        <li><a href="#" class="hover:underline">Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Programming</a></li>
+                        <li><a href="#" class="hover:underline">AI Services</a></li>
+                        <li><a href="#" class="hover:underline">Video Animation</a></li>
+                        <li><a href="#" class="hover:underline">Architecture</a></li>
+                        <li><a href="#" class="hover:underline">Sales Marketing</a></li>
+                        <li><a href="#" class="hover:underline">Brand Design</a></li>
+                    </ul>
+                </div>
+
+                <!-- Location -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Our Location</h3>
+                    <div class="border rounded overflow-hidden">
+                        <img 
+                            src="https://via.placeholder.com/300x200.png?text=Surat+Location+Map"
+                            alt="Surat Location Map" 
+                            class="w-full h-auto"
+                            />
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-sm">&copy; 2024 Task-zen. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
 
 </html>

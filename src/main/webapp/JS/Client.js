@@ -3,6 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+document.addEventListener('DOMContentLoaded', function () {
+    fetchClientDetails();
+    fetchClientProjectsDetails();
+    animateCounter(180, "totalClientView");
+    animateCounter(15254, "totalClientProfit");
+    animateCounter(8, "totalClientProject");
+    animateCounter(3, "totalClientFreelancer");
+});
 
 function clientProfileCreation(event) {
     event.preventDefault();
@@ -309,10 +317,6 @@ function displayClientProjects(clientProjects) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    fetchClientDetails();
-    fetchClientProjectsDetails();
-});
 
 function clientProjectPost(event) {
     event.preventDefault();
@@ -397,7 +401,7 @@ function clientProjectPost(event) {
             alert("Project created successfully!");
 
             closeModal('newprojectModal');
-
+            document.querySelectorAll('form').reset;
         } else {
             alert("Failed to create project. Please try again.");
             console.error(result);
@@ -433,3 +437,16 @@ function populateModalFields(project) {
     document.getElementById("maximum_range").value = project.maximum_range || "";
 }
 
+function animateCounter(target, counterElementId) {
+    let currentCount = 0;
+    const counterElement = document.getElementById(counterElementId);
+
+    const interval = setInterval(() => {
+        currentCount += 1;
+        counterElement.innerHTML = currentCount;
+
+        if (currentCount === target) {
+            clearInterval(interval);
+        }
+    }, 0.4);
+}

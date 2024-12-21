@@ -116,32 +116,27 @@ public class UserService {
         String role = existUser.getRole().toString();
         Long user_id = existUser.getUser_id();
 
-        // Retrieve client_id, freelancer_id, or admin_id based on the role
         Long client_id = null;
         Long freelancer_id = null;
         Long admin_id = null;
 
         if (role.equals("client")) {
-            // Get client_id for client role
             ClientMasterEntity client = clientMstRepository.findByUserId(user_id);
             if (client != null) {
                 client_id = client.getClient_id();
             }
         } else if (role.equals("freelancer")) {
-            // Get freelancer_id for freelancer role
             FreelancerMasterEntity freelancer = freelancerMstRepository.findByUserId(user_id);
             if (freelancer != null) {
                 freelancer_id = freelancer.getFreelancer_id();
             }
         } else if (role.equals("admin")) {
-            // Get admin_id for admin role (if applicable)
             AdminEntity admin = adminRepository.findAdminById(user_id);
             if (admin != null) {
                 admin_id = admin.getAdmin_id();
             }
         }
 
-        // Generate token with the relevant IDs
         String token = jwtService.generateToken(userEntity.getEmail(), role, user_id, client_id, freelancer_id, admin_id);
 
         Map<String, String> loginResponse = new HashMap<>();
@@ -160,4 +155,7 @@ public class UserService {
         return userRepository.findById(user_id).orElse(null);
     }
 
+    public long getTotalUsers() {
+        return userRepository.countAllUsers();
+    }
 }

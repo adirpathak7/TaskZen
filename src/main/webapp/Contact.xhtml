@@ -1,80 +1,169 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-<head>
-    <title>Task-Zen Admin Dashboard</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="JS/Userc.js"></script>
+        <!-- Include Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <title>Task-Zen Contact</title>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"/>
+        <!-- Add Font Awesome for the eye icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <link rel="stylesheet" href="CSS/index.css"/>
+    </head>
+    <body>
 
-<h:body class="bg-gray-100">
+        <!--call navbar-->
+        <ui:include src="Navbar.xhtml"></ui:include>
 
-    <!-- Navigation Bar -->
-    <header class="bg-white shadow-md">
-        <div class="max-w-screen-xl mx-auto p-4 flex justify-between items-center">
-            <!-- Logo -->
-            <a href="index.xhtml">
-                <img class="h-12" src="images/TaskZen.jpg" alt="Task-Zen Logo"/>
-            </a>
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex space-x-10 text-lg">
-                <a href="Home.xhtml" class="text-gray-900 hover:text-blue-500 transition">Home</a>
-                <a href="About.xhtml" class="text-gray-900 hover:text-blue-500 transition">About</a>
-                <a href="Contact.xhtml" class="text-gray-900 hover:text-blue-500 transition">Contact</a>
-                <a href="Service.xhtml" class="text-gray-900 hover:text-blue-500 transition">Service</a>
-            </nav>
-            <!-- Login/Sign-up -->
-            <div class="space-x-4">
-                <a href="Login.xhtml" class="bg-gray-100 py-2 px-5 text-gray-800 rounded-lg hover:bg-blue-500 hover:text-white transition">Login</a>
-                <a href="Register.xhtml" class="bg-gray-100 py-2 px-5 text-gray-800 rounded-lg hover:bg-blue-500 hover:text-white transition">Sign Up</a>
+        <!-- Header Section -->
+        <header class="bg-purple-700 text-white py-8">
+            <div class="container mx-auto text-center">
+                <h1 class="text-4xl font-bold">Contact Task-Zen</h1>
+                <p class="text-lg mt-2">We’re here to help and answer any questions you might have.</p>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Contact Form Section -->
-    <div class="max-w-3xl mx-auto my-16 p-8 bg-white shadow-lg rounded-lg">
-        <h2 class="text-3xl font-semibold text-gray-800 text-center mb-6">Contact Us</h2>
-
-        <!-- JSF Form -->
-        <h:form class="space-y-6">
-            <!-- Name Field -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col">
-                    <h:outputLabel for="name" value="Name" class="text-sm font-medium text-gray-700"/>
-                    <h:inputText id="name" value="#{contactBean.name}" required="true" 
-                                 styleClass="mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        <!-- Main Content -->
+        <main class="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg bg-purple-700">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Form -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-4 text-white">Send Us a Message</h2>
+                    <form class="space-y-4">
+                        <!-- Name Field -->
+                        <div>
+                            <label for="username" name="username"><i class="ri-user-3-fill text-2xl text-white"> Enter User Name :</i></label>
+                            <input type="text" id="username" required="true" class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
+                        <!-- Email Field -->
+                        <div>
+                            <label for="email" name="email"><i class="ri-mail-send-fill text-2xl text-white"> Enter Email :</i></label>
+                            <input type="email" id="email" required="true" class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"/>
+                        </div>
+                        <!-- Message Field -->
+                        <div>
+                            <label for="message" name="message"><i class="ri-message-2-fill text-2xl text-white"> Enter Message :</i></label>
+                            <textarea id="message" required="true" rows="5" class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">Send Message</button>
+                    </form>
                 </div>
 
-                <!-- Email Field -->
-                <div class="flex flex-col">
-                    <h:outputLabel for="email" value="Email" class="text-sm font-medium text-gray-700"/>
-                    <h:inputText id="email" value="#{contactBean.email}" required="true" 
-                                 validatorMessage="Invalid email address"
-                                 styleClass="mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                <!-- Contact Information -->
+                <div class="flex p-2">
+                    <img src="Images/contactasimg.webp"/>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-white">Contact Information</h2>
+                        <p class="mb-2 text-white"><strong>Email:</strong> contact@task-zen.com</p>
+                        <p class="mb-2 text-white"><strong>Phone:</strong> 91+ 9510211189</p>
+                        <p class="mb-2 text-white"><strong>Address:</strong> 123 Task-Zen Lane, Freelancer City</p>
+
+                        <!-- Social Media Links -->
+                        <h3 class="text-xl font-bold mt-6 mb-4 text-white">Follow Us</h3>
+                        <div class="grid grid-rows-2 gap-4 p-4 bg-gray-100 rounded-lg shadow-lg">
+                            <div class="flex space-x-4 justify-center">
+                                <a href="https://www.facebook.com/" class="flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-full hover:bg-blue-800 transition duration-300">
+                                    <i class="ri-facebook-circle-fill text-4xl"></i>
+                                </a>
+                                <a href="https://www.instagram.com/" class="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white rounded-full hover:opacity-90 transition duration-300">
+                                    <i class="ri-instagram-fill text-4xl"></i>
+                                </a>
+                            </div>
+                            <div class="flex space-x-4 justify-center">
+                                <a href="https://x.com/?lang=en" class="flex items-center justify-center w-16 h-16 bg-blue-400 text-white rounded-full hover:bg-blue-600 transition duration-300">
+                                    <i class="ri-twitter-fill text-4xl"></i>
+                                </a>
+                                <a href="https://telegram.org/" class="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition duration-300">
+                                    <i class="ri-telegram-fill text-4xl"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- chatboard frame work code  -->
+        <div class="bg-gray-200 h-full w-full">
+            <!-- <iframe src="https://www.chatbase.co/chatbot-iframe/1HA_j59Jvb7IwU5xvzMH0" title="Chatbot" width="0%" frameborder="0"></iframe> -->
+            <iframe
+                src="https://www.chatbase.co/chatbot-iframe/2sHyeN6k_ZBl_Q0QTr36_"
+                title="Chatbot"
+                width="0%"
+                frameborder="0"
+                ></iframe>
+
+
+        </div>
+        <!--footer section-->
+        <footer class="bg-gray-900 text-white py-10 p-10">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Navigation -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Home.xhtml" class="hover:underline">Home</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">About</a></li>
+                        <li><a href="Contact.xhtml" class="hover:underline">Contact</a></li>
+                        <li><a href="Service.xhtml" class="hover:underline">Services</a></li>
+                    </ul>
+                </div>
+
+                <!-- Started -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Get Started</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Login</a></li>
+                        <li><a href="#" class="hover:underline">Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Programming</a></li>
+                        <li><a href="#" class="hover:underline">AI Services</a></li>
+                        <li><a href="#" class="hover:underline">Video Animation</a></li>
+                        <li><a href="#" class="hover:underline">Architecture</a></li>
+                        <li><a href="#" class="hover:underline">Sales Marketing</a></li>
+                        <li><a href="#" class="hover:underline">Brand Design</a></li>
+                    </ul>
+                </div>
+
+                <!-- Location -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Our Location</h3>
+                    <div class="border rounded overflow-hidden">
+                        <img 
+                            src="https://via.placeholder.com/300x200.png?text=Surat+Location+Map"
+                            alt="Surat Location Map" 
+                            class="w-full h-auto"
+                            />
+                    </div>
                 </div>
             </div>
 
-            <!-- Message Field -->
-            <div class="flex flex-col">
-                <h:outputLabel for="message" value="Message" class="text-sm font-medium text-gray-700"/>
-                <h:inputTextarea id="message" value="#{contactBean.message}" required="true"
-                                 styleClass="mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"/>
+            <div class="text-center mt-8">
+                <p class="text-sm">&copy; 2024 Task-zen. All rights reserved.</p>
             </div>
-
-            <!-- Submit Button -->
-            <h:commandButton value="Submit" action="#{contactBean.submitContact}" 
-                             class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"/>
-        </h:form>
-    </div>
-
-    <!-- Footer Section -->
-    <footer class="bg-gray-800 text-white py-6">
-        <div class="text-center">
-            <p>&copy; 2024 Task-Zen. All rights reserved.</p>
-        </div>
-    </footer>
-
-</h:body>
+        </footer>
+        <script>
+            window.embeddedChatbotConfig = {
+                chatbotId: "2sHyeN6k_ZBl_Q0QTr36_",
+                domain: "www.chatbase.co"
+            };
+        </script>
+        <script
+            src="https://www.chatbase.co/embed.min.js"
+            chatbotId="2sHyeN6k_ZBl_Q0QTr36_"
+            domain="www.chatbase.co">
+        </script>
+    </body>
 </html>

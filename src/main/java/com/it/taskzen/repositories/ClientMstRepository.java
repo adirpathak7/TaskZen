@@ -32,4 +32,15 @@ public interface ClientMstRepository extends JpaRepository<ClientMasterEntity, L
     @Query("UPDATE ClientMasterEntity c SET c.status = 'approved' WHERE c.client_id = :client_id")
     int approveClientStatus(@Param("client_id") Long client_id);
 
+    @Query("SELECT COUNT(c) FROM ClientMasterEntity c")
+    long countAllClients();
+
+    // Total number of clients with pending status
+    @Query("SELECT COUNT(c) FROM ClientMasterEntity c WHERE c.status = 'pending'")
+    long countClientsByPendingStatus();
+
+    // Total number of clients with approved status
+    @Query("SELECT COUNT(c) FROM ClientMasterEntity c WHERE c.status = 'approved'")
+    long countClientsByApprovedStatus();
+
 }

@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-        <title>Task-Zen Admin Dashboard</title>
+        <title>TaskZen</title>
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Chart.js -->
@@ -13,6 +13,7 @@
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+        <link rel="stylesheet" href="../../CSS/index.css"/>
     </head>
     <h:body class="bg-gray-100">
         <h:form>
@@ -25,7 +26,7 @@
                     <div class="flex items-center space-x-4">
                         <img src="#{request.contextPath}/Image/taskzen.jpg" class="w-10 h-10 rounded-full border-2 border-gray-700"
                              alt="Client" />
-                        <span class="text-2xl font-semibold">Freelancer Name</span>
+                        <span class="text-2xl font-semibold">Welcome Somnath</span>
                     </div>
                     <div class="flex items-center space-x-4">
                         <i class="ri-notification-3-fill text-4xl"></i>
@@ -75,15 +76,15 @@
                         <li id="btn6" onclick="showContent('content6', 'btn6')" class="menu-item relative cursor-pointer group">
                             <span
                                 class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="ri-notification-fill text-xl"></i><span class="ml-4 hidden md:block">Notification</span>
+                                <i class="ri-message-2-filltext-xl"></i><span class="ml-4 hidden md:block">Notification</span>
                             </span>
                         </li>
-                        <li id="btn7" onclick="showContent('content7', 'btn7')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="fas fa-cog text-xl"></i><span class="ml-4 hidden md:block">Settings</span>
-                            </span>
-                        </li>
+                        <!--                        <li id="btn7" onclick="showContent('content7', 'btn7')" class="menu-item relative cursor-pointer group">
+                                                    <span
+                                                        class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                                                        <i class="fas fa-cog text-xl"></i><span class="ml-4 hidden md:block">Settings</span>
+                                                    </span>
+                                                </li>-->
                     </ul>
                 </aside>
 
@@ -107,9 +108,9 @@
                     <div id="content6" class="content h-full mb-10 p-6 hidden">
                         <!--<ui:include src="./Notification.xhtml"></ui:include>-->
                     </div>
-                    <div id="content7" class="content h-full mb-10 p-6 hidden">
-                        <!--<ui:include src="./Setting.xhtml"></ui:include>-->
-                    </div>
+                    <!--                    <div id="content7" class="content h-full mb-10 p-6 hidden">
+                                            <ui:include src="./Setting.xhtml"></ui:include>
+                                        </div>-->
                 </main>
             </div>
         </h:form>

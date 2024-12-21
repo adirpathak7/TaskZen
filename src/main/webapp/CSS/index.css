@@ -1,0 +1,32 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 21-Dec-2024, 1:01:23 pm
+    Author     : Aditya Pathak R
+*/
+
+/* Style the scrollbar container */
+::-webkit-scrollbar {
+    width: 12px;  /* Width of the vertical scrollbar */
+    height: 12px; /* Height of the horizontal scrollbar */
+}
+
+/* Style the scrollbar track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;  /* Light grey background */
+    border-radius: 10px;         /* Rounded corners */
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+    background-color: #9333ea;  /* Dark grey color for the thumb */
+    border-radius: 10px;      /* Rounded corners */
+    border: 3px solid #f1f1f1; /* Light border to create a slight effect */
+}
+
+/* Style the scrollbar thumb when hovered */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;  /* Darker grey on hover */
+}

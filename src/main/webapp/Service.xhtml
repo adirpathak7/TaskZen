@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--<script src="JS/User.js"></script>-->
+        <!-- Include Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <title>TaskZen</title>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"/>
+        <!-- Add Font Awesome for the eye icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="CSS/index.css"/>
+    </head>
+
+    <body class="bg-gray-50 text-gray-800">
+        <ui:include src="Navbar.xhtml"></ui:include>
+
+        <!-- Header Section -->
+        <header class="bg-purple-700 text-white py-8">
+            <div class="container mx-auto text-center">
+                <h1 class="text-5xl font-extrabold">
+                    Empowering Connections: Freelancers and Companies
+                </h1>
+                <p class="mt-4 text-xl">
+                    Find the perfect match for your project needs, hassle-free.
+                </p>
+                <a
+                    href="#explore"
+                    class="mt-6 inline-block bg-white text-blue-600 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 shadow-lg"
+                    >Explore Services</a
+                >
+            </div>
+        </header>
+
+        <!-- Key Features Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-800">
+                    Task-Zen Key Features
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 mt-12">
+                    <!-- For Freelancers -->
+                    <div class="bg-purple-700 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-3xl font-semibold text-white">For Freelancers</h3>
+                        <ul class="mt-6 space-y-4 text-lg">
+                            <li class="text-white">
+                                <i class="fas fa-check-circle text-white"></i> Showcase your
+                                talent to companies.
+                            </li>
+                            <li class="text-white">
+                                <i class="fas fa-check-circle text-white"></i> Build
+                                professional profiles with portfolios.
+                            </li>
+                            <li class="text-white">
+                                <i class="fas fa-check-circle text-white"></i> Bid on projects
+                                or accept offers.
+                            </li>
+                            <li class="text-white">
+                                <i class="fas fa-check-circle text-white"></i> Gain exposure to
+                                global opportunities.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- For Companies -->
+                    <div class="bg-purple-700 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-3xl font-semibold text-white">For Companies</h3>
+                        <ul class="mt-6 space-y-4 text-lg">
+                            <li class="text-white">
+                                <i class="fas fa-check-circle text-green-500"></i> Post detailed
+                                project requirements.
+                            </li>
+                            <li class="text-white">
+                                <i class="fas fa-check-circle text-green-500"></i> Review
+                                freelancer profiles and ratings.
+                            </li>
+                            <li class="text-white">
+                                <i class="fas fa-check-circle text-green-500"></i> Hire the best
+                                talent for your needs.
+                            </li>
+                            <li class="text-white">
+                                <i class="fas fa-check-circle text-green-500"></i> Secure and
+                                efficient collaboration tools.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Categories Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto">
+                <h1 class="text-4xl font-bold">Sectors and Service Categories</h1>
+                <hr class="border-2 border-solid border-purple-700">
+                    <p class="text-4xl font-bold text-center">Service Categories</p>
+                    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-purple-700 p-8 rounded-lg shadow-lg text-center hover:scale-105 transition-transform">
+                            <h3 class="text-2xl font-semibold text-white">
+                                Design and Creative
+                            </h3>
+                            <p class="mt-4 text-white">
+                                Graphic design, branding, and creative solutions to bring your
+                                ideas to life.
+                            </p>
+                        </div>
+                        <div
+                            class="bg-purple-700 p-8 rounded-lg shadow-lg text-center hover:scale-105 transition-transform"
+                            >
+                            <h3 class="text-2xl font-semibold text-white">
+                                Development and IT
+                            </h3>
+                            <p class="mt-4 text-white">
+                                Software development, IT support, and technology expertise.
+                            </p>
+                        </div>
+                        <div
+                            class="bg-purple-700 p-8 rounded-lg shadow-lg text-center hover:scale-105 transition-transform"
+                            >
+                            <h3 class="text-2xl font-semibold text-white">
+                                Writing and Translation
+                            </h3>
+                            <p class="mt-4 text-white">
+                                Content creation, translation, and copywriting services.
+                            </p>
+                        </div>
+                        <div
+                            class="bg-white p-8 rounded-lg shadow-lg text-center hover:scale-105 transition-transform"
+                            >
+                            <h3 class="text-2xl font-semibold text-blue-600">Marketing</h3>
+                            <p class="mt-4">
+                                Digital marketing, social media management, and branding
+                                strategies.
+                            </p>
+                        </div>
+                        <div
+                            class="bg-white p-8 rounded-lg shadow-lg text-center hover:scale-105 transition-transform"
+                            >
+                            <h3 class="text-2xl font-semibold text-blue-600">
+                                Administrative Support
+                            </h3>
+                            <p class="mt-4">
+                                Virtual assistance, data entry, and administrative solutions.
+                            </p>
+                        </div>
+                        <div
+                            class="bg-white p-8 rounded-lg shadow-lg text-center hover:scale-105 transition-transform"
+                            >
+                            <h3 class="text-2xl font-semibold text-blue-600">
+                                Finance and Consulting
+                            </h3>
+                            <p class="mt-4">
+                                Financial planning, analysis, and professional consulting
+                                services.
+                            </p>
+                        </div>
+                    </div>
+                </hr>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="explore" class="py-16 bg-white">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center">How It Works</h2>
+                <div class="grid md:grid-cols-2 gap-12 mt-12">
+                    <!-- For Freelancers -->
+                    <div class="p-8 bg-gray-100 rounded-lg shadow-lg">
+                        <h3 class="text-3xl font-semibold text-blue-600">
+                            For Freelancers
+                        </h3>
+                        <ol class="mt-6 space-y-4 text-lg list-decimal list-inside">
+                            <li>Create a profile and showcase your skills.</li>
+                            <li>Bid on projects matching your expertise.</li>
+                            <li>Communicate directly with clients.</li>
+                            <li>Deliver high-quality work and gain reviews.</li>
+                            <li>Receive payments securely via the platform.</li>
+                        </ol>
+                    </div>
+
+                    <!-- For Companies -->
+                    <div class="p-8 bg-gray-100 rounded-lg shadow-lg">
+                        <h3 class="text-3xl font-semibold text-blue-600">For Companies</h3>
+                        <ol class="mt-6 space-y-4 text-lg list-decimal list-inside">
+                            <li>Sign up and post detailed project descriptions.</li>
+                            <li>Review bids and freelancer profiles.</li>
+                            <li>Hire the best fit for your project.</li>
+                            <li>Collaborate using our communication tools.</li>
+                            <li>Release payments upon project completion.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="py-16 bg-gradient-to-r from-blue-50 to-gray-100">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center">Why Choose Task-zen?</h2>
+                <div class="grid md:grid-cols-2 gap-12 mt-12">
+                    <!-- For Freelancers -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-3xl font-semibold text-blue-600">
+                            For Freelancers
+                        </h3>
+                        <ul class="mt-6 space-y-4 text-lg">
+                            <li>
+                                <i class="fas fa-star text-yellow-500"></i> Access to diverse
+                                projects worldwide.
+                            </li>
+                            <li>
+                                <i class="fas fa-lock text-blue-500"></i> Safe and secure
+                                payment methods.
+                            </li>
+                            <li>
+                                <i class="fas fa-laptop text-green-500"></i> Flexibility to work
+                                on your schedule.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- For Companies -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-3xl font-semibold text-blue-600">For Companies</h3>
+                        <ul class="mt-6 space-y-4 text-lg">
+                            <li>
+                                <i class="fas fa-users text-purple-500"></i> Access to skilled
+                                professionals globally.
+                            </li>
+                            <li>
+                                <i class="fas fa-clock text-gray-500"></i> Time-efficient hiring
+                                process.
+                            </li>
+                            <li>
+                                <i class="fas fa-chart-line text-green-500"></i> Cost-effective
+                                solutions for your projects.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-bold">What Our Users Say</h2>
+                <div class="mt-8">
+                    <p class="text-lg italic">
+                        "Hiring freelancers on Task-zen was seamless. Our project was
+                        completed ahead of schedule!"
+                    </p>
+                    <p class="mt-4 text-lg italic">
+                        "As a freelancer, Task-zen has been my go-to platform for reliable
+                        work opportunities."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call-to-Action Section -->
+        <section class="py-16 bg-purple-600 text-white text-center">
+            <h2 class="text-4xl font-bold">Ready to Get Started?</h2>
+            <p class="mt-6 text-lg">
+                Join Task-zen today and experience the future of freelancing!
+            </p>
+            <div class="mt-8">
+                <a
+                    href="#"
+                    class="bg-white text-blue-600 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 shadow-lg"
+                    >Sign Up Now</a
+                >
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="bg-gray-900 text-white py-10 p-10">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Navigation -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Home.xhtml" class="hover:underline">Home</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">About</a></li>
+                        <li><a href="Contact.xhtml" class="hover:underline">Contact</a></li>
+                        <li><a href="Service.xhtml" class="hover:underline">Services</a></li>
+                    </ul>
+                </div>
+
+                <!-- Started -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Get Started</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Login</a></li>
+                        <li><a href="#" class="hover:underline">Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Programming</a></li>
+                        <li><a href="#" class="hover:underline">AI Services</a></li>
+                        <li><a href="#" class="hover:underline">Video Animation</a></li>
+                        <li><a href="#" class="hover:underline">Architecture</a></li>
+                        <li><a href="#" class="hover:underline">Sales Marketing</a></li>
+                        <li><a href="#" class="hover:underline">Brand Design</a></li>
+                    </ul>
+                </div>
+
+                <!-- Location -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Our Location</h3>
+                    <div class="border rounded overflow-hidden">
+                        <img 
+                            src="https://via.placeholder.com/300x200.png?text=Surat+Location+Map"
+                            alt="Surat Location Map" 
+                            class="w-full h-auto"
+                            />
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-sm">&copy; 2024 Task-zen. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+
+</html>

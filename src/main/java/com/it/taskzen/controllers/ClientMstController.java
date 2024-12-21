@@ -119,6 +119,7 @@ public class ClientMstController {
             clientMstService.approveClientStatus(client_id);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Client status approved by admin.");
+            response.put("data", "1");
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
@@ -126,7 +127,7 @@ public class ClientMstController {
             return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
-    
+
     @GetMapping("/getClientDetailsByToken")
     public ResponseEntity<Map<String, Object>> getClientDetailsByToken(@RequestHeader("Authorization") String token) throws IOException {
         if (token != null && token.startsWith("Bearer ")) {
@@ -139,5 +140,20 @@ public class ClientMstController {
         response.put("message", "Client details fetched successfully.");
         response.put("data", clientDetails);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/count/total")
+    public ResponseEntity<Long> getTotalClients() {
+        return ResponseEntity.ok(clientMstService.getTotalClients());
+    }
+
+    @GetMapping("/count/pending")
+    public ResponseEntity<Long> getTotalPendingClients() {
+        return ResponseEntity.ok(clientMstService.getTotalPendingClients());
+    }
+
+    @GetMapping("/count/approved")
+    public ResponseEntity<Long> getTotalApprovedClients() {
+        return ResponseEntity.ok(clientMstService.getTotalApprovedClients());
     }
 }

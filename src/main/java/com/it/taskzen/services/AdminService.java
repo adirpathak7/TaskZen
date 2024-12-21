@@ -68,16 +68,17 @@ public class AdminService {
 
         String role = existAdmin.getRole().toString();
         Long admin_id = existAdmin.getAdmin_id();
-//        Long user_id = null;
-//        Long client_id = null;
-//        Long freelancer_id = null;
+        Long user_id = null;
+        Long client_id = null;
+        Long freelancer_id = null;
 
-//        String token = jwtService.generateToken(adminEntity.getEmail(), role, admin_id);
+        String token = jwtService.generateToken(existAdmin.getEmail(), role, user_id, client_id, freelancer_id, admin_id);
 
         Map<String, String> loginResponse = new HashMap<>();
         loginResponse.put("role", role);
-//        loginResponse.put("token", token);
+        loginResponse.put("token", token);
         loginResponse.put("data", "1");
+
         return loginResponse;
     }
 }

@@ -1,171 +1,234 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-<head>
-    <title>Task-Zen Admin Dashboard</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-</head>    
-<h:body class="bg-gray-50">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="JS/Userc.js"></script>
+        <!-- Include Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <title>Task-Zen About</title>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"/>
+        <!-- Add Font Awesome for the eye icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <link rel="stylesheet" href="CSS/index.css"/>
+    </head>
+    <body>
+        <!--call navbar-->
+        <ui:include src="Navbar.xhtml"></ui:include>
 
-    <!-- Task-Zen Navigation Bar Start -->
-    <header class="bg-white text-gray-600 body-font rounded-md">
-        <div class="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
+        <div class="bg-purple-700 text-white">
+            <div
+                class="container mx-auto flex flex-col md:flex-row items-center p-8 md:py-16"
+                >
+                <div class="md:w-1/2 space-y-4">
+                    <h1 class="text-4xl md:text-5xl font-bold">
+                        Welcome to Task-zen!
+                    </h1>
+                    <p class="text-lg">
+                        At Task-zen, we bridge the gap between skilled freelancers and businesses, providing a seamless platform to connect, collaborate, and create. As a cutting-edge IT solution, Task-zen empowers professionals to showcase their expertise while enabling businesses to find the perfect talent for their projects.
+                    </p>
 
-            <a href="index.xhtml">
-                <img class="logo rounded-md cursor-pointer" src="images/TaskZen.jpg" alt="Task-zen" />
-            </a>
 
-            <!-- Responsive Navigation -->
-            <nav class="md:ml-auto md:mr-auto flex flex-col md:flex-row items-center text-base justify-between space-y-4 md:space-y-0 md:space-x-10 mt-4 md:mt-0">
-                <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Home.xhtml">Home</a>
-                <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="About.xhtml">About</a>
-                <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Contact.xhtml">Contact</a>
-                <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Service.xhtml">Service</a>
-            </nav>
-
-            <!-- Login/Sign-up Buttons -->
-            <div class="inline-flex space-x-2 mt-4 md:mt-0">
-                <a class="items-center bg-gray-100 border-0 py-2 px-5 text-gray-800 hover:text-white hover:bg-purple-800 rounded-md text-base transition duration-300 ease-in-out" href="Login.xhtml">Login</a>
-                <a class="items-center bg-gray-100 border-0 py-2 px-5 text-gray-800 hover:text-white hover:bg-purple-800 rounded-md text-base transition duration-300 ease-in-out" href="Register.xhtml">Sign-up</a>
-            </div>
-        </div>
-        <style>
-            a {
-                font-size: large;
-            }
-
-            .logo {
-                width: 130px;
-                height: 49px;
-                margin-left: 25px;
-            }
-        </style>
-    </header>
-    <!-- Task-Zen Navigation Bar End -->
-
-    <!-- Introduction Section -->
-    <section class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold">About Task-Zen</h1>
-            <p class="mt-4 text-lg md:text-xl">
-                Connecting skilled freelancers with innovative companies for mutual success.
-            </p>
-        </div>
-    </section>
-
-    <!-- Benefits for Freelancers -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">For Freelancers</h2>
-            <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 shadow rounded-lg">
-                    <h3 class="text-xl font-semibold text-indigo-600">Endless Opportunities</h3>
-                    <p class="mt-2 text-gray-600">Find jobs that suit your skills and interests, from companies around the world.</p>
                 </div>
-                <div class="bg-white p-6 shadow rounded-lg">
-                    <h3 class="text-xl font-semibold text-indigo-600">Flexible Work</h3>
-                    <p class="mt-2 text-gray-600">Choose when and where to work with no commitments.</p>
-                </div>
-                <div class="bg-white p-6 shadow rounded-lg">
-                    <h3 class="text-xl font-semibold text-indigo-600">Secure Payments</h3>
-                    <p class="mt-2 text-gray-600">Get paid on time for every project through our trusted system.</p>
+                <div class="md:w-1/2 mt-8 md:mt-0">
+                    <img
+                        src="Images/aboutimg.jpg"
+                        alt="Freelancer Illustration"
+                        class="p-6"
+                        />
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Benefits for Companies -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">For Companies</h2>
-            <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-6 shadow rounded-lg">
-                    <h3 class="text-xl font-semibold text-indigo-600">Access Global Talent</h3>
-                    <p class="mt-2 text-gray-600">Hire skilled professionals for any task, big or small.</p>
-                </div>
-                <div class="bg-gray-50 p-6 shadow rounded-lg">
-                    <h3 class="text-xl font-semibold text-indigo-600">Cost-Effective Solutions</h3>
-                    <p class="mt-2 text-gray-600">Pay only for the services you need without long-term commitments.</p>
-                </div>
-                <div class="bg-gray-50 p-6 shadow rounded-lg">
-                    <h3 class="text-xl font-semibold text-indigo-600">Seamless Collaboration</h3>
-                    <p class="mt-2 text-gray-600">Communicate effectively and track progress directly on our platform.</p>
-                </div>
+        <!--mission and vision-->
+        <section class="py-12 px-6">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-4xl font-semibold text-center text-gray-900 mb-12">About Task-zen</h1>
+
+                <!-- Mission Section -->
+                <section class="flex flex-col md:flex-row items-center p-8 bg-white rounded-lg shadow-lg mb-12">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <h2 class="text-3xl font-bold text-green-600 mb-4">Our Mission</h2>
+                        <p class="text-lg leading-relaxed text-gray-600">
+                            At Task-zen, our mission is to empower businesses and freelancers by providing an intuitive, efficient, 
+                            and secure platform that fosters seamless collaboration and project success. We are committed to simplifying 
+                            the freelance experience, enabling professionals to thrive while helping organizations find and work with 
+                            top-tier talent in the IT industry. By focusing on innovation and user-centric design, we aim to create a 
+                            space where both freelancers and clients can achieve their goals with confidence and ease.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="Images/mission.png" alt="Task-zen Mission" class="w-full h-auto rounded-lg shadow-md"/>
+                        <hr class="border-t-2 border-gray-300 mt-4"/>
+                    </div>
+                </section>
+
+                <!-- Vision Section -->
+                <section class="flex flex-col md:flex-row items-center p-8 bg-white rounded-lg shadow-lg">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-4">Our Vision</h2>
+                        <p class="text-lg leading-relaxed text-gray-600">
+                            Our vision is to redefine the future of work by making Task-zen the go-to platform for freelancers and 
+                            businesses around the world. We envision a global community where professionals from diverse backgrounds 
+                            connect, collaborate, and grow together through the power of technology. We strive to be at the forefront 
+                            of the IT industry, driving forward new ways of working that are efficient, sustainable, and adaptable 
+                            to the ever-evolving needs of our users.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="Images/vision.jpg" alt="Task-zen Vision" class="w-full h-auto rounded-lg shadow-md"/>
+                        <hr class="border-t-2 border-gray-300 mt-4"/>
+                    </div>
+                </section>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- How It Works -->
-    <section class="py-16 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">How It Works</h2>
-            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 shadow rounded-lg">
-                    <h3 class="text-xl font-semibold text-indigo-600">For Freelancers</h3>
-                    <ul class="mt-2 text-gray-600 space-y-2">
-                        <li>1. Create your profile and showcase your skills.</li>
-                        <li>2. Search for jobs or get invitations from companies.</li>
-                        <li>3. Negotiate terms, complete tasks, and get paid securely.</li>
+
+        <!--Expertise and Specialization-->
+        <section class="py-12 px-6 bg-purple-700">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-4xl font-semibold text-center text-white mb-12">Expertise and Specialization</h1>
+
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Expertise Section -->
+                    <div class="p-8 bg-white rounded-lg shadow-lg">
+                        <h2 class="text-3xl font-bold text-green-600 mb-6">Areas of Expertise</h2>
+                        <ul class="space-y-4 text-lg text-gray-600">
+                            <li class="flex items-center">
+                                <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center mr-4">✓</span>
+                                Cloud Computing
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center mr-4">✓</span>
+                                Mobile App Development
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center mr-4">✓</span>
+                                Artificial Intelligence (AI) and Machine Learning (ML)
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center mr-4">✓</span>
+                                Blockchain Technology
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Industries Section -->
+                    <div class="p-8 bg-white rounded-lg shadow-lg">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-6">Industries We Serve</h2>
+                        <ul class="space-y-4 text-lg text-gray-600">
+                            <li class="flex items-center">
+                                <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-4">✓</span>
+                                Healthcare
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-4">✓</span>
+                                Finance
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-4">✓</span>
+                                E-commerce
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-4">✓</span>
+                                Education
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!--company founders info-->
+        <section class="py-12 px-6">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-4xl font-semibold text-center text-gray-900 mb-12">Meet Our Founters</h1>
+
+                <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <!-- Team Member 1 -->
+                    <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+                        <img src="https://via.placeholder.com/150" alt="Founder" class="w-32 h-32 mx-auto rounded-full mb-4 border-4 border-gray-200"/>
+                        <h3 class="text-2xl font-semibold text-gray-800">Aaditya Pathak</h3>
+                        <p class="text-gray-600 mb-4">Founder and CEO</p>
+                        <p class="text-gray-600">
+                            John is a visionary leader with over 15 years of experience in the IT industry. With a deep understanding of software development and business strategy, he has successfully led numerous projects in cloud computing and AI solutions.
+                        </p>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+                        <img src="Images/fountersimg.jpg" alt="CTO" class="w-80 h-72 mx-auto rounded-full border-4 border-gray-200"/>
+
+                    </div>
+
+                    <!-- Team Member 3 -->
+                    <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+                        <img src="https://via.placeholder.com/150" alt="Lead Developer" class="w-32 h-32 mx-auto rounded-full mb-4 border-4 border-gray-200"/>
+                        <h3 class="text-2xl font-semibold text-gray-800">Somnath Gouda</h3>
+                        <p class="text-gray-600 mb-4">Lead Developer</p>
+                        <p class="text-gray-600">
+                            Emily is an expert in full-stack development with a passion for creating intuitive user experiences. With a background in front-end and back-end development, she leads the engineering team to build robust and scalable solutions for Task-zen.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!--footer section-->
+        <footer class="bg-gray-900 text-white py-10 p-10">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Navigation -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Home.xhtml" class="hover:underline">Home</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">About</a></li>
+                        <li><a href="Contact.xhtml" class="hover:underline">Contact</a></li>
+                        <li><a href="Service.xhtml" class="hover:underline">Services</a></li>
                     </ul>
                 </div>
-                <div class="bg-white p-6 shadow rounded-lg">
-                    <h3 class="text-xl font-semibold text-indigo-600">For Companies</h3>
-                    <ul class="mt-2 text-gray-600 space-y-2">
-                        <li>1. Post your project requirements.</li>
-                        <li>2. Browse freelancer profiles and send invites.</li>
-                        <li>3. Assign tasks, track progress, and make payments.</li>
+
+                <!-- Started -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Get Started</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Login</a></li>
+                        <li><a href="#" class="hover:underline">Sign Up</a></li>
                     </ul>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Trust and Security -->
-    <section class="py-16 bg-indigo-600 text-white">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold">Trust and Security</h2>
-            <p class="mt-4">We prioritize safety for freelancers and companies with secure payments and verified profiles.</p>
-        </div>
-    </section>
-
-    <!-- Success Stories -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Success Stories</h2>
-            <p class="mt-4 text-gray-600">See how freelancers and companies have achieved success through Task-Zen.</p>
-            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 shadow rounded-lg">
-                    <p class="text-gray-600 italic">"I landed my dream freelance job thanks to Task-Zen!"</p>
-                    <p class="mt-2 text-indigo-600 font-semibold">- Jane Doe, Freelancer</p>
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Programming</a></li>
+                        <li><a href="#" class="hover:underline">AI Services</a></li>
+                        <li><a href="#" class="hover:underline">Video Animation</a></li>
+                        <li><a href="#" class="hover:underline">Architecture</a></li>
+                        <li><a href="#" class="hover:underline">Sales Marketing</a></li>
+                        <li><a href="#" class="hover:underline">Brand Design</a></li>
+                    </ul>
                 </div>
-                <div class="bg-white p-6 shadow rounded-lg">
-                    <p class="text-gray-600 italic">"Hiring freelancers has never been this easy."</p>
-                    <p class="mt-2 text-indigo-600 font-semibold">- John Smith, Company CEO</p>
+
+                <!-- Location -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Our Location</h3>
+                    <div class="border rounded overflow-hidden">
+                        <img 
+                            src="https://via.placeholder.com/300x200.png?text=Surat+Location+Map"
+                            alt="Surat Location Map" 
+                            class="w-full h-auto"
+                            />
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Call to Action -->
-    <section class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold">Join Task-Zen Today</h2>
-            <p class="mt-4">Empower your career or business. Sign up now!</p>
-            <div class="mt-6 space-x-4">
-                <a href="Register.xhtml" class="bg-white text-indigo-600 font-medium py-3 px-6 rounded-lg shadow hover:bg-gray-100">Sign Up</a>
-                <a href="Login.xhtml" class="bg-transparent border border-white py-3 px-6 rounded-lg font-medium hover:bg-white hover:text-indigo-600">Login</a>
+            <div class="text-center mt-8">
+                <p class="text-sm">&copy; 2024 Task-zen. All rights reserved.</p>
             </div>
-        </div>
-    </section>
-
-</h:body>
+        </footer>
+    </body>
 </html>

@@ -1,36 +1,63 @@
-<!-- Task-Zen Navigation Bar Start -->
-<header class="bg-white text-gray-600 body-font rounded-md">
-    <!--border-blue-300 border-l border-r border-t border-b-[3px]--> 
-    <div class="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TaskZen</title>
+        <!-- Include Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="CSS/index.css"/>
+    </head>
+    <body>
+        <header>
+            <!-- Navigation Bar -->
+            <nav class="bg-white text-purple-500">
+                <div class="container mx-auto px-4">
+                    <div class="flex items-center justify-between h-16">
+                        <!-- Logo -->
+                        <div class="text-purple-500 text-2xl font-bold flex-shrink-0">
+                            TaskZen
+                        </div>
 
-        <a href="index.xhtml">
-            <img class="logo rounded-md cursor-pointer" src="images/TaskZen.jpg" alt="Task-zen"/>
-        </a>
+                        <!-- Centered Navigation Links -->
+                        <div class="hidden md:flex space-x-6 flex-1 justify-center">
+                            <!-- Home -->
+                            <a href="Home.xhtml" 
+                               class="text-purple-500 hover:text-purple-800 px-3 py-2 text-sm font-medium relative group">
+                                Home
+                                <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-white transition-all duration-500 group-hover:w-full"></span>
+                            </a>
 
-        <!-- Responsive Navigation -->
-        <nav class="md:ml-auto md:mr-auto flex flex-col md:flex-row items-center text-base justify-between space-y-4 md:space-y-0 md:space-x-10 mt-4 md:mt-0">
-            <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Home.xhtml">Home</a>
-            <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="About.xhtml">About</a>
-            <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="Contact.xhtml">Contact</a>
-            <a class="cursor-pointer text-gray-900 hover:text-purple-800 transition duration-200" href="#">Service</a>
-        </nav>
+                            <!-- About -->
+                            <a href="About.xhtml" 
+                               class="text-purple-500 hover:text-purple-800 px-3 py-2 text-sm font-medium relative group">
+                                About
+                                <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-white transition-all duration-500 group-hover:w-full"></span>
+                            </a>
 
-        <!-- Login/Sign-up Buttons -->
-        <div class="inline-flex space-x-2 mt-4 md:mt-0">
-            <a class="items-center bg-gray-100 border-0 py-2 px-5 text-gray-800 hover:text-white hover:bg-purple-800 rounded-md text-base transition duration-300 ease-in-out" href="Login.xhtml">Login</a>
-            <a class="items-center bg-gray-100 border-0 py-2 px-5 text-gray-800 hover:text-white hover:bg-purple-800 rounded-md text-base transition duration-300 ease-in-out" href="Register.xhtml">Sign-up</a>
-        </div>
-    </div>
-    <style>
-        a {
-            font-size: large;
-        }
+                            <!-- Contact -->
+                            <a href="Contact.xhtml" 
+                               class="text-purple-500 hover:text-purple-800 px-3 py-2 text-sm font-medium relative group">
+                                Contact
+                                <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-white transition-all duration-500 group-hover:w-full"></span>
+                            </a>
 
-        .logo {
-            width: 130px;
-            height: 49px;
-            margin-left: 25px;
-        }
-    </style>
-</header>
-<!-- Task-Zen Navigation Bar End -->
+                            <!-- Services -->
+                            <a href="Service.xhtml" 
+                               class="text-purple-500 hover:text-purple-800 px-3 py-2 text-sm font-medium relative group">
+                                Services
+                                <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-white transition-all duration-500 group-hover:w-full"></span>
+                            </a>
+                        </div>
+
+                        <!-- Right-aligned Buttons -->
+                        <div class="flex space-x-4">
+                            <a class="items-center bg-gray-100 border-0 py-2 px-5 text-gray-800 hover:text-white hover:bg-purple-800 rounded-md text-base transition duration-300 ease-in-out" href="Login.xhtml">Login</a>
+                            <a class="items-center bg-gray-100 border-0 py-2 px-5 text-gray-800 hover:text-white hover:bg-purple-800 rounded-md text-base transition duration-300 ease-in-out" href="Register.xhtml">Sign-up</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </body>
+</html>

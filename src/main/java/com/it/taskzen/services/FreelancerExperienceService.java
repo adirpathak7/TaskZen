@@ -32,8 +32,8 @@ public class FreelancerExperienceService {
 
     public FreelancerExperienceEntity addFreelancerExperience(String token, FreelancerExperienceEntity freelancerExperienceEntity) {
         Long freelancerId = jWTService.extractUserId(token);
-        FreelancerMasterEntity freelancerMasterEntity = freelancerMstRepository.findByFreelancerId(freelancerId)
-                .orElseThrow(() -> new IllegalStateException("Freelancer not found!"));
+        FreelancerMasterEntity freelancerMasterEntity = freelancerMstRepository.findByFreelancerId(freelancerId);
+//                .orElseThrow(() -> new IllegalStateException("Freelancer not found!"));
 
         freelancerExperienceEntity.setFreelancer_id(freelancerMasterEntity);
         return freelancerExperienceRepository.save(freelancerExperienceEntity);

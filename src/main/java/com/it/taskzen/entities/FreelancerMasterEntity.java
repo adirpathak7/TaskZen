@@ -179,7 +179,7 @@ public class FreelancerMasterEntity {
     protected void onCreate() {
         created_at = LocalDateTime.now();
         if (status == null) {
-            status = Status.pending;
+            status = Status.approved;
         }
     }
 
