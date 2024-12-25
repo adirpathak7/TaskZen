@@ -7,7 +7,10 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     fetchApplyByFreelaancerProjectsDetails();
+    fetchAcceptedFreelaancerProjectsDetails();
+    fetchCompletedFreelaancerProjectsDetails();
 });
+
 async function fetchApplyByFreelaancerProjectsDetails() {
     const apiUrl = "http://localhost:8000/api/freelancer/getClientsFreelancersByProjectsByToken";
     const token = sessionStorage.getItem("authToken");
@@ -36,7 +39,6 @@ async function fetchApplyByFreelaancerProjectsDetails() {
         console.error("Error fetching freelancer project details:", error);
     }
 }
-
 
 
 function displayFreelancerApplyForClientProjects(freelancerProjects) {
@@ -188,10 +190,8 @@ async function fetchApplyByFreelaancerExperienceDetails(freelancer_id) {
 function viewFreelancerDetails(event) {
     event.preventDefault();
 
-    // Find the closest <tr> element to the clicked button
     const row = event.target.closest('tr');
 
-    // Get freelancer data from the clicked row
     const freelancerId = row.querySelector('.clientFreelancerId').value;
     const freelancerName = row.querySelector('.clientFreelancerName').value;
     const freelancerEmail = row.querySelector('.clientFreelancerEmail').value;
@@ -202,7 +202,6 @@ function viewFreelancerDetails(event) {
     const freelancerPortfolioLink = row.querySelector('.clientFreelancerPortfolioLink').value;
     const clientProjectId = row.querySelector('.clientProjectId').value;
 
-    // Display the freelancer details in the modal
     document.getElementById("freelancer_id").value = freelancerId;
     document.getElementById("client_project_id").value = clientProjectId;
     document.getElementById("clientsFreelancerName").innerHTML = freelancerName;
@@ -213,14 +212,67 @@ function viewFreelancerDetails(event) {
     document.getElementById("clientsFreelancerlinkedin_link").href = freelancerLinkedIn;
     document.getElementById("clientsFreelancerportfolio_link").href = freelancerPortfolioLink;
 
-    // Fetch and display education and experience details
     fetchApplyByFreelaancerEducationDetails(freelancerId);
     fetchApplyByFreelaancerExperienceDetails(freelancerId);
 
-    // Open the modal
     openModal("viewFreelancerDetailsModal");
 }
 
+
+function rejectFreelancerDetails(event) {
+    event.preventDefault();
+
+    const clientConfirmed = confirm("Are you sure you want to reject the freelancer request?");
+    if (!clientConfirmed) {
+        return;
+    }
+
+    const client_project_id = document.getElementById("clientProjectId").value;
+    const freelancer_id = document.getElementById("clientFreelancerId").value;
+
+    console.log("Request Body:", JSON.stringify({
+        client_project_id: client_project_id,
+        freelancer_id: freelancer_id
+    }));
+
+//    console.log("client_project_id: ", client_project_id);
+//    console.log("freelancer_id: ", freelancer_id);
+
+    alert(client_project_id);
+    alert(freelancer_id);
+    const token = sessionStorage.getItem("authToken");
+
+    const apiUrl = `http://localhost:8000/api/freelancer/rejectFreelancerProjectStatus?client_project_id=${client_project_id}&freelancer_id=${freelancer_id}`;
+
+    const requestData = {
+        client_project_id: client_project_id,
+        freelancer_id: freelancer_id
+    };
+
+    fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestData)
+    })
+            .then(response => response.json())
+            .then(result => {
+                if (result.data === "1") {
+                    alert("Client request rejected successfully!");
+                    closeModal("viewFreelancerDetailsModal");
+                    fetchApplyByFreelaancerProjectsDetails();
+                } else {
+                    alert("Failed to reject client. Please try again.");
+                    console.error(result);
+                }
+            })
+            .catch(error => {
+                console.error("Error occurred while rejecting client: ", error);
+                alert("An error occurred. Please try again.");
+            });
+}
 
 function clientFreelancerHireButton(event) {
     event.preventDefault();
@@ -228,13 +280,10 @@ function clientFreelancerHireButton(event) {
     const client_project_id = document.getElementById("client_project_id").value;
     const freelancer_id = document.getElementById("freelancer_id").value;
 
-    console.log("Request Body:", JSON.stringify({
-        client_project_id: client_project_id,
-        freelancer_id: freelancer_id
-    }));
-
-    console.log("client_project_id: ", client_project_id);
-    console.log("freelancer_id: ", freelancer_id);
+//    console.log("Request Body:", JSON.stringify({
+//        client_project_id: client_project_id,
+//        freelancer_id: freelancer_id
+//    }));
 
     alert(client_project_id);
     alert(freelancer_id);
@@ -258,21 +307,195 @@ function clientFreelancerHireButton(event) {
             .then(response => response.json())
             .then(result => {
                 if (result.data === "1") {
-                    alert("Client approved successfully!");
+                    alert("Client request approved successfully!");
                     closeModal("viewFreelancerDetailsModal");
+                    fetchApplyByFreelaancerProjectsDetails();
+                    const statusUpdateUrl = `http://localhost:8000/api/client/updateStatusInprogress/${client_project_id}`;
+
+                    fetch(statusUpdateUrl, {
+                        method: "PUT"
+//                        headers: {
+//                            "Authorization": `Bearer ${token}`,
+//                            "Content-Type": "application/json"
+//                        }
+                    })
+                            .then(response => response.json())
+                            .then(statusUpdateResult => {
+                                if (statusUpdateResult) {
+                                    console.log("Project status updated to In Progress.");
+                                } else {
+//                                    alert("Failed to update project status.");
+                                    console.error(statusUpdateResult);
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error occurred while updating project status: ", error);
+//                                alert("An error occurred while updating the project status.");
+                            });
+
                 } else {
-                    alert("Failed to approve client. Please try again.");
+//                    alert("Failed to approve client. Please try again.");
                     console.error(result);
                 }
             })
             .catch(error => {
                 console.error("Error occurred while approving client: ", error);
-                alert("An error occurred. Please try again.");
+//                alert("An error occurred. Please try again.");
             });
 }
 
 
-function rejectFreelancerDetails(event){
-    event.preventDefault();
-    confirm("Are sure to reject the freelancer!");
+
+async function fetchAcceptedFreelaancerProjectsDetails() {
+    const apiUrl = "http://localhost:8000/api/freelancer/getClientsFreelancersByProjectsByToken/accepted";
+    const token = sessionStorage.getItem("authToken");
+    try {
+        const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+        if (!response.ok) {
+            throw new Error("Failed to fetch freelancer accepted project details!");
+        }
+
+        const result = await response.json();
+        const freelancerProjects = result.data;
+//        console.log("freelancerProjects accepted", freelancerProjects);
+
+        if (freelancerProjects && Array.isArray(freelancerProjects)) {
+            displayAcceptedFreelancerApplyForClientProjects(freelancerProjects);
+        } else {
+            console.error("No freelancer accepted project data found.");
+        }
+    } catch (error) {
+        console.error("Error fetching freelancer accepted project details:", error);
+    }
+}
+
+
+function displayAcceptedFreelancerApplyForClientProjects(freelancerProjects) {
+    const tableBody = document.getElementById('acceptedFreelancerDetails-table-body');
+    tableBody.innerHTML = '';
+    freelancerProjects.forEach(data => {
+        const freelancerName = `${data.freelancer.user.first_name} ${data.freelancer.user.last_name}`;
+        const clientProjectTitle = data.clientProject.client_project_name;
+        const clientProjectRange = `${data.clientProject.minimum_range} - ${data.clientProject.maximum_range} Rs.`;
+        const clientProjectStatus = data.clientProject.status;
+        const clientProjectDuration = data.clientProject.duration;
+        const freelancerProjectRange = data.freelancer_range;
+        const freelancerProjectDuration = data.duration;
+        const freelancerProjectStatus = data.status;
+        const clientCreatedAt = new Date(data.clientProject.created_at).toLocaleDateString();
+
+        const row = document.createElement('tr');
+        row.classList.add('border-t', 'hover:bg-gray-100');
+        row.innerHTML = `
+            <td class="px-6 py-4">${freelancerName}</td>
+            <td class="px-6 py-4">${clientProjectTitle}</td>
+            <td class="px-6 py-4">${freelancerProjectRange}</td>
+            <td class="px-6 py-4">${freelancerProjectDuration}</td>
+            <td class="px-6 py-4">In Progress</td>
+            <td class="px-6 py-4">${clientCreatedAt}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+//Freelancer Complete Projects
+
+function displayCompletedFreelancerApplyForClientProjects(freelancerProjects) {
+    const tableBody = document.getElementById('completedFreelancerDetails-table-body');
+    tableBody.innerHTML = '';
+
+    freelancerProjects.forEach(data => {
+        const freelancerName = `${data.freelancer.user.first_name} ${data.freelancer.user.last_name}`;
+        const clientProjectTitle = data.clientProject.client_project_name;
+        const clientProjectRange = `${data.clientProject.minimum_range} - ${data.clientProject.maximum_range} Rs.`;
+        const clientProjectStatus = data.clientProject.status;
+        const clientProjectDuration = data.clientProject.duration;
+        const freelancerProjectRange = data.freelancer_range;
+        const freelancerProjectDuration = data.duration;
+        const freelancerProjectStatus = data.status;
+        const clientCreatedAt = new Date(data.clientProject.created_at).toLocaleDateString();
+
+        const row = document.createElement('tr');
+        row.classList.add('border-t', 'hover:bg-gray-100');
+        row.innerHTML = `
+            <td class="px-6 py-4">${freelancerName}</td>
+            <td class="px-6 py-4">${clientProjectTitle}</td>
+            <td class="px-6 py-4">${freelancerProjectRange}</td>
+            <td class="px-6 py-4">${freelancerProjectDuration}</td>
+            <td class="px-6 py-4">${clientProjectStatus}</td>
+            <td class="px-6 py-4">${clientCreatedAt}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+
+// Freelancer Completed projects
+async function fetchCompletedFreelaancerProjectsDetails() {
+    const apiUrl = "http://localhost:8000/api/freelancer/getClientsFreelancersByProjectsByToken/completed";
+    const token = sessionStorage.getItem("authToken");
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch completed freelancer project details!");
+        }
+
+        const result = await response.json();
+//        console.log(result);
+
+        const freelancerProjects = result.data;
+        if (freelancerProjects && Array.isArray(freelancerProjects)) {
+            displayCompletedFreelancerApplyProjects(freelancerProjects);
+        } else {
+//            console.error("No completed freelancer project data found.");
+        }
+    } catch (error) {
+        console.error("Error fetching completed freelancer project details:", error);
+    }
+}
+
+function displayCompletedFreelancerApplyProjects(freelancerProjects) {
+    const tableBody = document.getElementById('completedFreelancerDetails-table-body');
+    tableBody.innerHTML = '';
+
+    freelancerProjects.forEach(data => {
+        const clientName = data.client_id.client_name;
+        const clientProjectTitle = data.clientProject.client_project_name;
+        const clientProjectRange = `${data.clientProject.minimum_range} - ${data.clientProject.maximum_range} Rs.`;
+        const clientProjectStatus = data.clientProject.status;
+        const clientProjectDuration = data.clientProject.duration;
+        const freelancerProjectRange = data.freelancer_range;
+        const freelancerName = `${data.freelancer.user.first_name} ${data.freelancer.user.last_name}`;
+        const freelancerProjectDuration = data.duration;
+        const freelancerProjectStatus = data.status;
+        const freelancerCreatedAt = new Date(data.created_at).toLocaleDateString();
+
+        const row = document.createElement('tr');
+        row.classList.add('border-b', 'hover:bg-gray-50');
+
+        row.innerHTML = `
+            <td class="px-6 py-4">${freelancerName}</td>
+            <td class="px-6 py-4">${clientProjectTitle}</td>
+            <td class="px-6 py-4">${freelancerProjectDuration}</td>
+            <td class="px-6 py-4">${freelancerProjectRange}</td>
+            <td class="px-6 py-4">${freelancerProjectStatus}</td>
+            <td class="px-6 py-4">${freelancerCreatedAt}</td>
+        `;
+
+        tableBody.appendChild(row);
+    });
 }

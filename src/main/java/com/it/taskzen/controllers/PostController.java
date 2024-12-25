@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -143,7 +142,7 @@ public class PostController {
             response.put("data", postDetails);
         } else {
             response.put("message", "No applied posts found.");
-            response.put("data", null);
+            response.put("data", "0");
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -162,7 +161,7 @@ public class PostController {
             response.put("data", details);
         } else {
             response.put("message", "No applied Freelancer found for this Client projects.");
-            response.put("data", null);
+            response.put("data", "0");
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -192,13 +191,14 @@ public class PostController {
     @PutMapping(value = "/rejectFreelancerProjectStatus")
     public ResponseEntity<Map<String, String>> rejectFreelancerProjectStatus(
             @RequestHeader("Authorization") String token,
-            @RequestParam("client_project_id") ClientProjectEntity clientProject) {
+            @RequestParam("client_project_id") ClientProjectEntity clientProject,
+            @RequestParam("freelancer_id") FreelancerMasterEntity freelancer_id) {
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7).trim();
         }
 
         try {
-            postService.rejectFreelancerProjectStatus(clientProject, token);
+            postService.rejectFreelancerProjectStatus(clientProject, token, freelancer_id);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Freelancer project status rejected by client.");
             response.put("data", "1");
@@ -208,5 +208,155 @@ public class PostController {
         } catch (Exception e) {
             return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PutMapping(value = "/completeFreelancerProjectStatus")
+    public ResponseEntity<Map<String, String>> completeFreelancerProjectStatus(
+            @RequestHeader("Authorization") String token,
+            @RequestParam("client_project_id") ClientProjectEntity clientProject) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        try {
+            postService.completeFreelancerProjectStatus(clientProject, token);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Freelancer project status completed by freelancer.");
+            response.put("data", "1");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", "An error occurred: " + e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getClientsFreelancersByProjectsByToken/accepted")
+    public ResponseEntity<Map<String, Object>> getClientsAcceptedFreelancersByProjectsByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> details = postService.getClientsAcceptedFreelancersByProjectsByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!details.isEmpty()) {
+            response.put("message", "Accepted Freelancer and Projects details fetched successfully.");
+            response.put("data", details);
+        } else {
+            response.put("message", "No accepted Freelancer found for this Client projects.");
+            response.put("data", "0");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getClientsFreelancersByProjectsByToken/completed")
+    public ResponseEntity<Map<String, Object>> getClientsCompletedFreelancersByProjectsByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> details = postService.getClientsCompletedFreelancersByProjectsByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!details.isEmpty()) {
+            response.put("message", "Completed Freelancer and Projects details fetched successfully.");
+            response.put("data", details);
+        } else {
+            response.put("message", "No completed Freelancer found for this Client projects.");
+            response.put("data", "0");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getFreelancerAppliedPostByToken/pending")
+    public ResponseEntity<Map<String, Object>> getPendingFreelancerAppliedPostByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> postDetails = postService.getPendingFreelancerAppliedPostByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!postDetails.isEmpty()) {
+            response.put("message", "Pending Freelancer applied posts fetched successfully.");
+            response.put("data", postDetails);
+        } else {
+            response.put("message", "No pending posts found.");
+            response.put("data", "0");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getFreelancerAppliedPostByToken/accepted")
+    public ResponseEntity<Map<String, Object>> getAcceptedFreelancerAppliedPostByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> postDetails = postService.getAcceptedFreelancerAppliedPostByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!postDetails.isEmpty()) {
+            response.put("message", "Accepted Freelancer applied posts fetched successfully.");
+            response.put("data", postDetails);
+        } else {
+            response.put("message", "No accepted posts found.");
+            response.put("data", "0");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getFreelancerAppliedPostByToken/completed")
+    public ResponseEntity<Map<String, Object>> getCompletedFreelancerAppliedPostByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> postDetails = postService.getCompletedFreelancerAppliedPostByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!postDetails.isEmpty()) {
+            response.put("message", "Completed Freelancer applied posts fetched successfully.");
+            response.put("data", postDetails);
+        } else {
+            response.put("message", "No completed posts found.");
+            response.put("data", "0");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getFreelancerAppliedPostByToken/rejected")
+    public ResponseEntity<Map<String, Object>> getRejectedFreelancerAppliedPostByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> postDetails = postService.getRejectedFreelancerAppliedPostByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!postDetails.isEmpty()) {
+            response.put("message", "Rejected Freelancer applied posts fetched successfully.");
+            response.put("data", postDetails);
+        } else {
+            response.put("message", "No rejected posts found.");
+            response.put("data", "0");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getFreelancerProjectDetails/accepted&completed")
+    public ResponseEntity<Map<String, Object>> getFreelancerProjectDetailsAcceptedCompleted() throws IOException {
+        List<PostEntity> postDetails = postService.getFreelancerProjectDetailsAcceptedCompleted();
+
+        Map<String, Object> response = new HashMap<>();
+        if (!postDetails.isEmpty()) {
+            response.put("message", "Freelancer applied posts fetched successfully.");
+            response.put("data", postDetails);
+        } else {
+            response.put("message", "No freelancer posts found.");
+            response.put("data", "0");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -96,4 +96,19 @@ public class ClientProjectService {
         }
     }
 
+    public boolean updateStatusToInProgress(Long clientProjectId) {
+        int updatedRows = clientProjectRepository.updateStatusToInProgress(clientProjectId);
+        return updatedRows > 0;
+    }
+
+    public boolean updateStatusToHalfCompleted(Long clientProjectId) {
+        int updatedRows = clientProjectRepository.updateStatusToHalfCompleted(clientProjectId);
+        return updatedRows > 0;
+    }
+
+    public boolean updateStatusToCompleted(Long clientProjectId) {
+        int updatedRows = clientProjectRepository.updateStatusToCompleted(clientProjectId);
+        return updatedRows > 0;
+    }
+
 }

@@ -10,160 +10,32 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="../../CSS/index.css"/>
+        <script src="../../JS/ClientPayment.js"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     </head>
-    <h:body>
-        <!-- Stats Cards Section -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-            <!-- Payment Success Card -->
-            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
-                <i class="fas fa-dollar-sign text-4xl text-white"></i>
-                <div class="ml-4">
-                    <div class="text-white">Payment Success</div>
-                    <div class="text-2xl font-semibold text-white">$3.456K</div>
-                </div>
-            </div>
-
-            <!-- Payment Pending Card -->
-            <div class="flex items-center p-6 bg-purple-700 rounded-lg shadow-md">
-                <i class="fas fa-hourglass-half text-4xl text-white"></i>
-                <div class="ml-4">
-                    <div class="text-white">Payment Pending</div>
-                    <div class="text-2xl font-semibold text-white">$2.123K</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Payment Table Section -->
-        <div class="container mx-auto">
-            <h1 class="text-3xl font-bold mb-6 text-gray-800">Freelancers Payment Table</h1>
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                <table class="min-w-full bg-white" id="paymentTable">
+    <body>
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-2xl font-bold mb-4">Completed Task Details</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left table-auto">
                     <thead>
-                        <tr>
-                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Client ID</th>
-                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Client Name</th>
-                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Total Amount</th>
-                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Status</th>
-                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Date</th>
-                            <th class="py-3 px-6 bg-purple-600 text-white text-left text-sm uppercase font-semibold">Action</th>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2">Freelancer Name</th>
+                            <th class="px-4 py-2">Project</th>
+                            <th class="px-4 py-2">Range</th>
+                            <th class="px-4 py-2">Duration</th>
+                            <th class="px-4 py-2">Post Date</th>
+                            <th class="px-4 py-2">Status</th>
+                            <th class="px-4 py-2">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Sample Row -->
-                        <tr class="border-b hover:bg-gray-50" data-client-id="001234" data-client-name="Alice Johnson" data-amount="1200.00">
-                            <td class="py-4 px-6 text-gray-700">#001234</td>
-                            <td class="py-4 px-6 text-gray-700">Alice Johnson</td>
-                            <td class="py-4 px-6 text-gray-700">$1,200.00</td>
-                            <td class="py-4 px-6">
-                                <span class="text-sm font-medium text-orange-600 bg-orange-100 py-1 px-3 rounded-full">Pending</span>
-                            </td>
-                            <td class="py-4 px-6 text-gray-700">2024-11-10</td>
-                            <td>
-                                <button type="button" onclick="openPaymentModal(this)" class="px-4 py-2 bg-purple-600 text-white rounded-md">
-                                    Pay Now
-                                </button>
-                            </td>
+                    <tbody id="completedTaskPaymentDetails-table-body">
+                        <tr class="border-t hover:bg-gray-100">
+                            <tr><td>No data found</td></tr> 
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-
-        <!-- Payment Modal -->
-        <div id="paymentModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-            <div class="bg-white rounded-lg shadow-lg w-[400px] p-6">
-                <h2 class="text-xl font-semibold mb-4">Complete Payment</h2>
-                <p class="mb-4">Please select a payment type and fill in the required details.</p>
-
-                <!-- Client Info -->
-                <div class="mb-4">
-                    <div class="flex justify-between">
-                        <span class="text-sm font-semibold">Client ID:</span>
-                        <span id="clientIdDisplay" class="text-sm text-gray-700"></span>
-                    </div>
-                    <div class="flex justify-between mt-2">
-                        <span class="text-sm font-semibold">Amount:</span>
-                        <span id="amountDisplay" class="text-sm text-gray-700"></span>
-                    </div>
-                </div>
-
-                <!-- Payment Type Selector -->
-                <div class="mb-4">
-                    <label for="paymentType" class="block text-sm font-semibold mb-2">Payment Type:</label>
-                    <select id="paymentType" class="w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Select Payment Type</option>
-                        <option value="creditCard">Credit Card</option>
-                        <option value="upi">UPI</option>
-                        <option value="bankTransfer">Bank Transfer</option>
-                    </select>
-                </div>
-
-                <!-- Payment Forms -->
-                <div id="creditCardForm" class="hidden mb-4">
-                    <label class="block text-sm font-semibold mb-2">Card Number:</label>
-                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md mb-4" placeholder="Enter card number" />
-                    <label class="block text-sm font-semibold mb-2">Expiry Date:</label>
-                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md mb-4" placeholder="MM/YY" />
-                    <label class="block text-sm font-semibold mb-2">CVV:</label>
-                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md mb-4" placeholder="Enter CVV" />
-                </div>
-
-                <div id="upiForm" class="hidden mb-4">
-                    <label class="block text-sm font-semibold mb-2">UPI ID:</label>
-                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter UPI ID" />
-                </div>
-
-                <div id="bankTransferForm" class="hidden mb-4">
-                    <label class="block text-sm font-semibold mb-2">Account Number:</label>
-                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md mb-4" placeholder="Enter account number" />
-                    <label class="block text-sm font-semibold mb-2">IFSC Code:</label>
-                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter IFSC code" />
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="flex justify-end space-x-4">
-                    <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Close</button>
-                    <button onclick="confirmPayment()" class="px-4 py-2 bg-purple-600 text-white rounded-md">Confirm</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- JavaScript Section -->
-        <script>
-            function openPaymentModal(button) {
-                const row = button.closest('tr');
-                const clientId = row.getAttribute('data-client-id') || 'N/A';
-                const amount = row.getAttribute('data-amount') || '0.00';
-
-                document.getElementById('clientIdDisplay').textContent = clientId;
-                document.getElementById('amountDisplay').textContent = '\u0024' + parseFloat(amount).toFixed(2);
-
-                document.getElementById('paymentModal').classList.remove('hidden');
-            }
-
-            function closeModal() {
-                document.getElementById('paymentModal').classList.add('hidden');
-            }
-
-            function confirmPayment() {
-                alert('Payment confirmed!');
-                closeModal();
-            }
-
-            document.getElementById('paymentType').addEventListener('change', function (e) {
-                const paymentType = e.target.value;
-                document.getElementById('creditCardForm').classList.add('hidden');
-                document.getElementById('upiForm').classList.add('hidden');
-                document.getElementById('bankTransferForm').classList.add('hidden');
-
-                if (paymentType === 'creditCard') {
-                    document.getElementById('creditCardForm').classList.remove('hidden');
-                } else if (paymentType === 'upi') {
-                    document.getElementById('upiForm').classList.remove('hidden');
-                } else if (paymentType === 'bankTransfer') {
-                    document.getElementById('bankTransferForm').classList.remove('hidden');
-                }
-            });
-        </script>
-    </h:body>
+        </section>
+    </body>
 </html>

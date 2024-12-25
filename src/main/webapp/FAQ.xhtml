@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="JS/Userc.js"></script>
+        <!-- Include Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <title>Task-Zen Home</title>
+
+        <!-- Add Font Awesome for the eye icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    </head>
+    <body>
+        <!--call navbar-->
+        <ui:include src="Navbar.xhtml"></ui:include>
+
+        <!--FAQ-->
+        <header class="bg-purple-600 text-white p-6">
+            <h1 class="text-3xl font-bold text-center">Task-Zen FAQ - Frequently Asked Questions</h1>
+        </header>
+
+        <main class="container mx-auto p-6">
+        <!-- Freelancer FAQ -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Freelancers</h2>
+            <div class="bg-purple-600 shadow-md rounded-lg p-6">
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">1. How can I find projects?</h3>
+                    <p class="text-gray-700">Browse through the project listings on our platform and apply to the ones that match your skills.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">2. How do I get paid?</h3>
+                    <p class="text-gray-700">Payments are processed securely through our platform once the client approves your work.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">3. Are there any fees for freelancers?</h3>
+                    <p class="text-gray-700">Yes, a small service fee is deducted from your earnings for using the platform.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">4. Can I work on multiple projects simultaneously?</h3>
+                    <p class="text-gray-700">Yes, as long as you can manage your time effectively and meet all deadlines.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">5. What happens if a client doesn’t respond?</h3>
+                    <p class="text-gray-700">You can report the issue to our support team, and we will assist in resolving the matter.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">6. How do I build a strong profile?</h3>
+                    <p class="text-gray-700">Add detailed descriptions of your skills, upload a professional photo, and include examples of your previous work.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">7. Can I update my proposal after submission?</h3>
+                    <p class="text-gray-700">Yes, you can edit your proposal until the client has viewed it.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">8. Is there a way to improve my chances of getting hired?</h3>
+                    <p class="text-gray-700">Yes, ensure your profile is complete, write personalized proposals, and highlight relevant experience.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">9. What types of projects are available?</h3>
+                    <p class="text-gray-700">Our platform offers a wide range of projects, including web development, design, writing, and marketing.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">10. Can I negotiate with clients?</h3>
+                    <p class="text-gray-700">Yes, you can discuss project details and negotiate terms directly with clients through our messaging system.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">11. What should I do if I miss a deadline?</h3>
+                    <p class="text-gray-700">Communicate with the client as soon as possible, explain the delay, and propose a new deadline.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Company FAQ -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Companies</h2>
+            <div class="bg-purple-600 shadow-md rounded-lg p-6">
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">1. How do I post a project?</h3>
+                    <p class="text-gray-700">Log in to your account, navigate to the "Post a Project" section, and provide details about your requirements.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">2. How are freelancers selected?</h3>
+                    <p class="text-gray-700">You can review proposals from freelancers and choose the one that best fits your needs.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">3. What happens if I am not satisfied with the work?</h3>
+                    <p class="text-gray-700">You can request revisions or use the dispute resolution feature on our platform.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">4. Can I track the progress of my project?</h3>
+                    <p class="text-gray-700">Yes, you can communicate with the freelancer and request regular updates through the platform.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">5. Are there any hidden costs?</h3>
+                    <p class="text-gray-700">No, all fees and charges are clearly outlined before you hire a freelancer.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">6. How do I ensure the quality of work?</h3>
+                    <p class="text-gray-700">You can review the freelancer's profile, ratings, and portfolio before hiring.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">7. Can I set milestones for a project?</h3>
+                    <p class="text-gray-700">Yes, you can break down the project into milestones and release payments accordingly.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">8. What should I do if a freelancer stops responding?</h3>
+                    <p class="text-gray-700">Contact our support team for assistance in resolving the issue.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">9. Can I hire freelancers for long-term projects?</h3>
+                    <p class="text-gray-700">Yes, you can hire freelancers for both short-term and long-term projects.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">10. How do I close a project?</h3>
+                    <p class="text-gray-700">Once the project is completed, you can mark it as closed and provide feedback for the freelancer.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">11. Can I invite specific freelancers to my project?</h3>
+                    <p class="text-gray-700">Yes, you can invite freelancers directly to apply for your project.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client FAQ -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Clients</h2>
+            <div class="bg-purple-600 shadow-md rounded-lg p-6">
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">1. How do I create an account?</h3>
+                    <p class="text-gray-700">Click on "Sign Up" and fill in the required details to create an account.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">2. Is my payment information secure?</h3>
+                    <p class="text-gray-700">Yes, all payment information is encrypted and processed through a secure payment gateway.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">3. Can I communicate with freelancers directly?</h3>
+                    <p class="text-gray-700">Yes, our messaging system allows direct communication with freelancers for project discussions.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">4. Can I request changes to a completed project?</h3>
+                    <p class="text-gray-700">Yes, you can request revisions before finalizing the project and releasing payment.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">5. How do I leave feedback for a freelancer?</h3>
+                    <p class="text-gray-700">Once the project is completed, you will be prompted to leave a review on the freelancer's profile.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">6. What happens if I encounter a dispute?</h3>
+                    <p class="text-gray-700">You can use the platform's dispute resolution service to mediate and resolve any issues.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">7. Can I save my favorite freelancers for future projects?</h3>
+                    <p class="text-gray-700">Yes, you can add freelancers to your favorites list for easy access in the future.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">8. How do I know the progress of my project?</h3>
+                    <p class="text-gray-700">You can communicate regularly with the freelancer and track progress updates through the platform.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">9. Can I cancel a project after it has started?</h3>
+                    <p class="text-gray-700">Yes, but cancellation policies apply. Refer to the terms of service for details.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">10. What payment methods are accepted?</h3>
+                    <p class="text-gray-700">We accept a variety of payment methods, including credit cards, PayPal, and bank transfers.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">11. How do I contact customer support?</h3>
+                    <p class="text-gray-700">You can reach out to our support team via email, live chat, or the contact form on our website.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin FAQ -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Admin</h2>
+            <div class="bg-purple-600 shadow-md rounded-lg p-6">
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">1. How do I manage user accounts?</h3>
+                    <p class="text-gray-700">Admins can manage user accounts through the admin dashboard, where they can activate, deactivate, or edit accounts.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">2. Can I monitor platform activity?</h3>
+                    <p class="text-gray-700">Yes, the admin dashboard provides detailed insights into user activity and project progress.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">3. How do I resolve disputes?</h3>
+                    <p class="text-gray-700">Admins can mediate disputes through the platform's resolution center by reviewing evidence from both parties.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">4. Can I customize platform settings?</h3>
+                    <p class="text-gray-700">Yes, admins can adjust platform settings such as fees, project categories, and user permissions.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">5. How do I add or remove project categories?</h3>
+                    <p class="text-gray-700">Admins can manage project categories through the settings panel in the admin dashboard.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">6. Is there a way to monitor payments?</h3>
+                    <p class="text-gray-700">Yes, the admin panel includes tools for tracking payment transactions and resolving payment-related issues.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">7. Can I send announcements to users?</h3>
+                    <p class="text-gray-700">Yes, admins can broadcast announcements to all users through the platform's notification system.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">8. How do I handle platform violations?</h3>
+                    <p class="text-gray-700">Admins can review reports of violations and take appropriate actions, such as issuing warnings or suspending accounts.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">9. Can I update platform terms and conditions?</h3>
+                    <p class="text-gray-700">Yes, admins can update legal documents like terms and conditions through the admin dashboard.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">10. How do I generate platform performance reports?</h3>
+                    <p class="text-gray-700">The admin dashboard includes tools for generating detailed performance and usage reports.</p>
+                </div>
+                <div class="mb-4 bg-white p-2 border-2 rounded-lg">
+                    <h3 class="font-medium text-lg">11. What tools are available for user support?</h3>
+                    <p class="text-gray-700">Admins can access support tools like live chat, FAQs, and a ticketing system to assist users effectively.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+        <!--call footer-->
+        <ui:include src="Footer.xhtml"></ui:include>
+    </body>
+</html>

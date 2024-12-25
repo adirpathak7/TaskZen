@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-        <title>Task-Zen Admin Companys</title>
+        <title>TaskZen | Admin</title>
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Chart.js -->
@@ -17,17 +17,16 @@
         <link rel="stylesheet" href="../../CSS/index.css"/>
     </head>
     <body>
-        <!-- Company Table Data Start -->
         <div class="mb-6 flex justify-between items-center">
-            <h1 class="text-3xl font-semibold text-gray-900">Company Projects</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Clien Projects</h1>
         </div>
         <div class="overflow-x-auto bg-white shadow-md rounded-lg">
 
             <table class="min-w-full table-auto">
                 <thead class="bg-gray-800 text-white">
                     <tr>
-                        <!--<th class="px-6 py-3 text-left">Company Picture</th>-->
-                        <th class="px-6 py-3 text-left">Company Name</th>
+                        <!--<th class="px-6 py-3 text-left">Clien Picture</th>-->
+                        <th class="px-6 py-3 text-left">Clien Name</th>
                         <th class="px-6 py-3 text-left">Contact No.</th>
                         <th class="px-6 py-3 text-left">Location</th>
                         <th class="px-6 py-3 text-left">Industry</th>
@@ -39,6 +38,38 @@
                 <tbody class="text-gray-700" id="client-table-body">
                     <tr>
                         <td>No data found!</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br/>        
+        <br/>
+        <br/>
+
+        <div class="mb-6 flex justify-between items-center">
+            <h1 class="text-3xl font-semibold text-gray-900">All Client's</h1>
+        </div>
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+
+            <table class="min-w-full table-auto">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-left">Orgnization Picture</th>
+                        <th class="px-6 py-3 text-left">Client Name</th>
+                        <th class="px-6 py-3 text-left">Orgnization Name</th>
+                        <th class="px-6 py-3 text-left">Client Email</th>
+                        <th class="px-6 py-3 text-left">Orgnization Contact</th>
+                        <th class="px-6 py-3 text-left">Task Name</th>
+                        <th class="px-6 py-3 text-left">Task Cost</th>
+                        <th class="px-6 py-3 text-left">Duration</th>
+                        <th class="px-6 py-3 text-left">Project Status</th>
+                        <th class="px-6 py-3 text-left">Post Date</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700" id="displayAllClientsDetailsToAdmin-table-body">
+                    <tr>
+                        <td class="px-6 py-4">No Data found</td>
                     </tr>
                 </tbody>
             </table>

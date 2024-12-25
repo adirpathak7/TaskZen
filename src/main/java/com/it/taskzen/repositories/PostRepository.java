@@ -31,7 +31,10 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     @Query("SELECT p FROM PostEntity p "
             + "JOIN FETCH p.freelancer f "
             + "WHERE p.client_id.client_id = :client_id AND p.status = 'pending'")
-    List<PostEntity> findProjectsAndFreelancersByClientId(@Param("client_id") Long client_id);
+    List<PostEntity> findProjectsAndPendingFreelancersByClientId(@Param("client_id") Long client_id);
+
+    @Query("SELECT p FROM PostEntity p WHERE p.clientProject = :clientProject")
+    Optional<PostEntity> findByClientProjectId(@Param("clientProject") ClientProjectEntity clientProject);
 
     @Modifying
     @Transactional
@@ -47,10 +50,43 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE PostEntity p SET p.status = 'rejected' WHERE p.client_id = :client_id AND p.clientProject = :clientProject")
-    int rejectFreelancerProjectStatus(@Param("client_id") Long client_id, @Param("clientProject") ClientProjectEntity clientProject);
+    @Query("UPDATE PostEntity p "
+            + "SET p.status = 'rejected' "
+            + "WHERE p.client_id.client_id = :client_id "
+            + "AND p.clientProject = :clientProject "
+            + "AND p.freelancer = :freelancer")
+    int rejectFreelancerProjectStatus(
+            @Param("client_id") Long client_id,
+            @Param("clientProject") ClientProjectEntity clientProject,
+            @Param("freelancer") FreelancerMasterEntity freelancer);
 
-    @Query("SELECT p FROM PostEntity p WHERE p.clientProject = :clientProject")
-    Optional<PostEntity> findByClientProjectId(@Param("clientProject") ClientProjectEntity clientProject);
+    @Modifying
+    @Transactional
+    @Query("UPDATE PostEntity p SET p.status = 'completed' WHERE p.freelancer = :freelancer AND p.clientProject = :clientProject")
+    int completeFreelancerProjectStatus(@Param("clientProject") ClientProjectEntity clientProject, @Param("freelancer") FreelancerMasterEntity freelancer);
 
+    @Query("SELECT p FROM PostEntity p "
+            + "JOIN FETCH p.freelancer f "
+            + "WHERE p.client_id.client_id = :client_id AND p.status = 'accepted'")
+    List<PostEntity> findProjectsAndAcceptedFreelancersByClientId(@Param("client_id") Long client_id);
+
+    @Query("SELECT p FROM PostEntity p "
+            + "JOIN FETCH p.freelancer f "
+            + "WHERE p.client_id.client_id = :client_id AND p.status = 'completed'")
+    List<PostEntity> findProjectsAndCompletedFreelancersByClientId(@Param("client_id") Long client_id);
+
+    @Query("SELECT p FROM PostEntity p WHERE p.freelancer.freelancer_id = :freelancer_id AND p.status = 'pending'")
+    List<PostEntity> findByPendingFreelancer(@Param("freelancer_id") Long freelancer_id);
+
+    @Query("SELECT p FROM PostEntity p WHERE p.freelancer.freelancer_id = :freelancer_id AND p.status = 'accepted'")
+    List<PostEntity> findByAcceptedFreelancer(@Param("freelancer_id") Long freelancer_id);
+
+    @Query("SELECT p FROM PostEntity p WHERE p.freelancer.freelancer_id = :freelancer_id AND p.status = 'completed'")
+    List<PostEntity> findByCompletedFreelancer(@Param("freelancer_id") Long freelancer_id);
+
+    @Query("SELECT p FROM PostEntity p WHERE p.freelancer.freelancer_id = :freelancer_id AND p.status = 'rejected'")
+    List<PostEntity> findByRejectedFreelancer(@Param("freelancer_id") Long freelancer_id);
+
+    @Query("SELECT p FROM PostEntity p WHERE p.status = 'accepted' OR p.status = 'completed'")
+    List<PostEntity> findByAcceptedCompletedFreelancer();
 }

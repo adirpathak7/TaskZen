@@ -64,6 +64,7 @@ function freelancerProfileCreation(event) {
     formData.append("github_link", github_link);
     formData.append("linkedin_link", linkedin_link);
     formData.append("portfolio_link", portfolio_link);
+    
     const apiUrl = "http://localhost:8000/api/freelancer/freelancersAllDetails";
     const token = sessionStorage.getItem("authToken");
     fetch(apiUrl, {

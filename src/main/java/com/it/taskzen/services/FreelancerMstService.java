@@ -99,7 +99,6 @@ public class FreelancerMstService {
         if (existingFreelancerOpt.isPresent()) {
             FreelancerMasterEntity existingFreelancer = existingFreelancerOpt.get();
 
-            // Update fields
             existingFreelancer.setContact(contact);
             existingFreelancer.setCountry(country);
             existingFreelancer.setDob(dob);
@@ -108,13 +107,11 @@ public class FreelancerMstService {
             existingFreelancer.setLinkedin_link(linkedinLink);
             existingFreelancer.setPortfolio_link(portfolio_link);
 
-            // Update profile picture if provided
             if (profilePicture != null && !profilePicture.isEmpty()) {
                 Map uploadResult = cloudinary.uploader().upload(profilePicture.getBytes(), ObjectUtils.emptyMap());
                 existingFreelancer.setProfile_picture(uploadResult.get("url").toString());
             }
 
-            // Save and return updated freelancer
             return freelancerMstRepository.save(existingFreelancer);
         } else {
             throw new ResourceNotFoundException("Freelancer not found on this id: " + freelancerId);

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="JS/Userc.js"></script>
+        <!-- Include Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <title>Task-Zen Footer</title>
+
+        <!-- Add Font Awesome for the eye icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    </head>
+    <body>
+        <!--footer section-->
+        <footer class="bg-gray-900 text-white py-10 p-10">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Navigation -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Home.xhtml" class="hover:underline">Home</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">About</a></li>
+                        <li><a href="Contact.xhtml" class="hover:underline">Contact</a></li>
+                        <li><a href="Service.xhtml" class="hover:underline">Services</a></li>
+                        <li><a href="FAQ.xhtml" class="hover:underline">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Started -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Get Started</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Login.xhtml" class="hover:underline">Login</a></li>
+                        <li><a href="Sign-up.xhtml" class="hover:underline">Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="About.xhtml" class="hover:underline">Programming</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">AI Services</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">Video Animation</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">Architecture</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">Sales Marketing</a></li>
+                        <li><a href="About.xhtml" class="hover:underline">Brand Design</a></li>
+                    </ul>
+                </div>
+
+                <!-- Location -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Our Location</h3>
+                    <div class="border rounded overflow-hidden">
+                        <img 
+                            src="https://via.placeholder.com/300x200.png?text=Surat+Location+Map"
+                            alt="Surat Location Map" 
+                            class="w-full h-auto"
+                            />
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-lg">&copy; 2024 Task-zen. All rights reserved.</p>
+                <div class="mt-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-300">Privacy Policy</a>
+                    |
+                    <a href="#" class="text-blue-400 hover:text-blue-300"
+                       >Terms of Service</a
+                    >
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-        <title>Task-Zen Admin Companys</title>
+        <title>TaskZen</title>
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Chart.js -->
@@ -14,11 +14,11 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <link rel="stylesheet" href="../../CSS/index.css"/>
+        <script src="../../JS/AdminFreelancer.js"></script>
     </head>
     <body>
-        <!-- Company Table Data Start -->
         <div class="mb-6 flex justify-between items-center">
-            <h1 class="text-3xl font-semibold text-gray-900">Company Projects</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Freelancer Task</h1>
         </div>
         <div class="overflow-x-auto bg-white shadow-md rounded-lg">
 
@@ -27,84 +27,23 @@
                     <tr>
                         <th class="px-6 py-3 text-left">Freelancer Profile Picture</th>
                         <th class="px-6 py-3 text-left">Freelancer Name</th>
+                        <th class="px-6 py-3 text-left">Freelancer Email</th>
+                        <th class="px-6 py-3 text-left">Freelancer Contact</th>
                         <th class="px-6 py-3 text-left">Company Name</th>
-                        <th class="px-6 py-3 text-left">Project Title Name</th>
-                        <th class="px-6 py-3 text-left">Project Cost</th>
-                        <th class="px-6 py-3 text-left">Due Date</th>
-                        <th class="px-6 py-3 text-left">Last Submission</th>
+                        <th class="px-6 py-3 text-left">Task Name</th>
+                        <th class="px-6 py-3 text-left">Task Cost</th>
+                        <th class="px-6 py-3 text-left">Duration</th>
                         <th class="px-6 py-3 text-left">Project Status</th>
+                        <th class="px-6 py-3 text-left">Apply Date</th>
                     </tr>
                 </thead>
-                <tbody class="text-gray-700">
-                    <!-- Row 1 -->
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
-                                    <i class="ri-account-pin-circle-line text-4xl"></i>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">JIO</td>
-                        <td class="px-6 py-4">1452</td>
-                        <td class="px-6 py-4">JIO Store</td>
-                        <td class="px-6 py-4">50,000</td>
-                        <td class="px-6 py-4">FEB 07 2025</td>
-                        <td class="px-6 py-4">OCT 15 2025</td>
-                        <td class="px-6 py-4">
-                            <div class="w-full bg-gray-200 h-2 rounded-full">
-                                <div class="bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
-                            </div>
-                            <p class="text-sm text-gray-600 mt-1">60%</p>
-                        </td>
-                    </tr>
-
-                    <!-- Row 2 -->
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
-                                    <i class="ri-account-pin-circle-line text-4xl"></i>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">JIO</td>
-                        <td class="px-6 py-4">1452</td>
-                        <td class="px-6 py-4">JIO Store</td>
-                        <td class="px-6 py-4">50,000</td>
-                        <td class="px-6 py-4">FEB 07 2025</td>
-                        <td class="px-6 py-4">OCT 15 2025</td>
-                        <td class="px-6 py-4">
-                            <div class="w-full bg-gray-200 h-2 rounded-full">
-                                <div class="bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
-                            </div>
-                            <p class="text-sm text-gray-600 mt-1">60%</p>
-                        </td>
-                    </tr>
-
-                    <!-- Row 3 -->
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-6 py-4"><div class="flex items-center">
-                                <div alt="User avatar" class="w-10 h-10 rounded-full mr-3">
-                                    <i class="ri-account-pin-circle-line text-4xl"></i>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">JIO</td>
-                        <td class="px-6 py-4">1452</td>
-                        <td class="px-6 py-4">JIO Store</td>
-                        <td class="px-6 py-4">50,000</td>
-                        <td class="px-6 py-4">FEB 07 2025</td>
-                        <td class="px-6 py-4">OCT 15 2025</td>
-                        <td class="px-6 py-4">
-                            <div class="w-full bg-gray-200 h-2 rounded-full">
-                                <div class="bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
-                            </div>
-                            <p class="text-sm text-gray-600 mt-1">60%</p>
-                        </td>
+                <tbody class="text-gray-700" id="displayAcceptedAndCompletedFreelancerApplyProjects-table-body">
+                    <tr>
+                        <td class="px-6 py-4">No Data found</td>
                     </tr>
                 </tbody>
             </table>
+            <!--<i class="ri-account-pin-circle-line text-4xl"></i>-->
         </div>
     </body>
 </html>

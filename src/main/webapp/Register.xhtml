@@ -9,7 +9,7 @@
         <script src="JS/User.js"></script>
         <!-- Include Tailwind CSS -->
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-        <title>Task-Zen Login</title>
+        <title>TaskZen</title>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
         <!-- Add Font Awesome for the eye icon -->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
@@ -20,12 +20,12 @@
     <body>
         <ui:include src="Navbar.xhtml"></ui:include>
 
-        <div class="flex justify-center items-center min-h-screen">
-            <div class="flex bg-purple-600 p-8 rounded-lg shadow-lg w-full max-w-4xl">
+        <div class="flex justify-center items-center min-h-screen bg-purple-500">
+            <div class="flex bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
                 <div class="flex-1 flex justify-center items-center">
-                    <img src="Images/Signupimg.png" alt="Login Image" />
+                    <img src="images/Signupimg.png" alt="Login Image" />
                 </div>
-                <div class="flex-1 text-white px-8">
+                <div class="flex-1 px-8">
                     <h2 class="text-4xl font-bold mb-6">Sign-up To Task-Zen</h2>
                     <!-- Sign Up Form -->
                     <form id="signUpForm" onsubmit="userSingUp(event)" method="post">
@@ -33,15 +33,15 @@
                         <!-- First Name and Last Name (On Same Line) -->
                         <div class="flex space-x-2 mb-4">
                             <div class="w-1/2">
-                                <label for="first_name" name="first_name"><i class="ri-user-3-fill"> First Name
+                                <label for="first_name"><i class="ri-user-3-fill"> First Name
                                         :</i></label>
                                 <input type="text" id="first_name" name="first_name"
                                        class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                 <span class="error-message" id="error-first_name"></span>
                             </div>
                             <div class="w-1/2">
-                                <label for="last_name" name="last_name"><i class="ri-user-3-fill"> Last Name :</i></label>
-                                <input type="text" id="last_name"
+                                <label for="last_name"><i class="ri-user-3-fill"> Last Name :</i></label>
+                                <input type="text" id="last_name" name="last_name"
                                        class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                 <span class="error-message" id="error-last_name"></span>
                             </div>
@@ -49,8 +49,8 @@
 
                         <!-- Email (On One Line) -->
                         <div class="mb-4">
-                            <label for="email" name="email"><i class="ri-mail-send-fill"> Email :</i></label>
-                            <input type="email" id="email"
+                            <label for="email"><i class="ri-mail-send-fill"> Email :</i></label>
+                            <input type="text" id="email" name="email"
                                    class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             <span class="error-message" id="error-email"></span>
                         </div>
@@ -58,14 +58,14 @@
                         <!-- Password and Confirm Password (On Same Line) -->
                         <div class="flex space-x-2 mb-4">
                             <div class="w-1/2">
-                                <label for="password" name="password"><i class="ri-lock-password-fill"> Password
+                                <label for="password"><i class="ri-lock-password-fill"> Password
                                         :</i></label>
                                 <input type="password" id="password" name="password"
                                        class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                 <span class="error-message" id="error-password"></span>
                             </div>
                             <div class="w-1/2">
-                                <label for="confirm_password" name="confirm_password"><i class="ri-lock-password-fill">
+                                <label for="confirm_password"><i class="ri-lock-password-fill">
                                         Confirm Password :</i></label>
                                 <input type="password" id="confirm_password" name="confirm_password"
                                        class="w-full text-black px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -95,7 +95,7 @@
                         <!-- Login Link -->
                         <div class="text-center text-sm">
                             <p>Already have an account? <a href="Login.xhtml"
-                                                           class="text-black hover:underline hover:text-white"> Login</a></p>
+                                                           class="text-black hover:text-purple-500"> Login</a></p>
                         </div>
                         <div id="userSignUpErrorMessage"></div>
 

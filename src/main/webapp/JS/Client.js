@@ -219,7 +219,7 @@ function displayClientProjects(clientProjects) {
 
         const projectImg = document.createElement("img");
         projectImg.src = project.project_picture;
-        projectImg.classList.add("text-xl", "font-semibold", "text-red-900");
+        projectImg.classList.add("text-xl", "font-semibold", "text-red-900", "w-64", "h-52");
         projectImg.alt = "Not suported";
 
         const projectId = document.createElement("input");
@@ -269,7 +269,7 @@ function displayClientProjects(clientProjects) {
                 progressWidth = 40;
                 progressClass = "bg-yellow-600";
                 break;
-            case 'accepted':
+            case 'halfCompleted':
                 progressWidth = 70;
                 progressClass = "bg-blue-600";
                 break;

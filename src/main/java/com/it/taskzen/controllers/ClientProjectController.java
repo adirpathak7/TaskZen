@@ -18,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -127,5 +126,36 @@ public class ClientProjectController {
 //
 //        return new ResponseEntity<>(response, HttpStatus.OK);
 //    }
+    @PutMapping(value = "/updateStatusInprogress/{client_project_id}")
+    public ResponseEntity<Map<String, String>> updateStatusInprogress(
+            @PathVariable("client_project_id") Long client_project_id) {
+        try {
+            clientProjectService.updateStatusToInProgress(client_project_id);
+            return new ResponseEntity("Proejct status updated successfully.", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
+    @PutMapping("/updateStatusToHalfCompleted/{client_project_id}")
+    public ResponseEntity<String> updateStatusToHalfCompleted(@RequestParam Long client_project_id) {
+        boolean success = clientProjectService.updateStatusToHalfCompleted(client_project_id);
+        if (success) {
+            return ResponseEntity.ok("Project status updated to 'halfCompleted'.");
+        } else {
+            return ResponseEntity.status(400).body("Failed to update project status.");
+        }
+    }
+
+    @PutMapping("/updateStatusToCompleted/{client_project_id}")
+    public ResponseEntity<String> updateStatusToCompleted(@RequestParam Long client_project_id) {
+        boolean success = clientProjectService.updateStatusToCompleted(client_project_id);
+        if (success) {
+            return ResponseEntity.ok("Project status updated to 'completed'.");
+        } else {
+            return ResponseEntity.status(400).body("Failed to update project status.");
+        }
+    }
 }

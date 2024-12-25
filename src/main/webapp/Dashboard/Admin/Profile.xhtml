@@ -15,163 +15,179 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <link rel="stylesheet" href="../../CSS/index.css"/>
     </head>
-    <h:body class="bg-gray-100">
-        <div class="container mx-auto mt-6">
-            <!-- Header Section -->
-            <div class="flex justify-between items-center border-b pb-4 mb-6">
-                <div class="flex items-center">
-                    <img src="https://via.placeholder.com/50" alt="Admin Avatar" class="w-12 h-12 rounded-full mr-4"/>
-                    <div>
-                        <h4 class="text-xl font-semibold">John Doe</h4>
-                        <p class="text-gray-500">Admin</p>
-                    </div>
+    <body class="bg-gray-100">
+
+        <div class="container mx-auto p-6 space-y-12">
+
+            <!-- Profile Card 1: John Doe -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center space-x-6">
+                    <img class="w-32 h-32 rounded-full object-cover" src="https://via.placeholder.com/150" alt="John's Profile Picture"/>
+                        <div>
+                            <h2 class="text-3xl font-semibold text-gray-800">TaskZen Admin</h2>
+                            <p class="text-xl text-gray-600">Website Owner and IT Admin</p>
+                        </div>
                 </div>
-                <div class="space-x-4">
-                    <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Settings</button>
-                    <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+
+                <!-- About Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">About</h3>
+                    <p class="text-gray-700 mt-2">
+                        Admin is the co-owner and admin of several successful websites, specializing in building and managing dynamic online platforms. With over 6 years of experience in web development and IT infrastructure, John focuses on creating secure, high-performance websites. His leadership and technical expertise ensure smooth operations for his projects.
+                    </p>
+                </div>
+
+                <!-- Technical Expertise Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Technical Expertise</h3>
+                    <ul class="grid grid-cols-2 gap-4 mt-2">
+                        <li class="bg-green-100 text-green-800 px-4 py-2 rounded-full">Web Development</li>
+                        <li class="bg-green-100 text-green-800 px-4 py-2 rounded-full">Server Management</li>
+                        <li class="bg-green-100 text-green-800 px-4 py-2 rounded-full">Database Management</li>
+                        <li class="bg-green-100 text-green-800 px-4 py-2 rounded-full">Cloud Infrastructure</li>
+                        <li class="bg-green-100 text-green-800 px-4 py-2 rounded-full">Security Protocols</li>
+                        <li class="bg-green-100 text-green-800 px-4 py-2 rounded-full">DevOps</li>
+                    </ul>
+                </div>
+
+                <!-- Website Management Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Website Management</h3>
+                    <p class="text-gray-700 mt-2">
+                        As a website owner and administrator, John manages several high-traffic websites. He oversees performance optimization, user management, content updates, and security. John has implemented scalable solutions to support increasing website demands, ensuring uptime and reliability.
+                    </p>
+                </div>
+
+                <!-- Leadership Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Leadership</h3>
+                    <p class="text-gray-700 mt-2">
+                        John leads a small team of developers, designers, and content managers, coordinating website development, upgrades, and ongoing maintenance. He emphasizes collaboration, continuous learning, and the importance of agile project management to meet client expectations.
+                    </p>
+                </div>
+
+                <!-- IT Certifications Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">IT Certifications</h3>
+                    <ul class="list-disc ml-6 mt-2 text-gray-700">
+                        <li><strong>Certified Web Developer (W3C)</strong> - Completed in 2022</li>
+                        <li><strong>AWS Certified Solutions Architect</strong> - Completed in 2021</li>
+                        <li><strong>Certified Kubernetes Administrator (CKA)</strong> - Completed in 2023</li>
+                    </ul>
+                </div>
+
+                <!-- Project Management Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Project Management</h3>
+                    <p class="text-gray-700 mt-2">
+                        John has successfully managed multiple projects, overseeing website launches, server deployments, and software integrations. He has experience with agile methodologies, ensuring timely delivery of projects while maintaining quality and functionality.
+                    </p>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Contact</h3>
+                    <p class="text-gray-700 mt-2">
+                        Email: <a href="mailto:john@example.com" class="text-blue-500">john@example.com</a>
+                    </p>
+                    <p class="text-blue-500 mt-2">
+                        <a href="https://linkedin.com/in/johndoe" target="_blank" class="hover:underline">LinkedIn</a>
+                    </p>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="mt-6">
+                    <a href="mailto:john@example.com" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">
+                        Contact John
+                    </a>
                 </div>
             </div>
 
-            <!-- Dashboard Overview -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-blue-500 text-white p-4 rounded shadow">
-                    <h5 class="text-lg">Total Freelancers</h5>
-                    <h2 class="text-2xl font-bold">256</h2>
+            <!-- Profile Card 2: Jane Smith -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center space-x-6">
+                    <img class="w-32 h-32 rounded-full object-cover" src="https://via.placeholder.com/150" alt="Jane's Profile Picture"/>
+                        <div>
+                            <h2 class="text-3xl font-semibold text-gray-800">Jane Smith</h2>
+                            <p class="text-xl text-gray-600">Website Owner and IT Admin</p>
+                        </div>
                 </div>
-                <div class="bg-green-500 text-white p-4 rounded shadow">
-                    <h5 class="text-lg">Total Companies</h5>
-                    <h2 class="text-2xl font-bold">145</h2>
+
+                <!-- About Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">About</h3>
+                    <p class="text-gray-700 mt-2">
+                        Jane is a highly experienced IT professional and co-owner of a growing network of websites. Her role spans across website management, system administration, and overseeing technical operations. With expertise in both the backend and frontend of web development, Jane is committed to driving website success.
+                    </p>
                 </div>
-                <div class="bg-yellow-500 text-gray-800 p-4 rounded shadow">
-                    <h5 class="text-lg">Pending Approvals</h5>
-                    <h2 class="text-2xl font-bold">12</h2>
+
+                <!-- Technical Expertise Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Technical Expertise</h3>
+                    <ul class="grid grid-cols-2 gap-4 mt-2">
+                        <li class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full">Full-Stack Development</li>
+                        <li class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full">Network Security</li>
+                        <li class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full">Cloud Computing</li>
+                        <li class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full">Data Management</li>
+                        <li class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full">Automation</li>
+                        <li class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full">Scripting and DevOps</li>
+                    </ul>
                 </div>
-                <div class="bg-red-500 text-white p-4 rounded shadow">
-                    <h5 class="text-lg">Reported Issues</h5>
-                    <h2 class="text-2xl font-bold">3</h2>
+
+                <!-- Website Management Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Website Management</h3>
+                    <p class="text-gray-700 mt-2">
+                        Jane has been instrumental in the development and management of various high-performance websites. She handles technical optimization, traffic management, and implements strategies to ensure optimal user experiences and scalability.
+                    </p>
+                </div>
+
+                <!-- Leadership Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Leadership</h3>
+                    <p class="text-gray-700 mt-2">
+                        Jane excels in team leadership, managing cross-functional teams of developers, designers, and system administrators. She fosters innovation, encourages continuous improvement, and supports the professional growth of her team members.
+                    </p>
+                </div>
+
+                <!-- IT Certifications Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">IT Certifications</h3>
+                    <ul class="list-disc ml-6 mt-2 text-gray-700">
+                        <li><strong>Certified Ethical Hacker (CEH)</strong> - Completed in 2022</li>
+                        <li><strong>Google Cloud Certified - Professional Cloud Architect</strong> - Completed in 2021</li>
+                        <li><strong>CompTIA Network+</strong> - Completed in 2023</li>
+                    </ul>
+                </div>
+
+                <!-- Project Management Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Project Management</h3>
+                    <p class="text-gray-700 mt-2">
+                        Jane has led numerous IT and web development projects, from the initial planning phase to successful delivery. Her strong project management skills, combined with technical knowledge, ensure that her projects are always completed on time and within budget.
+                    </p>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Contact</h3>
+                    <p class="text-gray-700 mt-2">
+                        Email: <a href="mailto:jane@example.com" class="text-blue-500">jane@example.com</a>
+                    </p>
+                    <p class="text-blue-500 mt-2">
+                        <a href="https://linkedin.com/in/janesmith" target="_blank" class="hover:underline">LinkedIn</a>
+                    </p>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="mt-6">
+                    <a href="mailto:jane@example.com" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">
+                        Contact Jane
+                    </a>
                 </div>
             </div>
 
-            <!-- Tabs Section -->
-            <div class="mt-6">
-                <div class="border-b">
-                    <nav class="flex space-x-4">
-                        <button class="py-2 px-4 border-b-2 border-blue-500 text-blue-500" id="freelancers-tab">Freelancers</button>
-                        <button class="py-2 px-4 text-gray-500 hover:text-blue-500" id="companies-tab">Companies</button>
-                        <button class="py-2 px-4 text-gray-500 hover:text-blue-500" id="reports-tab">Reports/Issues</button>
-                    </nav>
-                </div>
-
-                <!-- Content Tabs -->
-                <div id="freelancers" class="mt-4">
-                    <div class="bg-white p-6 rounded shadow">
-                        <h3 class="text-lg font-semibold mb-4">Freelancers</h3>
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr>
-                                    <th class="border-b pb-2">Avatar</th>
-                                    <th class="border-b pb-2">Name</th>
-                                    <th class="border-b pb-2">Skills</th>
-                                    <th class="border-b pb-2">Status</th>
-                                    <th class="border-b pb-2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="py-2"><img src="https://via.placeholder.com/50" alt="Avatar" class="w-10 h-10 rounded-full"/></td>
-                                    <td class="py-2">Jane Doe</td>
-                                    <td class="py-2">Web Development</td>
-                                    <td class="py-2"><span class="px-2 py-1 bg-green-200 text-green-800 rounded">Active</span></td>
-                                    <td class="py-2 space-x-2">
-                                        <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">View</button>
-                                        <button class="px-3 py-1 bg-yellow-500 text-white text-sm rounded hover:bg-yellow-600">Warn</button>
-                                        <button class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600">Ban</button>
-                                    </td>
-                                </tr>
-                                <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="companies" class="hidden mt-4">
-                    <div class="bg-white p-6 rounded shadow">
-                        <h3 class="text-lg font-semibold mb-4">Companies</h3>
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr>
-                                    <th class="border-b pb-2">Logo</th>
-                                    <th class="border-b pb-2">Company Name</th>
-                                    <th class="border-b pb-2">Industry</th>
-                                    <th class="border-b pb-2">Status</th>
-                                    <th class="border-b pb-2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="py-2"><img src="https://via.placeholder.com/50" alt="Logo" class="w-10 h-10 rounded"/></td>
-                                    <td class="py-2">Acme Corp</td>
-                                    <td class="py-2">IT Services</td>
-                                    <td class="py-2"><span class="px-2 py-1 bg-yellow-200 text-yellow-800 rounded">Pending</span></td>
-                                    <td class="py-2 space-x-2">
-                                        <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">View</button>
-                                        <button class="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600">Approve</button>
-                                        <button class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600">Reject</button>
-                                    </td>
-                                </tr>
-                                <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="reports" class="hidden mt-4">
-                    <div class="bg-white p-6 rounded shadow">
-                        <h3 class="text-lg font-semibold mb-4">Reported Issues</h3>
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr>
-                                    <th class="border-b pb-2">Reporter</th>
-                                    <th class="border-b pb-2">Date</th>
-                                    <th class="border-b pb-2">Issue</th>
-                                    <th class="border-b pb-2">Status</th>
-                                    <th class="border-b pb-2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="py-2">John Smith</td>
-                                    <td class="py-2">2024-12-10</td>
-                                    <td class="py-2">Spam Content</td>
-                                    <td class="py-2"><span class="px-2 py-1 bg-red-200 text-red-800 rounded">Open</span></td>
-                                    <td class="py-2 space-x-2">
-                                        <button class="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600">Resolve</button>
-                                        <button class="px-3 py-1 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">Dismiss</button>
-                                    </td>
-                                </tr>
-                                <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
 
-
-    </h:body>
-    <script>
-        const tabs = document.querySelectorAll('button[id$="-tab"]');
-        const tabContents = document.querySelectorAll('[id]');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('border-b-2', 'border-blue-500', 'text-blue-500'));
-                tab.classList.add('border-b-2', 'border-blue-500', 'text-blue-500');
-
-                tabContents.forEach(content => content.classList.add('hidden'));
-                const target = tab.id.replace('-tab', '');
-                document.getElementById(target).classList.remove('hidden');
-            });
-        });
-    </script>
+    </body>
 </html>

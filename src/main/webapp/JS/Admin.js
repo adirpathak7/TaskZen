@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchFreelancerDetails();
     fetchTotalUsersDetails();
     animateVisitorCounter(50);
+    fetchClintsDetailsForAdmin();
 });
 
 async function fetchClientPendingStatusDetails() {
@@ -100,7 +101,7 @@ function changeClientStatus(event, clientId) {
             alert("Client approved successfully!");
         } else {
             alert("Failed to approved client. Please try again.");
-            console.error(result);
+//            console.error(result);
         }
     }).catch(error => {
         console.error("Error occurred while approved client: ", error);
@@ -231,7 +232,7 @@ async function fetchTotalUsersDetails() {
         }
 
         const result = await response.json();
-        console.log(result);
+//        console.log(result);
 
         if (typeof result === "number") {
             animateCounter(result, "totalUserCounts");
@@ -269,4 +270,74 @@ function animateCounter(target, counterElementId) {
             clearInterval(interval);
         }
     }, 250);
+}
+
+
+// Clients all details
+
+async function fetchClintsDetailsForAdmin() {
+    const apiUrl = "http://localhost:8000/api/client/getAllClientsProjects";
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "GET"
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch client's details!");
+        }
+
+        const result = await response.json();
+        const clientsDetails = result.data;
+        console.log(result);
+
+        if (result && Array.isArray(result)) {
+            displayClintsDetailsForAdmin(result);
+        } else {
+            console.error("No client's data found.");
+        }
+    } catch (error) {
+        console.error("Error fetching client's details:", error);
+    }
+}
+
+function displayClintsDetailsForAdmin(result) {
+    const tableBody = document.getElementById('displayAllClientsDetailsToAdmin-table-body');
+    tableBody.innerHTML = '';
+
+    result.forEach(data => {
+        const userName = `${data.client_id.user.first_name} ${data.client_id.user.last_name}`;
+        const clientProfilePicture = data.client_id.profile_picture;
+        const clientName = data.client_id.client_name;
+        const clientEmail = data.client_id.user.email;
+        const clientContact = data.client_id.contact;
+        const clientProjectTitle = data.client_project_name;
+        const clientProjectRange = `${data.minimum_range} - ${data.maximum_range} Rs.`;
+        const clientProjectDuration = data.duration;
+        const clientProjectStatus = data.status;
+        const clientCreatedAt = new Date(data.created_at).toLocaleDateString();
+
+
+        const row = document.createElement('tr');
+        row.classList.add('border-b', 'hover:bg-gray-50');
+
+        row.innerHTML = `
+            <div class="flex items-center">
+                <div class="w-24 h-24 rounded-full overflow-hidden mr-3">
+                    <img src="${clientProfilePicture}" alt="Client Profile Picture" class="w-full h-full object-cover"/>
+                </div>
+            </div>
+            <td class="px-6 py-4">${userName}</td>
+            <td class="px-6 py-4">${clientName}</td>
+            <td class="px-6 py-4">${clientEmail}</td>
+            <td class="px-6 py-4">${clientContact}</td>
+            <td class="px-6 py-4">${clientProjectTitle}</td>
+            <td class="px-6 py-4">${clientProjectRange}</td>
+            <td class="px-6 py-4">${clientProjectDuration}</td>
+            <td class="px-6 py-4">${clientProjectStatus}</td>
+            <td class="px-6 py-4">${clientCreatedAt}</td>
+        `;
+
+        tableBody.appendChild(row);
+    });
 }
