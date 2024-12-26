@@ -4,11 +4,9 @@
  */
 package com.it.taskzen.services;
 
-import com.it.taskzen.entities.ClientMasterEntity;
 import com.it.taskzen.entities.ClientProjectEntity;
 import com.it.taskzen.entities.FreelancerMasterEntity;
 import com.it.taskzen.entities.PaymentEntity;
-import com.it.taskzen.entities.PostEntity;
 import com.it.taskzen.jwt.JWTService;
 import com.it.taskzen.repositories.ClientMstRepository;
 import com.it.taskzen.repositories.ClientProjectRepository;
@@ -18,6 +16,7 @@ import com.it.taskzen.repositories.PostRepository;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import org.springframework.transaction.annotation.Transactional;
@@ -128,5 +127,9 @@ public class PaymentService {
             e.printStackTrace();
             return "Error creating order via HTTP request: " + e.getMessage();
         }
+    }
+    
+    public List<PaymentEntity> getPaymentsWithCreatedStatusAndProjects() {
+        return paymentRepository.findPaymentsWithCreatedStatusAndClientProject();
     }
 }

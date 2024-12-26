@@ -285,8 +285,8 @@ function clientFreelancerHireButton(event) {
 //        freelancer_id: freelancer_id
 //    }));
 
-    alert(client_project_id);
-    alert(freelancer_id);
+//    alert(client_project_id);
+//    alert(freelancer_id);
     const token = sessionStorage.getItem("authToken");
 
     const apiUrl = `http://localhost:8000/api/freelancer/approveFreelancerProjectStatus?client_project_id=${client_project_id}&freelancer_id=${freelancer_id}`;

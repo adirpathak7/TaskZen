@@ -13,6 +13,7 @@ import com.it.taskzen.jwt.JWTService;
 import com.it.taskzen.repositories.ClientMstRepository;
 import com.it.taskzen.repositories.ClientProjectRepository;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -109,6 +110,29 @@ public class ClientProjectService {
     public boolean updateStatusToCompleted(Long clientProjectId) {
         int updatedRows = clientProjectRepository.updateStatusToCompleted(clientProjectId);
         return updatedRows > 0;
+    }
+
+    public boolean updateStatusToRemove(Long clientProjectId) {
+        int updatedRows = clientProjectRepository.updateStatusToRemove(clientProjectId);
+        return updatedRows > 0;
+    }
+
+    public boolean updateStatusToDone(Long client_project_id) {
+        int updatedRows = clientProjectRepository.updateStatusToDone(client_project_id);
+        return updatedRows > 0;
+    }
+
+    public Map<String, Object> getProjectCountAndSumRanges(String token) {
+        Long client_id = jWTService.extractClientId(token);
+
+        Long projectCount = clientProjectRepository.countProjectsByClientId(client_id);
+        Double totalRangeSum = clientProjectRepository.sumMinMaxRangeByClientId(client_id);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("projectCount", projectCount);
+        response.put("totalRangeSum", totalRangeSum);
+
+        return response;
     }
 
 }

@@ -51,9 +51,20 @@
                             <span class="error-message text-red-400" id="error-freelancer-description"></span>
                         </div>
                         <div class="mb-4">
-                            <label for="duration" class="block text-sm font-medium text-gray-700">Duration</label>
-                            <input type="text" id="duration" name="duration" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
-                            <span class="error-message text-red-400" id="error-duration"></span>
+                            <div class="relative z-0 w-full mb-5">
+                                <select name="duration" id="duration" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-800">
+                                    <option value="">Select Duration</option>
+                                    <option value="1 Weak">1 Week</option>
+                                    <option value="2 Weak">2 Weeks</option>
+                                    <option value="15 Day's">15 Days</option>
+                                    <option value="1 Month">1 Month</option>
+                                    <option value="3 Months">3 Months</option>
+                                    <option value="6 Months">6 Months</option>
+                                    <option value="1 Year">1 Year</option>
+                                </select>
+                                <span class="error-message text-red-400" id="error-duration"></span>
+                            </div>
+
                         </div>
                         <div class="flex justify-end">
                             <button type="button" onclick="closeModal('freelancerOpendProject')" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Close</button>

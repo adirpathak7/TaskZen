@@ -7,28 +7,25 @@ package com.it.taskzen.controllers;
 import com.it.taskzen.entities.ClientProjectEntity;
 import com.it.taskzen.entities.FreelancerMasterEntity;
 import com.it.taskzen.entities.PaymentEntity;
-import com.it.taskzen.entities.PostEntity;
 import com.it.taskzen.repositories.ClientMstRepository;
 import com.it.taskzen.repositories.ClientProjectRepository;
 import com.it.taskzen.repositories.FreelancerMstRepository;
 import com.it.taskzen.repositories.PaymentRepository;
 import com.it.taskzen.repositories.PostRepository;
 import com.it.taskzen.services.PaymentService;
-import com.razorpay.Payment;
 import com.razorpay.RazorpayException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import javax.persistence.EntityNotFoundException;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -75,6 +72,15 @@ public class PaymentController {
         response.put("status", payment.getStatus());
 
         return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/created-with-projects")
+    public ResponseEntity<List<PaymentEntity>> getPaymentsWithProjects() {
+        List<PaymentEntity> payments = paymentService.getPaymentsWithCreatedStatusAndProjects();
+        if (payments.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(payments);
     }
 
 }

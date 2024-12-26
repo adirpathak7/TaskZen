@@ -14,7 +14,9 @@ import com.it.taskzen.jwt.JWTService;
 import com.it.taskzen.repositories.FreelancerMstRepository;
 import com.it.taskzen.repositories.PostRepository;
 import java.nio.file.AccessDeniedException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -322,6 +324,11 @@ public class PostService {
         return postRepository.findProjectsAndCompletedFreelancersByClientId(client_id);
     }
 
+    public List<PostEntity> getClientsDoneFreelancersByProjectsByToken(String token) {
+        Long client_id = jWTService.extractClientId(token);
+        return postRepository.findProjectsAndDoneFreelancersByClientId(client_id);
+    }
+
     public List<PostEntity> getPendingFreelancerAppliedPostByToken(String token) {
         Long id = jWTService.extractFreelancerId(token);
         FreelancerMasterEntity freelancer = freelancerMstRepository.findById(id)
@@ -352,5 +359,37 @@ public class PostService {
 
     public List<PostEntity> getFreelancerProjectDetailsAcceptedCompleted() {
         return postRepository.findByAcceptedCompletedFreelancer();
+    }
+
+    public long countProjectsByClientId(String token) {
+        Long client_id = jWTService.extractClientId(token);
+        return postRepository.countProjectsByClientId(client_id);
+    }
+
+    public Double sumFreelancerRangesByClientId(String token) {
+        Long client_id = jWTService.extractClientId(token);
+        return postRepository.sumFreelancerRangesByClientId(client_id);
+    }
+    
+     public long countCompletedByFreelancer(String token) {
+        Long freelancerId = jWTService.extractFreelancerId(token);
+        return postRepository.countCompletedByFreelancerId(freelancerId);
+    }
+
+    public long countByStatusPending() {
+        return postRepository.countByStatusPending();
+    }
+
+    public long countByStatusCompleted() {
+        return postRepository.countByStatusCompleted();
+    }
+
+    public Map<Long, Long> countByFreelancerRange() {
+        List<Object[]> results = postRepository.countByFreelancerRange();
+        Map<Long, Long> freelancerRangeCount = new HashMap<>();
+        for (Object[] result : results) {
+            freelancerRangeCount.put((Long) result[0], (Long) result[1]);
+        }
+        return freelancerRangeCount;
     }
 }

@@ -269,6 +269,25 @@ public class PostController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/getClientsFreelancersByProjectsByToken/done")
+    public ResponseEntity<Map<String, Object>> getClientsDoneFreelancersByProjectsByToken(@RequestHeader("Authorization") String token) throws IOException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        List<PostEntity> details = postService.getClientsDoneFreelancersByProjectsByToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (!details.isEmpty()) {
+            response.put("message", "Done Freelancer and Projects details fetched successfully.");
+            response.put("data", details);
+        } else {
+            response.put("message", "No done Freelancer found for this Client projects.");
+            response.put("data", "0");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping("/getFreelancerAppliedPostByToken/pending")
     public ResponseEntity<Map<String, Object>> getPendingFreelancerAppliedPostByToken(@RequestHeader("Authorization") String token) throws IOException {
         if (token != null && token.startsWith("Bearer ")) {
@@ -358,5 +377,50 @@ public class PostController {
             response.put("data", "0");
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/appliedProjects/count")
+    public ResponseEntity<Long> countAppliedProjectsByClientId(@RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+        long count = postService.countProjectsByClientId(token);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/appliedProjects/sumRanges")
+    public ResponseEntity<Double> sumFreelancerRanges(@RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+        Double sum = postService.sumFreelancerRangesByClientId(token);
+        return ResponseEntity.ok(sum);
+    }
+
+    @GetMapping("/count/completed")
+    public ResponseEntity<Long> getCountCompletedByFreelancer(@RequestHeader("Authorization") String token) {
+         if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+        long count = postService.countCompletedByFreelancer(token);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/count/pending")
+    public ResponseEntity<Long> getCountByStatusPending() {
+        long count = postService.countByStatusPending();
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/count/completed-status")
+    public ResponseEntity<Long> getCountByStatusCompleted() {
+        long count = postService.countByStatusCompleted();
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/count/freelancer-range")
+    public ResponseEntity<Map<Long, Long>> getCountByFreelancerRange() {
+        Map<Long, Long> countByRange = postService.countByFreelancerRange();
+        return ResponseEntity.ok(countByRange);
     }
 }

@@ -160,7 +160,7 @@ public class ClientProjectEntity {
     }
 
     public enum Status {
-        pending("pending"), inProgress("inProgress"), halfCompleted("halfCompleted"), completed("completed");
+        pending("pending"), inProgress("inProgress"), halfCompleted("halfCompleted"), completed("completed"), remove("remove"), done("done");
 
         private final String value;
 

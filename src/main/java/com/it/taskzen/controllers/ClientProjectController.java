@@ -158,4 +158,40 @@ public class ClientProjectController {
             return ResponseEntity.status(400).body("Failed to update project status.");
         }
     }
+
+    @PutMapping(value = "/updateStatusRemove/{client_project_id}")
+    public ResponseEntity<Map<String, String>> updateStatusRemove(
+            @PathVariable("client_project_id") Long client_project_id) {
+        try {
+            clientProjectService.updateStatusToRemove(client_project_id);
+            return new ResponseEntity("Proejct status updated successfully.", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = "/updateStatusDone/{client_project_id}")
+    public ResponseEntity<Map<String, String>> updateStatusDone(@PathVariable("client_project_id") Long client_project_id) {
+        try {
+            clientProjectService.updateStatusToDone(client_project_id);
+            return new ResponseEntity("Proejct status updated successfully.", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/countAndSumProjects")
+    public ResponseEntity<Map<String, Object>> countAndSumProjects(@RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+        }
+
+        Map<String, Object> result = clientProjectService.getProjectCountAndSumRanges(token);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

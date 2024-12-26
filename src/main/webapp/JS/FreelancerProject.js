@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchFreelaancerProjectsDetails();
 
     fetchAcceptedFreelaancerProjectsDetailsForFreelancer();
-    
+
     fetchRejectedFreelaancerProjectsDetails();
-    
+
     fetchPendingFreelaancerProjectsDetails();
-    
+
     fetchCompletedFreelaancerProjectsDetails();
 });
 
@@ -74,6 +74,7 @@ function displayFreelancerApplyProjects(freelancerProjects) {
             <td class="px-6 py-4">${clientProjectDuration}</td>
             <td class="px-6 py-4">${freelancerProjectRange}</td>
             <td class="px-6 py-4">${freelancerProjectDuration}</td>
+                    <td class="px-6 py-4">${freelancerProjectStatus}</td>
             <td class="px-6 py-4">${freelancerCreatedAt}</td>
         `;
 

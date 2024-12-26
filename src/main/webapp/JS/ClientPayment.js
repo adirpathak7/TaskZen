@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     loadRazorpayScript();
 });
 
-
 async function fetchTaskPaymentDetails() {
     const apiUrl = "http://localhost:8000/api/freelancer/getClientsFreelancersByProjectsByToken/completed";
     const token = sessionStorage.getItem("authToken");
@@ -21,7 +20,6 @@ async function fetchTaskPaymentDetails() {
 
         const result = await response.json();
         const freelancerProjects = result.data;
-//        console.log("freelancerProjects", freelancerProjects);
 
         if (freelancerProjects && Array.isArray(freelancerProjects)) {
             displayTaskPaymentDetails(freelancerProjects);
@@ -32,7 +30,6 @@ async function fetchTaskPaymentDetails() {
         console.error("Error fetching freelancer completed project details:", error);
     }
 }
-
 
 function displayTaskPaymentDetails(freelancerProjects) {
     const tableBody = document.getElementById('completedTaskPaymentDetails-table-body');
@@ -59,22 +56,21 @@ function displayTaskPaymentDetails(freelancerProjects) {
             <td class="px-6 py-4">${freelancerStatus}</td>
             <td class="px-6 py-4">${clientPostDate}</td>
 
-            <td class="px-6 py-4">
-                <button class="px-4 py-2 bg-purple-600 text-white rounded-md pay-btn" id="pay-btn-${index}" type="button">
-                    Pay
-                </button>
-            </td>
-                <input type="hidden" name="amount" value="${freelancerProjectRange}"/>
-                <input type="hidden" name="freelancer_id" value="${freelancerFreelanceId}"/>
-                <input type="hidden" name="post_id" value="${freelancerPost_id}"/>
-                <input type="hidden" name="client_project_id" value="${clientProjectId}"/>
+            <button class="px-4 py-2 bg-purple-600 text-white rounded-md pay-btn" id="pay-btn-${index}" type="button">
+                Pay
+            </button>
+            <input type="hidden" name="amount" value="${freelancerProjectRange}"/>
+            <input type="hidden" name="freelancer_id" value="${freelancerFreelanceId}"/>
+            <input type="hidden" name="post_id" value="${freelancerPost_id}"/>
+            <input type="hidden" name="client_project_id" value="${clientProjectId}"/>
         `;
         tableBody.appendChild(row);
+
         document.getElementById(`pay-btn-${index}`).onclick = async function (e) {
             e.preventDefault();
             const amountInRupees = freelancerProjectRange;
             const amountInPaise = amountInRupees * 100;
-           
+
             if (amountInPaise < 100) {
                 alert("The minimum payment amount is 1 INR (100 paise).");
                 return;
@@ -115,8 +111,16 @@ function displayTaskPaymentDetails(freelancerProjects) {
                 const rzp1 = new Razorpay(options);
 
                 rzp1.on('payment.failed', function (response) {
-                    alert("Payment failed. Please try again."+response);
+                    alert("Payment failed. Please try again.");
                 });
+
+                rzp1.on('payment.success', function (response) {
+                    // Disable the "Pay" button after payment success
+                    const payButton = document.getElementById(`pay-btn-${index}`);
+                    payButton.disabled = true;
+                    payButton.innerHTML = "Paid"; // Change button text to "Paid"
+                });
+
                 rzp1.open();
             } catch (error) {
                 console.error("Error while processing payment:", error);
@@ -129,13 +133,8 @@ function displayTaskPaymentDetails(freelancerProjects) {
 function loadRazorpayScript(callback) {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
-//    script.onload = function () {
-////        console.log("Razorpay script loaded");
-//        callback();
-//    };
     script.onerror = function () {
         alert("Razorpay script failed to load.");
     };
     document.head.appendChild(script);
 }
-

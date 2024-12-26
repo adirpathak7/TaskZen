@@ -75,6 +75,11 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
             + "WHERE p.client_id.client_id = :client_id AND p.status = 'completed'")
     List<PostEntity> findProjectsAndCompletedFreelancersByClientId(@Param("client_id") Long client_id);
 
+    @Query("SELECT p FROM PostEntity p "
+            + "JOIN FETCH p.freelancer f "
+            + "WHERE p.client_id.client_id = :client_id AND p.status = 'done'")
+    List<PostEntity> findProjectsAndDoneFreelancersByClientId(@Param("client_id") Long client_id);
+
     @Query("SELECT p FROM PostEntity p WHERE p.freelancer.freelancer_id = :freelancer_id AND p.status = 'pending'")
     List<PostEntity> findByPendingFreelancer(@Param("freelancer_id") Long freelancer_id);
 
@@ -89,4 +94,22 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     @Query("SELECT p FROM PostEntity p WHERE p.status = 'accepted' OR p.status = 'completed'")
     List<PostEntity> findByAcceptedCompletedFreelancer();
+
+    @Query("SELECT COUNT(p) FROM PostEntity p WHERE p.client_id.client_id = :client_id")
+    long countProjectsByClientId(@Param("client_id") Long client_id);
+
+    @Query("SELECT SUM(CAST(p.freelancer_range AS double)) FROM PostEntity p WHERE p.client_id.client_id = :client_id")
+    Double sumFreelancerRangesByClientId(@Param("client_id") Long client_id);
+
+    @Query("SELECT COUNT(p) FROM PostEntity p WHERE p.freelancer.freelancer_id = :freelancerId AND p.status = 'completed'")
+    long countCompletedByFreelancerId(@Param("freelancerId") Long freelancerId);
+
+    @Query("SELECT COUNT(p) FROM PostEntity p WHERE p.status = 'pending'")
+    long countByStatusPending();
+
+    @Query("SELECT COUNT(p) FROM PostEntity p WHERE p.status = 'completed'")
+    long countByStatusCompleted();
+
+    @Query("SELECT p.freelancer.freelancer_id, COUNT(p) FROM PostEntity p WHERE p.status = 'completed' GROUP BY p.freelancer.freelancer_id")
+    List<Object[]> countByFreelancerRange();
 }

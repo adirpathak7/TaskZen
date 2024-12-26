@@ -6,6 +6,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     fetchFreelancerDetails();
     fetchClientsProjectsDetails();
+    fetchFreelancerDashboardData();
+    fetchFreelaancerProjectsDetailsatdashboard();
 });
 
 function freelancerProfileCreation(event) {
@@ -64,7 +66,7 @@ function freelancerProfileCreation(event) {
     formData.append("github_link", github_link);
     formData.append("linkedin_link", linkedin_link);
     formData.append("portfolio_link", portfolio_link);
-    
+
     const apiUrl = "http://localhost:8000/api/freelancer/freelancersAllDetails";
     const token = sessionStorage.getItem("authToken");
     fetch(apiUrl, {
@@ -384,3 +386,144 @@ function closeModal(modalId) {
         modal.classList.add("hidden");
     }
 }
+
+
+function animateCounter(target, counterElementId) {
+    let currentCount = 0;
+    const counterElement = document.getElementById(counterElementId);
+
+    if (!counterElement) {
+        console.error(`Element with ID '${counterElementId}' not found.`);
+        return;
+    }
+
+    const increment = target / 100;
+    const interval = setInterval(() => {
+        currentCount += increment;
+        if (currentCount >= target) {
+            currentCount = target;
+            clearInterval(interval);
+        }
+        counterElement.innerHTML = Math.floor(currentCount);
+    }, 25);
+}
+
+async function fetchFreelancerDashboardData() {
+    const apiUrls = [
+        "http://localhost:8000/api/freelancer/count/completed",
+        "http://localhost:8000/api/freelancer/count/pending",
+        "http://localhost:8000/api/freelancer/count/completed-status",
+        "http://localhost:8000/api/freelancer/count/freelancer-range"
+    ];
+
+    const authToken = sessionStorage.getItem("authToken");
+
+    if (!authToken) {
+        console.error("Token not found in sessionStorage.");
+        return;
+    }
+
+    try {
+        // Fetch data from all APIs concurrently
+        const [completedResponse, pendingResponse, completedStatusResponse, freelancerRangeResponse] = await Promise.all(
+                apiUrls.map(url =>
+                    fetch(url, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${authToken}`,
+                            "Content-Type": "application/json"
+                        }
+                    })
+                )
+                );
+
+        // Handle non-OK responses
+        if (!completedResponse.ok || !pendingResponse.ok || !completedStatusResponse.ok || !freelancerRangeResponse.ok) {
+            throw new Error("Failed to fetch data from one or more APIs.");
+        }
+        console.log(document.getElementById("totalMyProject"));
+
+        // Parse JSON responses
+        const completedData = await completedResponse.json();
+        const pendingData = await pendingResponse.json();
+        const completedStatusData = await completedStatusResponse.json();
+        const freelancerRangeData = await freelancerRangeResponse.json();
+
+        // Update DOM and animate counters
+        animateCounter(completedData || 0, "totalMyProject");
+        animateCounter(freelancerRangeData.totalEarnings || 0, "totalMyEarnings"); // Assuming range data includes total earnings
+        animateCounter(completedStatusData || 0, "totalCompleteProject");
+        animateCounter(pendingData || 0, "totalPendingProject");
+    } catch (error) {
+        console.error("Error fetching freelancer dashboard data:", error.message);
+    }
+}
+
+
+
+async function fetchFreelaancerProjectsDetailsatdashboard() {
+    const apiUrl = "http://localhost:8000/api/freelancer/getFreelancerAppliedPostByToken";
+    const token = sessionStorage.getItem("authToken");
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch freelancer project details!");
+        }
+
+        const result = await response.json();
+        const freelancerProjects = result.data;
+//        console.log(freelancerProjects);
+
+        if (freelancerProjects && Array.isArray(freelancerProjects)) {
+            displayFreelancerApplyProjectsatDashboard(freelancerProjects);
+        } else {
+//            console.error("No freelancer project data found.");
+        }
+    } catch (error) {
+        console.error("Error fetching freelancer project details:", error);
+    }
+}
+
+function displayFreelancerApplyProjectsatDashboard(freelancerProjects) {
+    const tableBody = document.getElementById('displayFreelancerApplyProjectsalldashboard-table-body');
+    tableBody.innerHTML = '';
+
+    freelancerProjects.forEach(data => {
+        const clientName = data.client_id.client_name;
+        const clientProjectTitle = data.clientProject.client_project_name;
+        const clientProjectRange = `${data.clientProject.minimum_range} - ${data.clientProject.maximum_range} Rs.`;
+        const clientProjectStatus = data.clientProject.status;
+        const clientProjectDuration = data.clientProject.duration;
+        const freelancerProjectRange = data.freelancer_range;
+        const freelancerProjectDuration = data.duration;
+        const freelancerProjectStatus = data.status;
+        const freelancerCreatedAt = new Date(data.created_at).toLocaleDateString();
+
+
+        const row = document.createElement('tr');
+        row.classList.add('border-b', 'hover:bg-gray-50');
+
+        row.innerHTML = `
+            <td class="px-6 py-4">${clientName}</td>
+            <td class="px-6 py-4">${clientProjectTitle}</td>
+            <td class="px-6 py-4">${clientProjectRange}</td>
+            <td class="px-6 py-4">${clientProjectStatus}</td>
+            <td class="px-6 py-4">${clientProjectDuration}</td>
+            <td class="px-6 py-4">${freelancerProjectRange}</td>
+            <td class="px-6 py-4">${freelancerProjectDuration}</td>
+                    <td class="px-6 py-4">${freelancerProjectStatus}</td>
+            <td class="px-6 py-4">${freelancerCreatedAt}</td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+}
+

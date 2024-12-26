@@ -5,7 +5,9 @@
 package com.it.taskzen.repositories;
 
 import com.it.taskzen.entities.PaymentEntity;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Repository;
  * @author Aditya Pathak R
  */
 @Repository
-public interface PaymentRepository extends JpaRepository<PaymentEntity, Long>{
-    
+public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
+
+    @Query("SELECT p FROM PaymentEntity p JOIN p.project cp WHERE p.status = 'created'")
+    List<PaymentEntity> findPaymentsWithCreatedStatusAndClientProject();
+
 }

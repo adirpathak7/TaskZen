@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-        <title>Task-Zen Client Dashboard</title>
+        <title>TaskZen</title>
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Chart.js -->
@@ -15,123 +15,115 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <link rel="stylesheet" href="../../CSS/index.css"/>
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
+        <script src="../../JS/Client.js"></script>
     </head>
-    <h:body class="bg-gray-100">
-        <h:form>
-            <!-- Dashboard Wrapper -->
-            <div class="min-h-screen flex flex-col flex-auto antialiased">
+    <body class="bg-gray-100">
+        <!-- Dashboard Wrapper -->
+        <div class="min-h-screen flex flex-col flex-auto antialiased">
 
-                <!-- Header -->
-                <header
-                    class="fixed w-full flex items-center justify-between h-16 bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-8 shadow-lg z-10">
-                    <div class="flex items-center space-x-4">
-                        <img src="#{request.contextPath}/Image/taskzen.jpg" class="w-10 h-10 rounded-full border-2 border-gray-700"
-                             alt="Client" />
-                        <span class="text-2xl font-semibold">Welcome Adi</span>
+            <!-- Header -->
+            <header
+                class="fixed w-full flex items-center justify-between h-16 bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-8 shadow-lg z-10">
+                <div class="flex items-center space-x-4">
+                    <img id="mainImageOfClient" class="w-10 h-10 rounded-full border-2 border-gray-700"/>
+                    <span class="text-2xl font-semibold" id="mainNameOfClient"></span>
+                </div>
+                <div class="flex items-center space-x-4">
+
+
+                    <!-- Logout Icon with Hover Message -->
+                    <div class="relative group">
+                        <!-- Logout Icon -->
+                        <button type="button" onclick="logoutClient()" class="flex items-center hover:text-gray-300">
+                            Logout &nbsp;&nbsp;
+                            <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
+                        </button>
+
+                        <!-- Hover Message -->
+                        <span
+                            class="absolute left-1/2 transform -translate-x-1/2 top-10 bg-gray-800 text-white text-sm rounded-lg px-3 py-1 hidden group-hover:block">
+                            LogOut
+                        </span>
                     </div>
-                    <div class="flex items-center space-x-4">
-                        <!-- Notification Icon -->
-                        <i class="ri-notification-3-fill text-4xl"></i>
+                </div>
 
-                        <!-- Search Input -->
-                        <input type="text" placeholder="Search..."
-                               class="hidden md:block p-2 rounded-lg bg-white text-gray-700 focus:outline-none" />
+            </header>
 
-                        <!-- Logout Icon with Hover Message -->
-                        <div class="relative group">
-                            <!-- Logout Icon -->
-                            <button type="button" onclick="logoutClient()" class="flex items-center hover:text-gray-300">
-                                <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
-                            </button>
+            <!-- Sidebar -->
+            <aside
+                class="fixed top-16 left-0 h-full w-14 hover:w-64 md:w-64 bg-gradient-to-b from-purple-700 to-indigo-700 text-white transition-all duration-300 shadow-lg z-10">
+                <ul id="sidebar-menu" class="flex flex-col py-6 space-y-3">
+                    <li id="btn1" onclick="showContent('content1', 'btn1')" class="menu-item relative cursor-pointer group">
+                        <span
+                            class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                            <i class="ri-dashboard-line text-xl"></i><span class="ml-4 hidden md:block">Dashboard</span>
+                        </span>
+                    </li>
+                    <li id="btn2" onclick="showContent('content2', 'btn2')" class="menu-item relative cursor-pointer group">
+                        <span
+                            class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                            <i class="ri-projector-fill text-xl"></i><span class="ml-4 hidden md:block">Project</span>
+                        </span>
+                    </li>
+                    <li id="btn3" onclick="showContent('content3', 'btn3')" class="menu-item relative cursor-pointer group">
+                        <span
+                            class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                            <i class="ri-macbook-fill text-xl"></i><span
+                                class="ml-4 hidden md:block">Freelancers</span>
+                        </span>
+                    </li>
+                    <li id="btn4" onclick="showContent('content4', 'btn4')" class="menu-item relative cursor-pointer group">
+                        <span
+                            class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                            <i class="fas fa-briefcase text-xl"></i><span class="ml-4 hidden md:block">Payment</span>
+                        </span>
+                    </li>
+                    <li id="btn5" onclick="showContent('content5', 'btn5')" class="menu-item relative cursor-pointer group">
+                        <span
+                            class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                            <i class="fas fa-user text-xl"></i><span class="ml-4 hidden md:block">Profile</span>
+                        </span>
+                    </li>
+                    <li id="btn6" onclick="showContent('content6', 'btn6')" class="menu-item relative cursor-pointer group">
+                        <span
+                            class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                            <i class="ri-message-2-fill text-xl"></i><span class="ml-4 hidden md:block">Help</span>
+                        </span>
+                    </li>
+                    <!--                        <li id="btn7" onclick="showContent('content7', 'btn7')" class="menu-item relative cursor-pointer group">
+                                                <span
+                                                    class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                                                    <i class="fas fa-cog text-xl"></i><span class="ml-4 hidden md:block">Settings</span>
+                                                </span>
+                                            </li>-->
+                </ul>
+            </aside>
 
-                            <!-- Hover Message -->
-                            <span
-                                class="absolute left-1/2 transform -translate-x-1/2 top-10 bg-gray-800 text-white text-sm rounded-lg px-3 py-1 hidden group-hover:block">
-                                LogOut
-                            </span>
-                        </div>
-                    </div>
-
-                </header>
-
-                <!-- Sidebar -->
-                <aside
-                    class="fixed top-16 left-0 h-full w-14 hover:w-64 md:w-64 bg-gradient-to-b from-purple-700 to-indigo-700 text-white transition-all duration-300 shadow-lg z-10">
-                    <ul id="sidebar-menu" class="flex flex-col py-6 space-y-3">
-                        <li id="btn1" onclick="showContent('content1', 'btn1')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="ri-dashboard-line text-xl"></i><span class="ml-4 hidden md:block">Dashboard</span>
-                            </span>
-                        </li>
-                        <li id="btn2" onclick="showContent('content2', 'btn2')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="ri-projector-fill text-xl"></i><span class="ml-4 hidden md:block">Project</span>
-                            </span>
-                        </li>
-                        <li id="btn3" onclick="showContent('content3', 'btn3')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="ri-macbook-fill text-xl"></i><span
-                                    class="ml-4 hidden md:block">Freelancers</span>
-                            </span>
-                        </li>
-                        <li id="btn4" onclick="showContent('content4', 'btn4')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="fas fa-briefcase text-xl"></i><span class="ml-4 hidden md:block">Payment</span>
-                            </span>
-                        </li>
-                        <li id="btn5" onclick="showContent('content5', 'btn5')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="fas fa-user text-xl"></i><span class="ml-4 hidden md:block">Profile</span>
-                            </span>
-                        </li>
-                        <li id="btn6" onclick="showContent('content6', 'btn6')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="ri-message-2-fill text-xl"></i><span class="ml-4 hidden md:block">Help</span>
-                            </span>
-                        </li>
-                        <!--                        <li id="btn7" onclick="showContent('content7', 'btn7')" class="menu-item relative cursor-pointer group">
-                                                    <span
-                                                        class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                                        <i class="fas fa-cog text-xl"></i><span class="ml-4 hidden md:block">Settings</span>
-                                                    </span>
-                                                </li>-->
-                    </ul>
-                </aside>
-
-                <!-- Content Area -->
-                <main class="ml-14 md:ml-64 p-8 pt-24 bg-gray-100 min-h-screen">
-                    <div id="content1" class="content h-full mb-10 p-6">
-                        <ui:include src="./Dashboard.xhtml"></ui:include>
-                    </div>
-                    <div id="content2" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Project.xhtml"></ui:include>
-                    </div>
-                    <div id="content3" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Freelancer.xhtml"></ui:include>
-                    </div>
-                    <div id="content4" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Payment.xhtml"></ui:include>
-                    </div>
-                    <div id="content5" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Profile.xhtml"></ui:include>
-                    </div>
-                    <!--                    <div id="content6" class="content h-full mb-10 p-6 hidden">
-                                            <ui:include src="./Notification.xhtml"></ui:include>
-                                        </div>
-                                        <div id="content7" class="content h-full mb-10 p-6 hidden">
-                                            <ui:include src="./Setting.xhtml"></ui:include>
-                                        </div>-->
-                </main>
-            </div>
-        </h:form>
-
+            <!-- Content Area -->
+            <main class="ml-14 md:ml-64 p-8 pt-24 bg-gray-100 min-h-screen">
+                <div id="content1" class="content h-full mb-10 p-6">
+                    <ui:include src="./Dashboard.xhtml"></ui:include>
+                </div>
+                <div id="content2" class="content h-full mb-10 p-6 hidden">
+                    <ui:include src="./Project.xhtml"></ui:include>
+                </div>
+                <div id="content3" class="content h-full mb-10 p-6 hidden">
+                    <ui:include src="./Freelancer.xhtml"></ui:include>
+                </div>
+                <div id="content4" class="content h-full mb-10 p-6 hidden">
+                    <ui:include src="./Payment.xhtml"></ui:include>
+                </div>
+                <div id="content5" class="content h-full mb-10 p-6 hidden">
+                    <ui:include src="./Profile.xhtml"></ui:include>
+                </div>
+                <!--                    <div id="content6" class="content h-full mb-10 p-6 hidden">
+                                        <ui:include src="./Notification.xhtml"></ui:include>
+                                    </div>
+                                    <div id="content7" class="content h-full mb-10 p-6 hidden">
+                                        <ui:include src="./Setting.xhtml"></ui:include>
+                                    </div>-->
+            </main>
+        </div>
         <!-- JavaScript -->
         <script>
             function logoutClient() {
@@ -161,5 +153,5 @@
 
 
         </script>
-    </h:body>
+    </body>
 </html>

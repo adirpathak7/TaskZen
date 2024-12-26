@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientProjectRepository extends JpaRepository<ClientProjectEntity, Long> {
 
-    @Query("SELECT cp FROM ClientProjectEntity cp WHERE cp.client_id.client_id = :client_id")
+    @Query("SELECT cp FROM ClientProjectEntity cp WHERE cp.client_id.client_id = :client_id AND cp.status <> 'remove' ORDER BY cp.created_at ASC")
     List<ClientProjectEntity> findByProjectByClientId(@Param("client_id") Long client_id);
 
     @Modifying
@@ -37,5 +37,22 @@ public interface ClientProjectRepository extends JpaRepository<ClientProjectEnti
     @Transactional
     @Query("UPDATE ClientProjectEntity c SET c.status = 'completed' WHERE c.client_project_id.client_project_id = :client_project_id")
     int updateStatusToCompleted(@Param("client_project_id") Long client_project_id);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ClientProjectEntity c SET c.status = 'remove' WHERE c.status = 'pending' AND c.client_project_id.client_project_id = :client_project_id")
+    int updateStatusToRemove(@Param("client_project_id") Long client_project_id);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ClientProjectEntity c SET c.status = 'done' WHERE c.client_project_id.client_project_id = :client_project_id")
+    int updateStatusToDone(@Param("client_project_id") Long client_project_id);
+
+    @Query("SELECT COUNT(cp) FROM ClientProjectEntity cp WHERE cp.client_id.client_id = :client_id")
+    Long countProjectsByClientId(@Param("client_id") Long client_id);
+
+    @Query("SELECT SUM(CAST(cp.minimum_range AS double)) + SUM(CAST(cp.maximum_range AS double)) "
+            + "FROM ClientProjectEntity cp WHERE cp.client_id.client_id = :client_id")
+    Double sumMinMaxRangeByClientId(@Param("client_id") Long client_id);
 
 }

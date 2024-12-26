@@ -7,23 +7,43 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
         <script src="../../JS/Client.js"></script>
         <link rel="stylesheet" href="../../CSS/index.css"/>
     </head>
     <body>
         <div class=" bg-gray-100 py-8 px-4">
             <!-- Page Header -->
+            <h1 class="text-3xl font-semibold text-gray-900">Projects</h1>
             <div class="mb-6 flex justify-between items-center">
-                <h1 class="text-3xl font-semibold text-gray-900">Projects</h1>
                 <div class="flex items-center space-x-4">
-                    <input type="text" placeholder="Search projects..." class="p-2 border border-gray-300 rounded-md" />
-                    <button type="button" onclick="openModal('newprojectModal')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Create New Project</button>
+                    <input id="search_input" type="text" placeholder="Search by name..." 
+                           class="p-2 border border-gray-300 rounded-md" oninput="filterProjects()" />
+
+                    <select id="status_filter" class="p-2 border border-gray-300 rounded-md" onchange="filterProjects()">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="inProgress">In Progress</option>
+                        <option value="halfCompleted">Half Completed</option>
+                        <option value="completed">Completed</option>
+                    </select>
+
+                    <input id="range_min" type="number" placeholder="Min Range" 
+                           class="p-2 border border-gray-300 rounded-md" oninput="filterProjects()" />
+                    <input id="range_max" type="number" placeholder="Max Range" 
+                           class="p-2 border border-gray-300 rounded-md" oninput="filterProjects()" />
+
+                    <button type="button" onclick="openModal('newprojectModal')" 
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        Create New Project
+                    </button>
                 </div>
             </div>
 
+            <p id="noProjectMsg" class="text-gray-500 text-center mt-2"></p>
             <!-- Create New Project Modal -->
             <form method="POST" onsubmit="clientProjectPost(event)">
-                <div id="newprojectModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <div id="newprojectModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div class="bg-white p-6 rounded-md shadow-lg w-full max-w-4xl">
                         <h2 class="text-lg font-semibold mb-4 text-center">Create New Project</h2>
 
@@ -97,7 +117,7 @@
             </form>
 
             <!-- Project List -->
-            <div class="container mx-auto p-6">
+            <div class="">
                 <!-- Projects Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="client_projects_container">
                     <!-- Project Cards will be appended here -->
@@ -189,14 +209,15 @@
         </div>
 
         <!-- Edit Project Modal -->
-        <form id="" method="POST" onsubmit="updateProject(event)">
+        <form id="" method="POST">
             <div id="editProjectModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <div class="bg-white p-6 rounded-md shadow-lg w-full max-w-4xl">
                     <h2 class="text-lg font-semibold mb-4 text-center">Edit Project</h2>
+                    <input type="hidden" id="editProjectId" />
 
                     <!-- Project Title -->
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" name="client_project_name" id="client_project_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
+                        <input type="text" name="client_project_name" id="editProjectName" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
                         <label for="client_project_name" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             <i class="ri-layout-top-fill ml-1"></i>&nbsp;Project Title</label>
                         <span class="error-message text-red-400" id="error-client_project_name"></span>
@@ -204,7 +225,7 @@
 
                     <!-- Project Details -->
                     <div class="relative z-0 w-full mb-5 group">
-                        <textarea name="description" id="description" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" "></textarea>
+                        <textarea name="description" id="editDescription" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" "></textarea>
                         <label for="description" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             <i class="ri-edit-2-fill ml-1"></i>&nbsp;Project Details</label>
                         <span class="error-message text-red-400" id="error-description"></span>
@@ -212,13 +233,13 @@
 
                     <!-- Project Picture -->
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="file" name="project_picture" id="project_picture" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
+                        <input type="file" name="project_picture" id="editProjectPicture" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
                         <span class="error-message text-red-400" id="error-project_picture"></span>
                     </div>
 
                     <!-- Project Duration -->
                     <div class="relative z-0 w-full mb-5">
-                        <select name="duration" id="duration" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-800">
+                        <select name="duration" id="editProjectDuration" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-800">
                             <option value="">Select Duration</option>
                             <option value="1 Weak">1 Week</option>
                             <option value="2 Weak">2 Weeks</option>
@@ -233,7 +254,7 @@
 
                     <!-- Minimum Range -->
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="number" name="minimum_range" id="minimum_range" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
+                        <input type="number" name="minimum_range" id="editMinimumRange" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
                         <label for="minimum_range" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             <i class="ri-price-tag-3-fill ml-1"></i>&nbsp;Minimum Range</label>
                         <span class="error-message text-red-400" id="error-minimum_range"></span>
@@ -241,7 +262,7 @@
 
                     <!-- Maximum Range -->
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="number" name="maximum_range" id="maximum_range" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
+                        <input type="number" name="maximum_range" id="editMaximumRange" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 rounded-md border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
                         <label for="maximum_range" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-purple-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             <i class="ri-price-tag-3-fill ml-1"></i>&nbsp;Maximum Range</label>
                         <span class="error-message text-red-400" id="error-maximum_range"></span>
@@ -249,7 +270,7 @@
 
                     <!-- Buttons -->
                     <div class="flex justify-end mt-4 gap-4">
-                        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none">
+                        <button onclick="editClientAddedProject(event)" type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none">
                             Update Project
                         </button>
                         <button type="button" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 focus:outline-none" onclick="closeModal('editProjectModal')">
@@ -263,39 +284,4 @@
 
     </body>
 
-    <script>
-
-
-// Helper function to clear error messages
-        function clearError(fieldId) {
-            document.getElementById(`error-${fieldId}`).innerHTML = "";
-        }
-
-        // Chart.js setup
-        const ctx1 = document.getElementById('myChart1').getContext('2d');
-        new Chart(ctx1, {
-            type: 'doughnut',
-            data: {
-                labels: ['20%', '30%', '30%'],
-                datasets: [{
-                        data: [20, 30, 30],
-                        backgroundColor: ['#F59E0B', '#10B981', '#2563EB'],
-                        borderWidth: 0,
-                        hoverOffset: 10
-                    }]
-            },
-            options: {
-                responsive: true,
-                cutout: '70%',
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        enabled: false
-                    }
-                }
-            }
-        });
-    </script>
 </html>
