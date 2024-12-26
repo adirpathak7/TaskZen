@@ -40,27 +40,21 @@ function displayPendingStatusClientDetails(clients) {
 
     clients.forEach(client => {
         const row = document.createElement('tr');
-
         const nameCell = document.createElement('td');
         nameCell.classList.add('px-6', 'py-3', 'text-left');
         nameCell.textContent = client.client_name;
-
         const contactCell = document.createElement('td');
         contactCell.classList.add('px-6', 'py-3', 'text-left');
         contactCell.textContent = client.contact;
-
         const locationCell = document.createElement('td');
         locationCell.classList.add('px-6', 'py-3', 'text-left');
         locationCell.textContent = client.country;
-
         const industryCell = document.createElement('td');
         industryCell.classList.add('px-6', 'py-3', 'text-left');
         industryCell.textContent = client.industry;
-
         const establishCell = document.createElement('td');
         establishCell.classList.add('px-6', 'py-3', 'text-left');
         establishCell.textContent = client.establish;
-
         const statusCell = document.createElement('td');
         statusCell.classList.add('px-6', 'py-3', 'text-left');
         statusCell.textContent = client.status;
@@ -71,12 +65,29 @@ function displayPendingStatusClientDetails(clients) {
         button.textContent = 'Approve';
         button.type = 'button';
 
+        const actionCellReject = document.createElement('td');
+        const btnCellReject = document.createElement('button');
+        btnCellReject.classList.add('px-4', 'py-2', 'text-white', 'bg-red-600', 'rounded');
+        btnCellReject.textContent = 'Reject';
+        btnCellReject.type = 'button';
+
+// Assume row is the row where the reject button is created
+//        document.createElement('tr');  // Example, this should be the row where your button is placed
+        row.appendChild(actionCellReject);  // Add your button to the row
+
+        btnCellReject.onclick = function (event) {
+            // Confirm the action (if you want to have a confirmation)
+            if (confirm("Are you sure you want to reject this?")) {
+                // Temporarily hide the entire row
+                row.style.display = 'none';
+            }
+        };
+
         button.onclick = function (event) {
             changeClientStatus(event, client.client_id);
         };
-
-
         actionCell.appendChild(button);
+        actionCellReject.appendChild(btnCellReject);
         row.appendChild(nameCell);
         row.appendChild(contactCell);
         row.appendChild(locationCell);
@@ -84,7 +95,7 @@ function displayPendingStatusClientDetails(clients) {
         row.appendChild(establishCell);
         row.appendChild(statusCell);
         row.appendChild(actionCell);
-
+        row.appendChild(actionCellReject);
         tableBody.appendChild(row);
     });
 }

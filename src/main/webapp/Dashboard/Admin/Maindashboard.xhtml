@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
-        <title>Task-Zen Admin MainDashboard</title>
+        <title>TaskZen</title>
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Chart.js -->
@@ -24,18 +24,28 @@
                 <header
                     class="fixed w-full flex items-center justify-between h-16 bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-8 shadow-lg z-10">
                     <div class="flex items-center space-x-4">
-                        <img src="../../Images/TaskZen.jpg" class="w-10 h-10 rounded-full border-2 border-gray-700"
-                             alt="Client" />
-                        <span class="text-2xl font-semibold">Welcome Admin</span>
+                        <img src="../../images/TaskZen.jpg" id="mainImageOfAdmin" class="w-10 h-10 rounded-full border-2 border-gray-700"/>
+                        <span class="text-2xl font-semibold" id="mainNameOfAdmin">Welcome Admin</span>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <i class="ri-notification-3-fill text-4xl"></i>
-                        <input type="text" placeholder="Search..."
-                               class="hidden md:block p-2 rounded-lg bg-white text-gray-700 focus:outline-none" />
-                        <button type="button" onclick="logoutAdmin()" class="flex items-center hover:text-gray-300">
-                            <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
-                        </button>
+
+
+                        <!-- Logout Icon with Hover Message -->
+                        <div class="relative group">
+                            <!-- Logout Icon -->
+                            <button type="button" onclick="logoutAdmin()" class="flex items-center hover:text-gray-300">
+                                Logout &nbsp;&nbsp;
+                                <i class="ri-logout-circle-r-line mr-1 text-xl"></i>
+                            </button>
+
+                            <!-- Hover Message -->
+                            <span
+                                class="absolute left-1/2 transform -translate-x-1/2 top-10 bg-gray-800 text-white text-sm rounded-lg px-3 py-1 hidden group-hover:block">
+                                LogOut
+                            </span>
+                        </div>
                     </div>
+
                 </header>
 
                 <!-- Sidebar -->
@@ -67,18 +77,18 @@
                                 <i class="fas fa-user text-xl"></i><span class="ml-4 hidden md:block">Profile</span>
                             </span>
                         </li>
-                        <li id="btn6" onclick="showContent('content6', 'btn6')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="ri-notification-fill text-xl"></i><span class="ml-4 hidden md:block">Notification</span>
-                            </span>
-                        </li>
-                        <li id="btn7" onclick="showContent('content7', 'btn7')" class="menu-item relative cursor-pointer group">
-                            <span
-                                class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
-                                <i class="fas fa-cog text-xl"></i><span class="ml-4 hidden md:block">Settings</span>
-                            </span>
-                        </li>
+                        <!--                        <li id="btn6" onclick="showContent('content6', 'btn6')" class="menu-item relative cursor-pointer group">
+                                                    <span
+                                                        class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                                                        <i class="ri-notification-fill text-xl"></i><span class="ml-4 hidden md:block">Notification</span>
+                                                    </span>
+                                                </li>
+                                                <li id="btn7" onclick="showContent('content7', 'btn7')" class="menu-item relative cursor-pointer group">
+                                                    <span
+                                                        class="flex items-center p-4 hover:bg-indigo-500 transition-all duration-300 rounded-lg">
+                                                        <i class="fas fa-cog text-xl"></i><span class="ml-4 hidden md:block">Settings</span>
+                                                    </span>
+                                                </li>-->
                     </ul>
                 </aside>
 
@@ -96,12 +106,12 @@
                     <div id="content5" class="content h-full mb-10 p-6 hidden">
                         <ui:include src="./Profile.xhtml"></ui:include>
                     </div>
-                    <div id="content6" class="content h-full mb-10 p-6 hidden">
-                        <ui:include src="./Notification.xhtml"></ui:include>
-                    </div>
-                    <div id="content7" class="content h-full mb-10 p-6 hidden">
-                        <!--<ui:include src="./Setting.xhtml"></ui:include>-->
-                    </div>
+                    <!--                    <div id="content6" class="content h-full mb-10 p-6 hidden">
+                                            <ui:include src="./Notification.xhtml"></ui:include>
+                                        </div>
+                                        <div id="content7" class="content h-full mb-10 p-6 hidden">
+                                            <ui:include src="./Setting.xhtml"></ui:include>
+                                        </div>-->
                 </main>
             </div>
         </form>

@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     animateCounter(0, "totalClientProfit");
     animateCounter(0, "totalClientProject");
     fetchCounterInClientDashboard();
+    const today = new Date().toISOString().split("T")[0]; // Get the current date in yyyy-mm-dd format
+    document.getElementById("establish").setAttribute("max", today);
 });
 
 
@@ -480,8 +482,8 @@ function clientProjectPost(event) {
             closeModal('newprojectModal');
             document.querySelectorAll('form').reset;
         } else {
-            alert("Failed to create project. Please try again.");
-            console.error(result);
+//            alert("Failed to create project. Please try again.");
+            alert(result.error);
         }
     }).catch(error => {
         console.error("Error occurred while creating project: ", error);

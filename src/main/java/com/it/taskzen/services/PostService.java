@@ -43,12 +43,13 @@ public class PostService {
     public boolean applyProjects(String token, String freelancer_range, String freelancer_description, String duration,
             ClientMasterEntity client_id, ClientProjectEntity client_project_id) {
         Long freelancer_id = jWTService.extractFreelancerId(token);
-
+        System.out.println("the freelancerid: " + freelancer_id);
         FreelancerMasterEntity exist_freelancer_id = freelancerMstRepository.findByFreelancerId(freelancer_id);
 
         if (exist_freelancer_id == null) {
             throw new IllegalArgumentException("Freelancer profile not found for ID: " + freelancer_id);
         }
+        System.out.println("the exist_freelancer_id: " + exist_freelancer_id);
 
         boolean alreadyApplied = postRepository.existsByFreelancerAndClientProject(exist_freelancer_id, client_project_id);
         if (alreadyApplied) {
@@ -370,8 +371,8 @@ public class PostService {
         Long client_id = jWTService.extractClientId(token);
         return postRepository.sumFreelancerRangesByClientId(client_id);
     }
-    
-     public long countCompletedByFreelancer(String token) {
+
+    public long countCompletedByFreelancer(String token) {
         Long freelancerId = jWTService.extractFreelancerId(token);
         return postRepository.countCompletedByFreelancerId(freelancerId);
     }

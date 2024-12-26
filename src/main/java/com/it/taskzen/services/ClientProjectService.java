@@ -45,10 +45,10 @@ public class ClientProjectService {
     }
 
     public ClientProjectEntity clientProjects(String token, ClientProjectEntity clientProjectEntity, MultipartFile project_picture) throws IOException {
-        Long client_id = jWTService.extractClientId(token);
-//        System.out.println("User ID from JWT: " + client_id);
+        Long user_id = jWTService.extractUserId(token);
+//        System.out.println("User ID from JWT: " + user_id);
 
-        ClientMasterEntity exist_client_id = clientMstRepository.findByUserId(client_id);
+        ClientMasterEntity exist_client_id = clientMstRepository.findByUserId(user_id);
 
         if (exist_client_id == null) {
             throw new IllegalArgumentException("Please create your profile first!");

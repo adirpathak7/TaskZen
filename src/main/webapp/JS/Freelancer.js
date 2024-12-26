@@ -361,7 +361,8 @@ function freelanverApplyForProject(event) {
                 fetchFreelancerDetails();
                 closeModal("freelancerOpendProject");
             } else {
-                alert("Failed to apply project. Please try again.");
+//                alert("Failed to apply project. Please try again.");
+//                alert(result.error);
             }
         }
     }).catch(error => {

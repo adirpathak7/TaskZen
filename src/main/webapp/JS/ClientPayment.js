@@ -56,7 +56,7 @@ function displayTaskPaymentDetails(freelancerProjects) {
             <td class="px-6 py-4">${freelancerStatus}</td>
             <td class="px-6 py-4">${clientPostDate}</td>
 
-            <button class="px-4 py-2 bg-purple-600 text-white rounded-md pay-btn" id="pay-btn-${index}" type="button">
+            <button class="paymentAdi px-4 py-2 bg-purple-600 text-white rounded-md pay-btn" id="pay-btn-${index}" type="button">
                 Pay
             </button>
             <input type="hidden" name="amount" value="${freelancerProjectRange}"/>
@@ -115,10 +115,15 @@ function displayTaskPaymentDetails(freelancerProjects) {
                 });
 
                 rzp1.on('payment.success', function (response) {
+                    alert(2);
                     // Disable the "Pay" button after payment success
-                    const payButton = document.getElementById(`pay-btn-${index}`);
+                    const payButton = document.querySelectorAll("paymentAdi");
+
                     payButton.disabled = true;
                     payButton.innerHTML = "Paid"; // Change button text to "Paid"
+
+                    // Call the function to update project status to 'done' after payment success
+                    updateProjectStatusToDone(clientProjectId);
                 });
 
                 rzp1.open();
@@ -128,6 +133,33 @@ function displayTaskPaymentDetails(freelancerProjects) {
             }
         };
     });
+    document.getElementById("").style = 'None';
+}
+
+async function updateProjectStatusToDone(clientProjectId) {
+//    alert(1);
+    try {
+        const updateResponse = await fetch(`http://localhost:8000/api/client/updateStatusDonePay/${clientProjectId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error("Failed to update project status to 'done'.");
+        }
+
+        const updateResult = await updateResponse.json();
+        if (updateResult.status === 'done') {
+            console.log("Project status updated to 'done'.");
+        } else {
+            console.error("Error updating project status:", updateResult.message);
+        }
+
+    } catch (error) {
+        console.error("Error updating project status:", error);
+    }
 }
 
 function loadRazorpayScript(callback) {

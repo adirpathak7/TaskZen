@@ -305,7 +305,7 @@ function updateStatusCompleted(event) {
 
     const client_project_id = document.getElementById("clientProjectIdForStatusCompletedFreelancer").value;
 
-    alert(client_project_id);
+//    alert(client_project_id);
 
     const token = sessionStorage.getItem("authToken");
 
