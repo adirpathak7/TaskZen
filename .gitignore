@@ -1,2 +1,41 @@
-/target/
-application.propperties
+# Generic Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.log*
+logs/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.next
+pom.xml.backup
+pom.xml.versions
+pom.xml.releaseBackup
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/
+# IDE specific files
+.idea/         # IntelliJ IDEA
+.eclipse/      # Eclipse
+.settings/     # Eclipse
+.project       # Eclipse
+.classpath     # Eclipse
+.factorypath   # Eclipse
+.vscode/       # VS Code
+*.iml          # IntelliJ IDEA module files
+*.ipr          # IntelliJ IDEA project files
+*.iws          # IntelliJ IDEA workspace files
+
+# OS-specific files
+.DS_Store      # macOS
+Thumbs.db      # Windows
+
+# Environment/Secret files
+.env
+application*.yml.enc
+application*.properties.enc
+secrets.yml
